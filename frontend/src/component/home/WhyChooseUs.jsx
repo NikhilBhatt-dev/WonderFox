@@ -1,19 +1,20 @@
 import features from "../../data/features";
+
+import Container from "../common/Container";
 import FeatureCard from "../common/FeatureCard";
+import SectionHeading from "../common/SectionHeading";
 
 const WhyChooseUs = () => {
     return (
         <section className="bg-[#FFF8F3] py-20">
 
-            <div className="mx-auto max-w-7xl px-6">
+            <Container>
 
-                <h2 className="text-center text-5xl font-bold">
-                    Why Choose Us
-                </h2>
-
-                <p className="mt-4 text-center text-gray-500">
-                    We make every purchase joyful and memorable.
-                </p>
+                <SectionHeading
+                    badge="Why WonderFox"
+                    title="Why Choose Us?"
+                    subtitle="We make shopping for kids fun, safe and memorable."
+                />
 
                 <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 
@@ -26,7 +27,7 @@ const WhyChooseUs = () => {
 
                 </div>
 
-            </div>
+            </Container>
 
         </section>
     );

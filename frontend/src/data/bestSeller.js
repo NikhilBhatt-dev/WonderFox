@@ -1,31 +1,36 @@
+import hero1 from "../assets/image/hero-1.webp";
+import hero2 from "../assets/image/hero-2.webp";
+import hero3 from "../assets/image/hero-3.avif";
+import toy3 from "../assets/image/toy-3.avif";
+
 const bestSeller = [
   {
     id: 1,
-    name: "Fluffy Teddy",
-    price: 899,
-    image: "/toy-1.webp",
+    name: "Giant Teddy Bear",
+    image: hero1,
+    price: 1499,
     rating: 4.9,
   },
   {
     id: 2,
     name: "Cute Bunny",
-    price: 799,
-    image: "/toy-2.webp",
+    image: hero2,
+    price: 1199,
     rating: 4.8,
   },
   {
     id: 3,
-    name: "Little Panda",
+    name: "Soft Panda",
+    image: hero3,
     price: 999,
-    image: "/toy-3.webp",
-    rating: 5.0,
+    rating: 4.7,
   },
   {
     id: 4,
-    name: "Baby Fox",
-    price: 1099,
-    image: "/toy-4.png",
-    rating: 4.9,
+    name: "Little Fox",
+    image: toy3,
+    price: 899,
+    rating: 4.8,
   },
 ];
 

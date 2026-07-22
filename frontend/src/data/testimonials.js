@@ -1,24 +1,24 @@
 const testimonials = [
   {
     id: 1,
-    name: "Sophia",
+    name: "Aarav Sharma",
     role: "Happy Parent",
-    review: "Amazing quality! My daughter absolutely loves her teddy bear.",
-    image: "/toy-1.webp",
+    review: "Amazing quality toys! My son absolutely loves them.",
+    rating: 5,
   },
   {
     id: 2,
-    name: "James",
-    role: "Customer",
-    review: "Fast delivery and premium toys. Highly recommended!",
-    image: "/toy-2.webp",
+    name: "Priya Verma",
+    role: "Mother",
+    review: "Fast delivery and excellent customer service.",
+    rating: 5,
   },
   {
     id: 3,
-    name: "Emma",
-    role: "Mom",
-    review: "Beautiful designs and super soft toys.",
-    image: "/toy-3.webp",
+    name: "Rohan Singh",
+    role: "Father",
+    review: "The educational toys are worth every rupee.",
+    rating: 4,
   },
 ];
 

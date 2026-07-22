@@ -1,27 +1,29 @@
+import { Truck, ShieldCheck, Gift, Headset } from "lucide-react";
+
 const features = [
   {
     id: 1,
-    title: "Premium Quality",
-    description: "Soft, safe and high-quality materials for kids.",
-    icon: "🧸",
+    icon: Truck,
+    title: "Free Shipping",
+    description: "Free delivery on all orders over ₹999.",
   },
   {
     id: 2,
-    title: "Fast Delivery",
-    description: "Quick shipping across the country.",
-    icon: "🚚",
+    icon: ShieldCheck,
+    title: "Safe Payments",
+    description: "100% secure and trusted payment methods.",
   },
   {
     id: 3,
-    title: "Secure Payment",
-    description: "100% safe and trusted payment methods.",
-    icon: "💳",
+    icon: Gift,
+    title: "Gift Packaging",
+    description: "Beautiful gift wrapping for every occasion.",
   },
   {
     id: 4,
+    icon: Headset,
     title: "24/7 Support",
-    description: "Always here to help our customers.",
-    icon: "🎧",
+    description: "We're always here to help you.",
   },
 ];
 

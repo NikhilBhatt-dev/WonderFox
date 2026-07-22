@@ -1,39 +1,95 @@
-import { Heart, ShoppingCart, Star } from "lucide-react";
+import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 const ProductCard = ({ product }) => {
     return (
-        <div className="group rounded-3xl bg-white p-5 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+        <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-5 shadow-md transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
 
-            <button className="ml-auto flex h-10 w-10 items-center justify-center rounded-full bg-orange-100">
-                <Heart size={18} />
-            </button>
-
-            <img
-                src={product.image}
-                alt={product.name}
-                className="mx-auto h-56 object-contain transition duration-300 group-hover:scale-110"
-            />
-
-            <h3 className="mt-5 text-xl font-semibold">
-                {product.name}
-            </h3>
-
-            <div className="mt-2 flex items-center gap-1">
-                <Star size={16} fill="orange" />
-                <span>{product.rating}</span>
-            </div>
-
-            <div className="mt-4 flex items-center justify-between">
-
-                <span className="text-2xl font-bold">
-                    ₹{product.price}
+            {/* Badge */}
+            {product.badge && (
+                <span className="absolute left-5 top-5 z-20 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">
+                    {product.badge}
                 </span>
+            )}
 
-                <button className="rounded-xl bg-orange-500 p-3 text-white">
-                    <ShoppingCart size={18} />
+            {/* Right Icons */}
+            <div className="absolute right-5 top-5 z-20 flex flex-col gap-3">
+
+                <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow transition-all duration-300 hover:scale-110 hover:bg-orange-500 hover:text-white">
+                    <Heart size={18} />
+                </button>
+
+                <button className="translate-x-16 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 hover:bg-orange-500 hover:text-white">
+                    <Eye size={18} />
                 </button>
 
             </div>
+
+            {/* Product Image */}
+
+            <Link to={`/product/${product.id}`}>
+            <div className="overflow-hidden rounded-2xl bg-[#FFF8F3] p-5">
+
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    className="mx-auto h-64 w-full object-contain transition-transform duration-500 group-hover:scale-110"
+                />
+
+            </div>
+
+            {/* Rating */}
+
+            <div className="mt-5 flex items-center gap-1">
+
+                {[...Array(5)].map((_, index) => (
+                    <Star
+                        key={index}
+                        size={16}
+                        fill="#F59E0B"
+                        stroke="#F59E0B"
+                    />
+                ))}
+
+                <span className="ml-2 text-sm text-gray-500">
+                    ({product.rating})
+                </span>
+
+            </div>
+
+            {/* Product Name */}
+
+            <h3 className="mt-3 text-xl font-semibold text-gray-800 transition-colors duration-300 group-hover:text-orange-500">
+                {product.name}
+            </h3>
+
+
+            {/* Price */}
+
+            <div className="mt-3 flex items-center gap-3">
+
+                <span className="text-2xl font-bold text-orange-500">
+                    ₹{product.price}
+                </span>
+
+                <span className="text-sm text-gray-400 line-through">
+                    ₹{product.price + 300}
+                </span>
+
+            </div>
+
+            </Link>
+
+            {/* Add To Cart */}
+
+            <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-orange-500 py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-orange-600">
+
+                <ShoppingCart size={20} />
+
+                Add To Cart
+
+            </button>
 
         </div>
     );

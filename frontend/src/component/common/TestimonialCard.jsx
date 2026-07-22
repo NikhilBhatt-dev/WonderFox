@@ -1,24 +1,33 @@
+import { Star } from "lucide-react";
+
 const TestimonialCard = ({ testimonial }) => {
     return (
-        <div className="rounded-3xl bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+        <div className="rounded-3xl bg-white p-6 shadow-md">
 
-            <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="mx-auto h-20 w-20 rounded-full object-cover"
-            />
+            <div className="mb-4 flex">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                        key={i}
+                        size={18}
+                        fill="#F59E0B"
+                        stroke="#F59E0B"
+                    />
+                ))}
+            </div>
 
-            <p className="mt-6 text-center text-gray-600">
+            <p className="text-gray-600">
                 "{testimonial.review}"
             </p>
 
-            <h3 className="mt-5 text-center text-xl font-bold">
-                {testimonial.name}
-            </h3>
+            <div className="mt-6">
+                <h4 className="font-semibold">
+                    {testimonial.name}
+                </h4>
 
-            <p className="text-center text-sm text-orange-500">
-                {testimonial.role}
-            </p>
+                <p className="text-sm text-gray-500">
+                    {testimonial.role}
+                </p>
+            </div>
 
         </div>
     );

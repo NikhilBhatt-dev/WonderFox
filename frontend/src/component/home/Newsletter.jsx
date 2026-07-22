@@ -1,37 +1,47 @@
-import { Send } from "lucide-react";
+import Container from "../common/Container";
 
 const Newsletter = () => {
     return (
-        <section className="bg-[#FFF8F3] py-20">
-            <div className="mx-auto max-w-4xl rounded-3xl bg-orange-500 px-8 py-16 text-center text-white">
+        <section className="bg-orange-500 py-20">
 
-                <h2 className="text-4xl font-bold">
-                    Subscribe To Our Newsletter
-                </h2>
+            <Container>
 
-                <p className="mt-4 text-orange-100">
-                    Get updates about new toys, offers and special discounts.
-                </p>
+                <div className="mx-auto max-w-3xl text-center">
 
-                <div className="mx-auto mt-10 flex max-w-xl flex-col gap-4 sm:flex-row">
+                    <span className="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold text-white">
+                        Stay Updated
+                    </span>
 
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="flex-1 rounded-2xl px-5 py-4 text-gray-700 outline-none"
-                    />
+                    <h2 className="mt-6 text-4xl font-bold text-white">
+                        Join Our Newsletter
+                    </h2>
 
-                    <button className="flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 font-semibold text-orange-500 transition-all duration-300 hover:scale-105">
+                    <p className="mt-4 text-orange-100">
+                        Subscribe and get updates about new arrivals,
+                        special offers and exclusive discounts.
+                    </p>
 
-                        Subscribe
+                    <form className="mx-auto mt-10 flex max-w-xl flex-col gap-4 sm:flex-row">
 
-                        <Send size={18} />
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 rounded-2xl px-6 py-4 outline-none"
+                        />
 
-                    </button>
+                        <button
+                            type="submit"
+                            className="rounded-2xl bg-white px-8 py-4 font-semibold text-orange-500 transition hover:bg-orange-100"
+                        >
+                            Subscribe
+                        </button>
+
+                    </form>
 
                 </div>
 
-            </div>
+            </Container>
+
         </section>
     );
 };
