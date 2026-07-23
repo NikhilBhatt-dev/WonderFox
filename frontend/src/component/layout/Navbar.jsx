@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
@@ -66,23 +67,26 @@ const Navbar = () => {
           </button>
 
           {/* Wishlist */}
-          <button className={iconButton}>
+          <Link to="/wishlist" className={iconButton}>
             <Heart size={20} />
-          </button>
+          </Link>
 
           {/* User */}
-          <button className={iconButton}>
+          <Link to="/profile" className={iconButton}>
             <User size={20} />
-          </button>
+          </Link>
 
           {/* Cart */}
-          <button className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-200">
+          <Link
+            to="/cart"
+            className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-200"
+          >
             <ShoppingBag size={20} />
 
             <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">
               {cartCount}
             </span>
-          </button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button

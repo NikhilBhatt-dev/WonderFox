@@ -1,15 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+
 import hero1 from "../../assets/image/hero-1.webp";
 import hero2 from "../../assets/image/hero-2.webp";
 import hero3 from "../../assets/image/hero-3.avif";
-
 import toy3 from "../../assets/image/toy-3.avif";
+
 import Container from "../common/Container";
 import Button from "../common/Button";
 
 const Hero = () => {
-
     const heroSlides = [
         {
             hero: hero1,
@@ -25,7 +25,6 @@ const Hero = () => {
         },
     ];
 
-
     const [currentSlide, setCurrentSlide] = useState(0);
 
     useEffect(() => {
@@ -35,20 +34,21 @@ const Hero = () => {
 
         return () => clearInterval(interval);
     }, []);
-    
+
     return (
-        <section className="relative overflow-hidden bg-[#FFF8F3] py-16 lg:py-24">
-            {/* ================= Background ================= */}
+        <section className="relative overflow-hidden bg-[#FFF8F3] py-12 lg:py-16">
 
-            <div className="pointer-events-none absolute -left-40 top-16 h-80 w-80 rounded-full bg-orange-200/40 blur-3xl"></div>
+            {/* Background Blur */}
 
-            <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-pink-200/30 blur-3xl"></div>
+            <div className="pointer-events-none absolute -left-40 top-10 h-72 w-72 rounded-full bg-orange-200/40 blur-3xl"></div>
 
-            {/* ================= Floating Clouds ================= */}
+            <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-pink-200/30 blur-3xl"></div>
+
+
+            {/* Floating Cloud */}
 
             <motion.div
                 animate={{
-                  
                     x: [-8, 8, -8],
                 }}
                 transition={{
@@ -56,16 +56,15 @@ const Hero = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
-                className="absolute left-8 top-20 text-6xl opacity-70"
+                className="absolute left-8 top-12 text-5xl opacity-70"
             >
                 ☁️
             </motion.div>
 
-            
 
-            {/* ================= Floating Stars ================= */}
+            {/* Floating Star */}
 
-            <motion.div
+            {/* <motion.div
                 animate={{
                     y: [-8, 8, -8],
                 }}
@@ -74,48 +73,52 @@ const Hero = () => {
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
-                className="absolute left-1/3 top-24 text-2xl"
+                className="absolute left-1/3 top-20 text-2xl"
             >
                 ⭐
-            </motion.div>
+            </motion.div> */}
 
             <motion.div
                 animate={{
-                    y: [0, -12, 0],
+                    y: [0, -10, 0],
                 }}
                 transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut",
                 }}
-                className="absolute bottom-36 right-1/4 text-3xl"
+                className="absolute bottom-32 right-1/4 text-3xl"
             >
                 ✨
             </motion.div>
 
-            <Container className="grid min-h-[80vh] items-center gap-16 lg:grid-cols-2">
+            <Container className="grid min-h-[72vh] items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
-                {/* ================= LEFT CONTENT ================= */}
+                {/* LEFT CONTENT */}
 
-                <div className="text-center lg:translate-y-[-70px] lg:text-left">
-                    <span className="inline-block rounded-full bg-orange-100 px-5 py-1 text-sm font-semibold text-orange-500">
+                <div className="text-center lg:-translate-y-6 lg:text-left">
+
+                    <span className="inline-block rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold text-orange-500">
                         ✨ New Collection
                     </span>
 
-                    <h1 className="mt-4 text-5xl font-extrabold leading-tight text-gray-800 sm:text-6xl lg:text-7xl">
+                    <h1 className="mt-5 text-4xl font-extrabold leading-tight text-gray-800 sm:text-5xl lg:text-6xl">
                         Make Every
                         <br />
                         Child
-                        <span className="text-orange-500"> Smile</span>
+                        <span className="text-orange-500">
+                            {" "}
+                            Smile
+                        </span>
                     </h1>
 
-                    <p className="mx-auto mt-6 max-w-lg text-lg text-gray-600 lg:mx-0">
+                    <p className="mx-auto mt-5 max-w-lg text-base leading-8 text-gray-600 lg:mx-0 lg:text-lg">
                         Explore our premium collection of educational,
                         plush and creative toys specially crafted
                         for children of every age.
                     </p>
 
-                    <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+                    <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
 
                         <Button>
                             Shop Now
@@ -127,19 +130,37 @@ const Hero = () => {
 
                     </div>
 
+                    {/* Trust Section */}
+
+                    <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600 lg:justify-start">
+
+                        <div className="flex items-center gap-2">
+                            ⭐⭐⭐⭐⭐
+                            <span className="font-semibold">
+                                4.9/5
+                            </span>
+                        </div>
+
+                        <div className="font-medium">
+                            ❤️ 5000+ Happy Kids
+                        </div>
+
+                        <div className="font-medium">
+                            🚚 Free Shipping
+                        </div>
+
+                    </div>
+
                 </div>
-
-
-                {/* ================= RIGHT CONTENT ================= */}
+                {/* RIGHT CONTENT */}
 
                 <div className="relative mx-auto flex w-fit items-center justify-center">
 
                     {/* Background Circle */}
-                    <div className="absolute h-[430px] w-[430px] rounded-full bg-gradient-to-br from-orange-200/50 to-orange-100/40 blur-sm lg:h-[560px] lg:w-[560px]"></div>
 
-                    {/* ================= Hero Image ================= */}
+                    <div className="absolute h-[360px] w-[360px] rounded-full bg-gradient-to-br from-orange-200/50 to-orange-100/40 blur-sm lg:h-[470px] lg:w-[470px]"></div>
 
-                   
+                    {/* Hero Image */}
 
                     <AnimatePresence mode="wait">
 
@@ -149,23 +170,24 @@ const Hero = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 1.05 }}
                             transition={{ duration: 0.7 }}
-                            className="relative z-10 overflow-hidden rounded-[34px] border-[10px] border-white shadow-2xl"
+                            className="relative z-10 overflow-hidden rounded-[28px] border-[8px] border-white shadow-2xl"
                         >
+
                             <img
                                 src={heroSlides[currentSlide].hero}
                                 alt="WonderFox Toy"
-                                className="h-[500px] w-[380px] object-cover lg:h-[620px] lg:w-[500px]"
+                                className="h-[430px] w-[330px] object-cover lg:h-[540px] lg:w-[420px]"
                             />
+
                         </motion.div>
 
                     </AnimatePresence>
 
-
-                    {/* ================= Floating Card ================= */}
+                    {/* Floating Card */}
 
                     <motion.div
                         animate={{
-                            y: [-12, 12, -12],
+                            y: [-10, 10, -10],
                             rotate: [-2, 2, -2],
                         }}
                         transition={{
@@ -173,15 +195,16 @@ const Hero = () => {
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
-                        className="absolute left-[-40px] top-[65%] z-20 w-56 -translate-y-1/2 rounded-3xl bg-white p-4 shadow-2xl"
+                        className="absolute left-[-25px] top-[68%] z-20 w-48 -translate-y-1/2 rounded-3xl bg-white p-4 shadow-2xl lg:w-52"
                     >
+
                         <img
                             src={heroSlides[currentSlide].card}
                             alt="Toy"
-                            className="h-28 w-full rounded-2xl object-cover"
+                            className="h-24 w-full rounded-2xl object-cover"
                         />
 
-                        <h3 className="mt-3 text-center text-lg font-bold text-gray-800">
+                        <h3 className="mt-3 text-center text-base font-bold text-gray-800">
                             Little Joy,
                             <br />
                             Big Cuddles
@@ -190,13 +213,10 @@ const Hero = () => {
                         <p className="mt-2 text-center text-sm text-gray-500">
                             Loved by 5,000+ Kids ❤️
                         </p>
+
                     </motion.div>
 
-                    {/* ================= Floating Badge ================= */}
-
-                   
-
-                    {/* ================= Balloon ================= */}
+                    {/* Balloon */}
 
                     <motion.div
                         animate={{
@@ -207,7 +227,7 @@ const Hero = () => {
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
-                        className="absolute right-[-35px] top-[-10px] z-30 text-5xl"
+                        className="absolute right-[-25px] top-2 z-30 text-4xl"
                     >
                         🎈
                     </motion.div>
