@@ -1,5 +1,5 @@
 import products from "../../data/Products";
-import ProductCard from "../common/productCard";
+import ProductCard from "../common/ProductCard";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
 import { motion } from "framer-motion";
