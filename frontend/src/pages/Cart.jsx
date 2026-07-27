@@ -1,5 +1,6 @@
 import products from "../data/Products";
 import Container from "../component/common/Container";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
 
@@ -118,9 +119,13 @@ const Cart = () => {
 
                         </div>
 
+                        <Link to="/checkout">
                         <button className="mt-8 w-full rounded-2xl bg-orange-500 py-4 font-semibold text-white transition hover:bg-orange-600">
                             Proceed to Checkout
+                          
+                          
                         </button>
+                        </Link>
 
                     </div>
 
