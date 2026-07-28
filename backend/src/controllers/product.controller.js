@@ -6,8 +6,9 @@ export const createProduct = asyncHandler(async (req, res) => {
   res.status(201).json(result);
 });
 
+
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const result = await productService.getAllProducts();
+  const result = await productService.getAllProducts(req.query);
 
   res.status(200).json(result);
 });

@@ -27,9 +27,6 @@ app.use(cookieParser());
 
 app.use(morgan("dev"));
 
-
-app.use(errorMiddleware);
-
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -44,5 +41,8 @@ app.get("/", (req, res) => {
     message: "WonderFox Backend Running 🚀",
   });
 });
+
+// Error middleware should be LAST
+app.use(errorMiddleware);
 
 export default app;
