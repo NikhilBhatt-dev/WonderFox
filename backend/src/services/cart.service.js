@@ -157,7 +157,7 @@ export const updateCartItem = async (userId, productId, quantity) => {
  * Remove Product From Cart
  */
 export const removeCartItem = async (userId, productId) => {
-  await getValidProduct(productId);
+ 
 
   const cart = await getUserCart(userId);
 
