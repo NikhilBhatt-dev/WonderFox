@@ -1,7 +1,7 @@
 import Product from "../models/Product.js";
 import ApiError from "../utils/ApiError.js";
 
-const validateOrderItems = async (cart) => {
+const validateOrderItems = async (cart, session = null) => {
   if (!cart || !cart.items.length) {
     throw new ApiError(400, "Cart is empty.");
   }
@@ -9,9 +9,15 @@ const validateOrderItems = async (cart) => {
   // Fetch all products in a single query
   const productIds = cart.items.map((item) => item.product);
 
-  const products = await Product.find({
+  let query = Product.find({
     _id: { $in: productIds },
   }).lean();
+
+  if (session) {
+    query = query.session(session);
+  }
+
+  const products = await query;
 
   // Create lookup map
   const productMap = new Map(
@@ -52,3 +58,5 @@ const validateOrderItems = async (cart) => {
 };
 
 export default validateOrderItems;
+
+

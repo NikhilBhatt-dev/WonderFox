@@ -1,9 +1,10 @@
-const DEFAULT_SHIPPING_CHARGE = 0;
+const FREE_SHIPPING_THRESHOLD = 150;
+const SHIPPING_CHARGE = 100;
 const DEFAULT_TAX = 0;
 
 const calculateOrderTotal = (
   orderItems,
-  { shippingPrice = DEFAULT_SHIPPING_CHARGE, taxPrice = DEFAULT_TAX } = {},
+  { shippingPrice, taxPrice = DEFAULT_TAX } = {},
 ) => {
   const itemsPrice = orderItems.reduce((total, item) => {
     const itemPrice = item.discountPrice > 0 ? item.discountPrice : item.price;
@@ -11,11 +12,15 @@ const calculateOrderTotal = (
     return total + itemPrice * item.quantity;
   }, 0);
 
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  const finalShippingPrice =
+    shippingPrice ??
+    (itemsPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_CHARGE);
+
+  const totalPrice = itemsPrice + finalShippingPrice + taxPrice;
 
   return {
     itemsPrice,
-    shippingPrice,
+    shippingPrice: finalShippingPrice,
     taxPrice,
     totalPrice,
   };
