@@ -15,9 +15,10 @@ import {
   verifyPaymentController,
 } from "../controllers/payment.controller.js";
 
-import protect from "../middlewares/auth.middleware.js";
-import authorize from "../middlewares/authorize.middleware.js";
 
+
+import protect from "../middleware/authMiddleware.js";
+// import authorize from "../middleware/adminMiddleware.js";
 const router = express.Router();
 
 /* -------------------------------------------------------------------------- */

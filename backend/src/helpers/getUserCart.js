@@ -1,6 +1,6 @@
 import Cart from "../models/Cart.js";
 import ApiError from "../utils/ApiError.js";
-import getPopulatedCart from "./getPopulatedCart.js";
+import getPopulatedCart from "../utils/getPopulatedCart.js";
 
 const getUserCart = async (userId, session = null) => {
   let query = Cart.findOne({ user: userId });
