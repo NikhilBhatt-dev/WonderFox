@@ -287,7 +287,19 @@ const orderSchema = new mongoose.Schema(
 // Indexes
 // ==============================
 
+// User's orders (latest first)
 orderSchema.index({ user: 1, createdAt: -1 });
+
+// Prevent duplicate Razorpay payments
+orderSchema.index(
+  {
+    "paymentResult.razorpayPaymentId": 1,
+  },
+  {
+    unique: true,
+    sparse: true,
+  }
+);
 
 const Order = mongoose.model("Order", orderSchema);
 

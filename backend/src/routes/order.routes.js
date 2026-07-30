@@ -10,42 +10,51 @@ import {
   updateOrderStatus,
 } from "../controllers/order.controller.js";
 
+import {
+  createRazorpayOrderController,
+  verifyPaymentController,
+} from "../controllers/payment.controller.js";
+
 import protect from "../middlewares/auth.middleware.js";
 import authorize from "../middlewares/authorize.middleware.js";
 
 const router = express.Router();
 
-/* ---------------------------- Admin Routes --------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                 Admin Routes                               */
+/* -------------------------------------------------------------------------- */
 
-router.get(
-  "/admin",
-  protect,
-  authorize("ADMIN"),
-  getAllOrders
-);
+router.get("/admin", protect, authorize("ADMIN"), getAllOrders);
 
-router.get(
-  "/admin/:id",
-  protect,
-  authorize("ADMIN"),
-  getOrderByIdForAdmin
-);
+router.get("/admin/:id", protect, authorize("ADMIN"), getOrderByIdForAdmin);
 
 router.patch(
   "/admin/:id/status",
   protect,
   authorize("ADMIN"),
-  updateOrderStatus
+  updateOrderStatus,
 );
 
-/* -------------------------- Customer Routes -------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                               Customer Routes                              */
+/* -------------------------------------------------------------------------- */
 
+// COD Order
 router.post("/", protect, placeCodOrder);
 
+// Create Razorpay Order
+router.post("/razorpay", protect, createRazorpayOrderController);
+
+// Verify Razorpay Payment
+router.post("/verify-payment", protect, verifyPaymentController);
+
+// Get My Orders
 router.get("/", protect, getMyOrders);
 
+// Get Single Order
 router.get("/:id", protect, getOrderById);
 
+// Cancel Order
 router.patch("/:id/cancel", protect, cancelOrder);
 
 export default router;

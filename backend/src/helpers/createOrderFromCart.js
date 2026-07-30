@@ -8,12 +8,15 @@ import calculateOrderTotal from "./calculateOrderTotal.js";
 import generateOrderNumber from "./generateOrderNumber.js";
 import updateProductStock from "./updateProductStock.js";
 
-const createOrderFromCart = async ({
+
+
+  const createOrderFromCart = async ({
   userId,
   shippingAddress,
   paymentMethod,
   paymentStatus,
   paymentResult = null,
+  paidAt = null,
   orderStatus = "PENDING",
   session,
 }) => {
@@ -42,9 +45,11 @@ const createOrderFromCart = async ({
         items: orderItems,
         shippingAddress,
 
+
         paymentMethod,
         paymentStatus,
         paymentResult,
+        paidAt,
 
         orderStatus,
 
