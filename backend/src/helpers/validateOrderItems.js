@@ -2,12 +2,20 @@ import Product from "../models/Product.js";
 import ApiError from "../utils/ApiError.js";
 
 const validateOrderItems = async (cart, session = null) => {
-  if (!cart || !cart.items.length) {
+  if (!cart || !cart.items || cart.items.length === 0) {
     throw new ApiError(400, "Cart is empty.");
   }
 
-  // Fetch all products in a single query
-  const productIds = cart.items.map((item) => item.product);
+  // Support both:
+  // item.product = ObjectId
+  // item.product = { _id, name, ... }
+  const productIds = cart.items.map((item) => {
+    if (!item.product) {
+      throw new ApiError(400, "Invalid cart item.");
+    }
+
+    return item.product._id || item.product;
+  });
 
   let query = Product.find({
     _id: { $in: productIds },
@@ -19,7 +27,6 @@ const validateOrderItems = async (cart, session = null) => {
 
   const products = await query;
 
-  // Create lookup map
   const productMap = new Map(
     products.map((product) => [product._id.toString(), product]),
   );
@@ -27,7 +34,9 @@ const validateOrderItems = async (cart, session = null) => {
   const validatedItems = [];
 
   for (const cartItem of cart.items) {
-    const product = productMap.get(cartItem.product.toString());
+    const productId = cartItem.product._id || cartItem.product;
+
+    const product = productMap.get(productId.toString());
 
     if (!product) {
       throw new ApiError(404, "Product not found.");
@@ -58,5 +67,3 @@ const validateOrderItems = async (cart, session = null) => {
 };
 
 export default validateOrderItems;
-
-

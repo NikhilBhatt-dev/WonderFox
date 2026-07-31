@@ -3,10 +3,10 @@ import ApiError from "../utils/ApiError.js";
 import getPopulatedCart from "../utils/getPopulatedCart.js";
 
 const getUserCart = async (userId, session = null) => {
-  let query = Cart.findOne({ user: userId });
+  const query = Cart.findOne({ user: userId });
 
   if (session) {
-    query = query.session(session);
+    query.session(session);
   }
 
   const cart = await getPopulatedCart(query);

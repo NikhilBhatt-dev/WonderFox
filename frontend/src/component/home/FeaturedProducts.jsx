@@ -1,14 +1,55 @@
-import products from "../../data/Products";
+
+
+
+
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+import { getProducts } from "../../services/product.service";
+
 import ProductCard from "../common/ProductCard";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
-import { motion } from "framer-motion";
 
 const FeaturedProducts = () => {
-  console.log(products);
-  return (
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load products.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 text-center">
+        Loading Products...
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 text-center text-red-500">
+        {error}
+      </section>
+    );
+  }
+
+  return (
     <section className="bg-white py-20">
       <Container>
         <SectionHeading
@@ -33,7 +74,7 @@ const FeaturedProducts = () => {
         >
           {products.map((product) => (
             <motion.div
-              key={product.id}
+              key={product._id}
               variants={{
                 hidden: {
                   opacity: 0,

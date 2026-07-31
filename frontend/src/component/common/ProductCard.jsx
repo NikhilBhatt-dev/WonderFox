@@ -1,15 +1,16 @@
 import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import toyPlaceholder from "../../assets/image/toy-1.avif";
 
 const ProductCard = ({ product }) => {
     return (
         <div className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-5 shadow-md transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl">
 
-            {/* Badge */}
-            {product.badge && (
+        
+            {/* badges */}
+            {product.isFeatured && (
                 <span className="absolute left-5 top-5 z-20 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">
-                    {product.badge}
+                    Featured
                 </span>
             )}
 
@@ -28,11 +29,11 @@ const ProductCard = ({ product }) => {
 
             {/* Product Image */}
 
-            <Link to={`/product/${product.id}`}>
+            <Link to={`/product/${product._id}`}>
             <div className="overflow-hidden rounded-2xl bg-[#FFF8F3] p-5">
 
                 <img
-                    src={product.image}
+                        src={product.images?.[0]?.url || toyPlaceholder}
                     alt={product.name}
                     className="mx-auto h-64 w-full object-contain transition-transform duration-500 group-hover:scale-110"
                 />
@@ -53,7 +54,7 @@ const ProductCard = ({ product }) => {
                 ))}
 
                 <span className="ml-2 text-sm text-gray-500">
-                    ({product.rating})
+                        ({product.rating || 0})
                 </span>
 
             </div>
@@ -67,17 +68,19 @@ const ProductCard = ({ product }) => {
 
             {/* Price */}
 
-            <div className="mt-3 flex items-center gap-3">
+                <div className="mt-3 flex items-center gap-3">
 
-                <span className="text-2xl font-bold text-orange-500">
-                    ₹{product.price}
-                </span>
+                    <span className="text-2xl font-bold text-orange-500">
+                        ₹{product.discountPrice || product.price}
+                    </span>
 
-                <span className="text-sm text-gray-400 line-through">
-                    ₹{product.price + 300}
-                </span>
+                    {product.discountPrice > 0 && (
+                        <span className="text-sm text-gray-400 line-through">
+                            ₹{product.price}
+                        </span>
+                    )}
 
-            </div>
+                </div>
 
             </Link>
 

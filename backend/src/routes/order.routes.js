@@ -15,24 +15,22 @@ import {
   verifyPaymentController,
 } from "../controllers/payment.controller.js";
 
-
-
 import protect from "../middleware/authMiddleware.js";
-// import authorize from "../middleware/adminMiddleware.js";
+import authorize from "../middleware/adminMiddleware.js";
 const router = express.Router();
 
 /* -------------------------------------------------------------------------- */
 /*                                 Admin Routes                               */
 /* -------------------------------------------------------------------------- */
 
-router.get("/admin", protect, authorize("ADMIN"), getAllOrders);
+router.get("/admin", protect, authorize("admin"), getAllOrders);
 
-router.get("/admin/:id", protect, authorize("ADMIN"), getOrderByIdForAdmin);
+router.get("/admin/:id", protect, authorize("admin"), getOrderByIdForAdmin);
 
 router.patch(
   "/admin/:id/status",
   protect,
-  authorize("ADMIN"),
+  authorize("admin"),
   updateOrderStatus,
 );
 

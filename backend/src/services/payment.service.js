@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import mongoose from "mongoose";
 
-import razorpay from "../config/razorpay.js";
+import getRazorpayClient from "../config/razorpay.js";
 import Order from "../models/Order.js";
 
 import ApiError from "../utils/ApiError.js";
@@ -41,6 +41,8 @@ const verifyRazorpaySignature = ({
 ========================================================== */
 
 export const createRazorpayOrder = async (userId) => {
+  const razorpay = getRazorpayClient();
+
   // Get User Cart
   const cart = await getUserCart(userId);
 
