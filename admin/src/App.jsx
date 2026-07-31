@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 
 const App = () => {
   return (
     <BrowserRouter>
+
       <Routes>
 
         <Route
@@ -15,10 +18,15 @@ const App = () => {
 
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
 
       </Routes>
+
     </BrowserRouter>
   );
 };
