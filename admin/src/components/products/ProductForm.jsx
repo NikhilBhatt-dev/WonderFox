@@ -1,3 +1,5 @@
+
+import ImageUploader from "../common/ImageUploader";
 const ProductForm = ({
     formData,
     categories,
@@ -5,6 +7,7 @@ const ProductForm = ({
     submitText,
     onChange,
     onSubmit,
+    onImageUpload,
 }) => {
     return (
         <form
@@ -150,6 +153,20 @@ const ProductForm = ({
                     className="w-full rounded-lg border p-3"
                 />
 
+                <div>
+
+                    <label className="mb-2 block font-medium">
+                        Product Image
+                    </label>
+
+                   
+                    <ImageUploader
+                        onUpload={onImageUpload}
+                    />
+                </div>
+
+
+                
             </div>
 
             <label className="flex items-center gap-3">

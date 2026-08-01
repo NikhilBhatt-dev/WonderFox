@@ -6,6 +6,7 @@ import AdminLayout from "../../layouts/AdminLayout";
 import { createProduct } from "../../services/product.service";
 import { getCategories } from "../../services/category.service";
 import ProductForm from "../../components/products/ProductForm";
+import ImageUploader from "../../components/common/ImageUploader";
 
 const AddProduct = () => {
 
@@ -13,6 +14,8 @@ const AddProduct = () => {
 
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
+
+   
 
     const [formData, setFormData] = useState({
         name: "",
@@ -23,7 +26,9 @@ const AddProduct = () => {
         stock: "",
         brand: "WonderFox",
         isFeatured: false,
+        images: [],   
     });
+    
 
 
     const fetchCategories = async () => {
@@ -55,9 +60,19 @@ const AddProduct = () => {
 
     };
 
+    const handleImageUpload = (image) => {
+
+        setFormData((prev) => ({
+            ...prev,
+            images: [image],
+        }));
+
+    };
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+        console.log("FORM DATA =>", formData);
 
         try {
 
@@ -99,6 +114,7 @@ const AddProduct = () => {
                     Add Product
                 </h1>
 
+               
                 <ProductForm
                     formData={formData}
                     categories={categories}
@@ -106,6 +122,7 @@ const AddProduct = () => {
                     submitText="Create Product"
                     onChange={handleChange}
                     onSubmit={handleSubmit}
+                    onImageUpload={handleImageUpload}
                 />
 
             </div>

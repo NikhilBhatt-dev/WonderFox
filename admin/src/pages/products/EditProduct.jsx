@@ -31,6 +31,7 @@ const EditProduct = () => {
         stock: "",
         brand: "",
         isFeatured: false,
+        images: [],
     });
 
     const handleChange = (e) => {
@@ -46,6 +47,16 @@ const EditProduct = () => {
 
     };
 
+
+    const handleImageUpload = (image) => {
+
+        setFormData((prev) => ({
+            ...prev,
+            images: [image],
+        }));
+
+    };
+
     const fetchData = async () => {
 
         try {
@@ -57,6 +68,8 @@ const EditProduct = () => {
 
             setCategories(categoryList);
 
+            
+
             setFormData({
                 name: product.name,
                 description: product.description,
@@ -66,6 +79,7 @@ const EditProduct = () => {
                 stock: product.stock,
                 brand: product.brand,
                 isFeatured: product.isFeatured,
+                images: product.images || [],
             });
 
         } catch (error) {
@@ -121,6 +135,9 @@ const EditProduct = () => {
                     Edit Product
                 </h1>
 
+               
+
+
                 <ProductForm
                     formData={formData}
                     categories={categories}
@@ -128,8 +145,8 @@ const EditProduct = () => {
                     submitText="Update Product"
                     onChange={handleChange}
                     onSubmit={handleSubmit}
+                    onImageUpload={handleImageUpload}
                 />
-
             </div>
 
         </AdminLayout>

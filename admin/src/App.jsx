@@ -8,6 +8,13 @@ import AddProduct from "./pages/products/AddProduct";
 
 import EditProduct from "./pages/products/EditProduct";
 
+import AddCategory from "./pages/categories/AddCategory";
+
+import Categories from "./pages/categories/Categories";
+
+import EditCategory from "./pages/categories/EditCategory";
+
+import Orders from "./pages/orders/Order";
 const App = () => {
   return (
     <BrowserRouter>
@@ -55,6 +62,46 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/categories/add"
+          element={
+            <ProtectedRoute>
+              <AddCategory />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/categories/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditCategory />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </BrowserRouter>
   );
