@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@theme {
+
+    /* =========================
+     WonderFox Brand Colors
+  ========================= */
+
+    --color-primary: #3B82F6;
+    --color-secondary: #FF7A59;
+    --color-accent: #10B981;
+
+    /* =========================
+     Surface
+  ========================= */
+
+    --color-background: #F8FAFC;
+    --color-surface: #FFFFFF;
+
+    /* =========================
+     Text
+  ========================= */
+
+    --color-heading: #0F172A;
+    --color-body: #475569;
+    --color-muted: #94A3B8;
+
+    /* =========================
+     Status
+  ========================= */
+
+    --color-success: #22C55E;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+
+    /* =========================
+     Radius
+  ========================= */
+
+    --radius-card: 24px;
+    --radius-button: 16px;
+
+    /* =========================
+     Shadows
+  ========================= */
+
+    --shadow-card:
+        0 10px 30px rgba(15, 23, 42, .08);
+
+}

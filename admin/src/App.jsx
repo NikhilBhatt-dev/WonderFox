@@ -15,6 +15,9 @@ import Categories from "./pages/categories/Categories";
 import EditCategory from "./pages/categories/EditCategory";
 
 import Orders from "./pages/orders/Order";
+
+import OrderDetails from "./pages/orders/OrderDetails";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -98,6 +101,16 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Orders />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute>
+              <OrderDetails />
             </ProtectedRoute>
           }
         />

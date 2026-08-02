@@ -1,6 +1,39 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import AdminLayout from "../../layouts/AdminLayout";
 
+import { getOrders } from "../../services/order.service";
 const Orders = () => {
+
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        const fetchOrders = async () => {
+
+            try {
+
+                const data = await getOrders();
+
+                setOrders(data);
+
+            } catch (error) {
+
+                console.error(error);
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        };
+
+        fetchOrders();
+
+    }, []);
     return (
         <AdminLayout>
 
@@ -44,18 +77,87 @@ const Orders = () => {
 
                     </thead>
 
+                   
                     <tbody>
 
-                        <tr>
+                        {loading ? (
 
-                            <td
-                                colSpan={5}
-                                className="py-10 text-center text-gray-500"
-                            >
-                                No Orders Yet
-                            </td>
+                            <tr>
 
-                        </tr>
+                                <td
+                                    colSpan={5}
+                                    className="py-10 text-center"
+                                >
+                                    Loading...
+                                </td>
+
+                            </tr>
+
+                        ) : orders.length === 0 ? (
+
+                            <tr>
+
+                                <td
+                                    colSpan={5}
+                                    className="py-10 text-center text-gray-500"
+                                >
+                                    No Orders Yet
+                                </td>
+
+                            </tr>
+
+                        ) : (
+
+                            orders.map((order) => (
+
+                                <tr
+                                    key={order._id}
+                                    className="border-t"
+                                >
+
+                                    <td className="px-6 py-4">
+                                        {order.orderNumber}
+                                    </td>
+
+                                    <td className="px-6 py-4">
+                                        {order.user?.name}
+                                    </td>
+
+                                    <td className="px-6 py-4">
+                                        ₹{order.totalPrice}
+                                    </td>
+
+                                    <td className="px-6 py-4">
+
+                                        <span
+                                            className={`rounded-full px-3 py-1 text-xs font-medium ${order.orderStatus === "DELIVERED"
+                                                ? "bg-green-100 text-green-700"
+                                                : order.orderStatus === "CANCELLED"
+                                                    ? "bg-red-100 text-red-700"
+                                                    : "bg-yellow-100 text-yellow-700"
+                                                }`}
+                                        >
+                                            {order.orderStatus}
+                                        </span>
+
+                                    </td>
+
+                                    <td className="px-6 py-4 text-center">
+
+                                        <Link
+                                            to={`/orders/${order._id}`}
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            View
+                                        </Link>
+
+                                    </td>
+
+                                </tr>
+
+                            ))
+
+                        )}
 
                     </tbody>
 
