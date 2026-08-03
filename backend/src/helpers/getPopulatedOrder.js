@@ -6,7 +6,7 @@ const getPopulatedOrder = (query) => {
     })
     .populate({
       path: "items.product",
-      select: "name slug images isActive stock",
+      select: "name slug images brand isActive stock",
     })
     .lean();
 };

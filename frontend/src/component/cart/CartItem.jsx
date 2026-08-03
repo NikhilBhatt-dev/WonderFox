@@ -1,17 +1,113 @@
+import { useState } from "react";
 import { Heart, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 import Button from "../ui/Button";
 import Badge from "../ui/Badge";
 
+import useCart from "../../hooks/useCart";
+
 const CartItem = ({ item }) => {
+
+    const {
+        updateItem,
+        removeItem,
+    } = useCart();
+
+    const [loading, setLoading] = useState(false);
+
+    const increase = async () => {
+
+        if (item.quantity >= item.product.stock) return;
+
+        try {
+
+            setLoading(true);
+
+            await updateItem(
+                item.product._id,
+                item.quantity + 1
+            );
+
+        } catch (error) {
+
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to update cart."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    };
+
+    const decrease = async () => {
+
+        if (item.quantity <= 1) return;
+
+        try {
+
+            setLoading(true);
+
+            await updateItem(
+                item.product._id,
+                item.quantity - 1
+            );
+
+        } catch (error) {
+
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to update cart."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    };
+
+    const handleRemove = async () => {
+
+        try {
+
+            setLoading(true);
+
+            await removeItem(
+                item.product._id
+            );
+
+            toast.success(
+                "Removed from cart."
+            );
+
+        } catch (error) {
+
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to remove."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    };
 
     return (
 
         <div className="flex flex-col gap-6 rounded-card bg-surface p-6 shadow-card md:flex-row">
 
             <img
-                src={item.image}
-                alt={item.name}
+                src={item.product.images?.[0]?.url}
+                alt={item.product.name}
                 className="h-40 w-40 rounded-button bg-background object-contain p-4"
             />
 
@@ -23,21 +119,29 @@ const CartItem = ({ item }) => {
 
                         <h2 className="text-2xl font-bold text-heading">
 
-                            {item.name}
+                            {item.product.name}
 
                         </h2>
 
                         <p className="mt-2 text-body">
 
-                            WonderFox
+                            {item.product.brand || "WonderFox"}
 
                         </p>
 
                     </div>
 
-                    <Badge variant="success">
+                    <Badge
+                        variant={
+                            item.product.stock > 0
+                                ? "success"
+                                : "danger"
+                        }
+                    >
 
-                        In Stock
+                        {item.product.stock > 0
+                            ? "In Stock"
+                            : "Out of Stock"}
 
                     </Badge>
 
@@ -53,15 +157,25 @@ const CartItem = ({ item }) => {
 
                     <div className="flex items-center overflow-hidden rounded-button border">
 
-                        <button className="px-4 py-2 hover:bg-gray-100">
+                        <button
+                            onClick={decrease}
+                            disabled={loading}
+                            className="px-4 py-2 hover:bg-gray-100"
+                        >
                             −
                         </button>
 
                         <span className="border-x px-5 py-2">
-                            1
+
+                            {item.quantity}
+
                         </span>
 
-                        <button className="px-4 py-2 hover:bg-gray-100">
+                        <button
+                            onClick={increase}
+                            disabled={loading}
+                            className="px-4 py-2 hover:bg-gray-100"
+                        >
                             +
                         </button>
 
@@ -81,6 +195,8 @@ const CartItem = ({ item }) => {
                     <Button
                         variant="danger"
                         size="sm"
+                        disabled={loading}
+                        onClick={handleRemove}
                     >
 
                         <Trash2 size={18} />

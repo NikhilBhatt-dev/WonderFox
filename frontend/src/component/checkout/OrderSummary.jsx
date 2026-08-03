@@ -1,18 +1,25 @@
 import { ShieldCheck, Truck, Tag } from "lucide-react";
 
+import Button from "../ui/Button";
+
 const OrderSummary = ({
     cartItems,
     subtotal,
     shipping,
     tax,
     total,
+    loading,
     onPlaceOrder,
 }) => {
+
     return (
+
         <div className="sticky top-24 rounded-3xl bg-white p-8 shadow-lg">
 
             <h2 className="mb-6 text-2xl font-bold text-gray-800">
+
                 Order Summary
+
             </h2>
 
             <div className="space-y-5">
@@ -20,30 +27,36 @@ const OrderSummary = ({
                 {cartItems.map((item) => (
 
                     <div
-                        key={item.id}
+                        key={item.product._id}
                         className="flex items-center gap-4"
                     >
 
                         <img
-                            src={item.image}
-                            alt={item.name}
-                            className="h-20 w-20 rounded-2xl object-cover border"
+                            src={item.product.images?.[0]?.url}
+                            alt={item.product.name}
+                            className="h-20 w-20 rounded-2xl border object-cover"
                         />
 
                         <div className="flex-1">
 
                             <h3 className="font-semibold text-gray-800">
-                                {item.name}
+
+                                {item.product.name}
+
                             </h3>
 
                             <p className="text-sm text-gray-500">
-                                Qty : {item.qty}
+
+                                Qty : {item.quantity}
+
                             </p>
 
                         </div>
 
                         <p className="font-bold">
-                            ₹{item.price * item.qty}
+
+                            ₹{item.price * item.quantity}
+
                         </p>
 
                     </div>
@@ -52,25 +65,19 @@ const OrderSummary = ({
 
             </div>
 
-            <div className="my-8 border-y py-6 space-y-4">
+            <div className="my-8 space-y-4 border-y py-6">
 
                 <div className="flex justify-between">
-
-                    <span>Subtotal</span>
-
-                    <span>₹{subtotal}</span>
-
-                </div>
-
-                <div className="flex justify-between">
-
-                    <span>Shipping</span>
 
                     <span>
 
-                        {shipping === 0
-                            ? "Free"
-                            : `₹${shipping}`}
+                        Subtotal
+
+                    </span>
+
+                    <span>
+
+                        ₹{subtotal}
 
                     </span>
 
@@ -78,9 +85,33 @@ const OrderSummary = ({
 
                 <div className="flex justify-between">
 
-                    <span>Tax</span>
+                    <span>
 
-                    <span>₹{tax}</span>
+                        Shipping
+
+                    </span>
+
+                    <span className="text-green-600">
+
+                        {shipping === 0 ? "FREE" : `₹${shipping}`}
+
+                    </span>
+
+                </div>
+
+                <div className="flex justify-between">
+
+                    <span>
+
+                        GST (5%)
+
+                    </span>
+
+                    <span>
+
+                        ₹{tax}
+
+                    </span>
 
                 </div>
 
@@ -89,21 +120,30 @@ const OrderSummary = ({
             <div className="mb-8 flex items-center justify-between">
 
                 <h3 className="text-xl font-bold">
-                    Total
+
+                    Grand Total
+
                 </h3>
 
                 <h3 className="text-2xl font-bold text-orange-500">
+
                     ₹{total}
+
                 </h3>
 
             </div>
 
-            <button
+            <Button
                 onClick={onPlaceOrder}
-                className="w-full rounded-2xl bg-orange-500 py-4 font-semibold text-white transition hover:bg-orange-600"
+                disabled={loading}
+                className="w-full"
             >
-                🔒 Place Secure Order
-            </button>
+
+                {loading
+                    ? "Placing Order..."
+                    : "🔒 Place Secure Order"}
+
+            </Button>
 
             <div className="mt-8 space-y-4 text-sm">
 
@@ -115,7 +155,9 @@ const OrderSummary = ({
                     />
 
                     <span>
+
                         100% Secure Checkout
+
                     </span>
 
                 </div>
@@ -128,7 +170,9 @@ const OrderSummary = ({
                     />
 
                     <span>
+
                         Fast Delivery Across India
+
                     </span>
 
                 </div>
@@ -141,7 +185,9 @@ const OrderSummary = ({
                     />
 
                     <span>
+
                         Easy Returns Available
+
                     </span>
 
                 </div>
@@ -149,7 +195,9 @@ const OrderSummary = ({
             </div>
 
         </div>
+
     );
+
 };
 
 export default OrderSummary;

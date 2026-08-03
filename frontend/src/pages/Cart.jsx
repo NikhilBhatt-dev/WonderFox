@@ -1,21 +1,47 @@
-import products from "../data/Products";
-
 import Container from "../component/common/Container";
 
 import CartItem from "../component/cart/CartItem";
 import CartSummary from "../component/cart/CartSummary";
 import EmptyCart from "../component/cart/EmptyCart";
 
+import useCart from "../hooks/useCart";
+
 const Cart = () => {
 
-    // Temporary Data
-    
-    const cartItems = products.slice(0, 2);
+    const {
+        cart,
+        loading,
+    } = useCart();
 
-    const subtotal = cartItems.reduce(
-        (total, item) => total + item.price,
-        0
-    );
+    if (loading) {
+
+        return (
+
+            <section className="bg-background py-16">
+
+                <Container>
+
+                    <div className="flex h-64 items-center justify-center">
+
+                        <h2 className="text-2xl font-semibold text-heading">
+
+                            Loading Cart...
+
+                        </h2>
+
+                    </div>
+
+                </Container>
+
+            </section>
+
+        );
+
+    }
+
+    const cartItems = cart?.items || [];
+
+    const subtotal = cart?.totalAmount || 0;
 
     if (cartItems.length === 0) {
 
@@ -68,7 +94,7 @@ const Cart = () => {
                         {cartItems.map((item) => (
 
                             <CartItem
-                                key={item.id}
+                                key={item.product._id}
                                 item={item}
                             />
 
@@ -76,7 +102,7 @@ const Cart = () => {
 
                     </div>
 
-                    {/* Order Summary */}
+                    {/* Summary */}
 
                     <CartSummary
                         subtotal={subtotal}

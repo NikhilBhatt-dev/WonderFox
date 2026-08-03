@@ -1,10 +1,13 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+
+
+
 
 import {
     getCart,
     addToCart,
     updateCart,
     removeFromCart,
+    clearCart as clearCartService,
 } from "../services/cart.service";
 
 const CartContext = createContext();
@@ -18,30 +21,30 @@ export const CartProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(false);
 
+  
     const fetchCart = async () => {
 
         try {
 
             setLoading(true);
 
-            const response = await getCart();
+            const cart = await getCart();
 
-            if (response?.cart) {
-
-                setCart(response.cart);
-
-            } else {
-
-                setCart({
-                    items: response.items || [],
-                    totalAmount: response.totalAmount || 0,
-                });
-
-            }
+            setCart(
+                cart || {
+                    items: [],
+                    totalAmount: 0,
+                }
+            );
 
         } catch (error) {
 
             console.error(error);
+
+            setCart({
+                items: [],
+                totalAmount: 0,
+            });
 
         } finally {
 
@@ -50,7 +53,6 @@ export const CartProvider = ({ children }) => {
         }
 
     };
-
     useEffect(() => {
 
         fetchCart();
@@ -66,52 +68,90 @@ export const CartProvider = ({ children }) => {
 
         setCart(response.data.cart);
 
+        return response;
+
     };
 
     const updateItem = async (productId, quantity) => {
 
-        const cart = await updateCart(productId, quantity);
+        const cart = await updateCart(
+            productId,
+            quantity
+        );
 
         setCart(cart);
+
+        return cart;
 
     };
 
     const removeItem = async (productId) => {
 
-        const cart = await removeFromCart(productId);
+        const cart = await removeFromCart(
+            productId
+        );
+
+        setCart(cart);
+
+        return cart;
+
+    };
+
+
+    const clearCart = async () => {
+
+        const cart = await clearCartService();
 
         setCart(cart);
 
     };
 
+
+
     const cartCount = useMemo(() => {
 
-        return cart.items.reduce(
+        return (cart.items || []).reduce(
             (sum, item) => sum + item.quantity,
             0
         );
 
     }, [cart]);
 
-    return (
+    const value = {
 
-        <CartContext.Provider
-            value={{
-                cart,
-                cartCount,
-                loading,
-                fetchCart,
-                addItem,
-                updateItem,
-                removeItem,
-            }}
-        >
+        cart,
+
+        loading,
+
+        cartCount,
+
+        fetchCart,
+
+        addItem,
+
+        updateItem,
+
+        removeItem,
+
+        clearCart,
+
+    };
+
+
+
+
+
+return (
+
+        <CartContext.Provider value={value}>
 
             {children}
 
         </CartContext.Provider>
 
     );
+
+    
 
 };
 

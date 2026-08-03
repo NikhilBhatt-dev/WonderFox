@@ -23,3 +23,10 @@ export const removeFromCart = async (productId) => {
 
   return data.data.cart;
 };
+
+// 👇 YAHAN ADD KARO
+export const clearCart = async () => {
+  const { data } = await api.delete("/cart");
+
+  return data.data.cart;
+};
