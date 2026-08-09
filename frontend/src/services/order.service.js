@@ -16,6 +16,6 @@ export const verifyPayment = async (payload) => {
 };
 
 export const getMyOrders = async () => {
-  const { data } = await api.get("/orders/my-orders");
+  const { data } = await api.get("/orders");
   return data.data.orders;
 };

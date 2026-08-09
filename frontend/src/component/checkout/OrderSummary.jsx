@@ -27,13 +27,16 @@ const OrderSummary = ({
                 {cartItems.map((item) => (
 
                     <div
-                        key={item.product._id}
+                        
+                        key={item.product?._id || item._id}
                         className="flex items-center gap-4"
                     >
 
                         <img
-                            src={item.product.images?.[0]?.url}
-                            alt={item.product.name}
+                           
+                            src={item.product?.images?.[0]?.url || item.image}
+                        
+                            alt={item.product?.name || item.name}
                             className="h-20 w-20 rounded-2xl border object-cover"
                         />
 
@@ -41,7 +44,8 @@ const OrderSummary = ({
 
                             <h3 className="font-semibold text-gray-800">
 
-                                {item.product.name}
+                                
+                                {item.product?.name || item.name}
 
                             </h3>
 

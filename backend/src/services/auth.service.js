@@ -3,14 +3,12 @@ import generateToken from "../utils/generateToken.js";
 import ApiError from "../utils/ApiError.js";
 
 export const register = async ({ name, email, password }) => {
-  // Check existing user
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-   throw new ApiError(409, "User already exists");
+    throw new ApiError(409, "User already exists");
   }
 
-  // Create user
   const user = await User.create({
     name,
     email,
@@ -33,14 +31,12 @@ export const register = async ({ name, email, password }) => {
 };
 
 export const login = async ({ email, password }) => {
-  // Find user
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    throw new Error("Invalid email or password");
+    throw new ApiError(401, "Invalid email or password");
   }
 
-  // Check password
   const isMatch = await user.matchPassword(password);
 
   if (!isMatch) {

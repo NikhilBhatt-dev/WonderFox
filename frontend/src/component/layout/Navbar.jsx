@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
+import ProfileDropdown from "../common/ProfileDropdown";
 
 import {
   Menu,
@@ -104,15 +105,7 @@ const Navbar = () => {
 
           {/* User */}
 
-          <Link
-            to="/profile"
-            className={iconButton}
-          >
-
-            <User size={20} />
-
-          </Link>
-
+          <ProfileDropdown />
           {/* Cart */}
 
           <Link

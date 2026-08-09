@@ -1,8 +1,48 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Container from "../component/common/Container";
 
 const Profile = () => {
+
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+
+      navigate("/login");
+
+      return;
+
+    }
+
+    setUser(JSON.parse(storedUser));
+
+  }, [navigate]);
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+
+  };
+
+  if (!user) {
+
+    return null;
+
+  }
+
   return (
-    <section className="bg-[#FFF8F3] py-16 min-h-screen">
+
+    <section className="min-h-screen bg-[#FFF8F3] py-16">
 
       <Container>
 
@@ -10,10 +50,12 @@ const Profile = () => {
 
           <div className="flex flex-col items-center gap-6 md:flex-row">
 
-            {/* Profile Image */}
+            {/* Avatar */}
 
             <div className="flex h-36 w-36 items-center justify-center rounded-full bg-orange-100 text-6xl">
+
               👤
+
             </div>
 
             {/* User Info */}
@@ -21,34 +63,42 @@ const Profile = () => {
             <div>
 
               <h1 className="text-3xl font-bold text-gray-800">
-                Kevin Sharma
+
+                {user.name}
+
               </h1>
 
               <p className="mt-2 text-gray-500">
-                kevin@example.com
+
+                {user.email}
+
               </p>
 
               <p className="text-gray-500">
-                +91 9876543210
+
+                Customer Account
+
               </p>
 
             </div>
 
           </div>
 
-          {/* Profile Details */}
+          {/* Details */}
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
 
             <div>
 
               <label className="mb-2 block font-medium">
+
                 Full Name
+
               </label>
 
               <input
                 type="text"
-                value="Kevin Sharma"
+                value={user.name}
                 readOnly
                 className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3"
               />
@@ -58,12 +108,14 @@ const Profile = () => {
             <div>
 
               <label className="mb-2 block font-medium">
+
                 Email
+
               </label>
 
               <input
                 type="email"
-                value="kevin@example.com"
+                value={user.email}
                 readOnly
                 className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3"
               />
@@ -73,14 +125,16 @@ const Profile = () => {
             <div>
 
               <label className="mb-2 block font-medium">
-                Phone
+
+                Role
+
               </label>
 
               <input
                 type="text"
-                value="+91 9876543210"
+                value={user.role}
                 readOnly
-                className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3"
+                className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 capitalize"
               />
 
             </div>
@@ -88,12 +142,14 @@ const Profile = () => {
             <div>
 
               <label className="mb-2 block font-medium">
-                Address
+
+                Account Status
+
               </label>
 
               <input
                 type="text"
-                value="New Delhi, India"
+                value="Active"
                 readOnly
                 className="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3"
               />
@@ -106,16 +162,29 @@ const Profile = () => {
 
           <div className="mt-10 flex flex-wrap gap-4">
 
-            <button className="rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600">
+            <button
+              className="rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+            >
+
               Edit Profile
+
             </button>
 
-            <button className="rounded-xl border border-gray-300 px-6 py-3 font-semibold transition hover:bg-gray-100">
+            <button
+              className="rounded-xl border border-gray-300 px-6 py-3 font-semibold transition hover:bg-gray-100"
+            >
+
               Change Password
+
             </button>
 
-            <button className="rounded-xl bg-red-500 px-6 py-3 font-semibold text-white transition hover:bg-red-600">
+            <button
+              onClick={handleLogout}
+              className="rounded-xl bg-red-500 px-6 py-3 font-semibold text-white transition hover:bg-red-600"
+            >
+
               Logout
+
             </button>
 
           </div>
@@ -125,7 +194,9 @@ const Profile = () => {
       </Container>
 
     </section>
+
   );
+
 };
 
 export default Profile;

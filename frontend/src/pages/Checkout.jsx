@@ -26,21 +26,13 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-
         fullName: "",
-
         phone: "",
-
         addressLine1: "",
-
         landmark: "",
-
         city: "",
-
         state: "",
-
         postalCode: "",
-
     });
 
     const [paymentMethod, setPaymentMethod] = useState("COD");
@@ -50,11 +42,8 @@ const Checkout = () => {
         const { name, value } = e.target;
 
         setFormData((prev) => ({
-
             ...prev,
-
             [name]: value,
-
         }));
 
     };
@@ -71,23 +60,41 @@ const Checkout = () => {
 
     const validateForm = () => {
 
-        if (!formData.fullName.trim())
+        if (!formData.fullName.trim()) {
             return "Full Name is required.";
+        }
 
-        if (!formData.phone.trim())
-            return "Phone Number is required.";
+        if (!/^[A-Za-z ]{3,50}$/.test(formData.fullName.trim())) {
+            return "Please enter a valid full name.";
+        }
 
-        if (!formData.addressLine1.trim())
+        if (!/^[6-9]\d{9}$/.test(formData.phone.trim())) {
+            return "Please enter a valid 10-digit mobile number.";
+        }
+
+        if (!formData.addressLine1.trim()) {
             return "Address is required.";
+        }
 
-        if (!formData.city.trim())
+        if (!formData.city.trim()) {
             return "City is required.";
+        }
 
-        if (!formData.state.trim())
+        if (!/^[A-Za-z ]+$/.test(formData.city.trim())) {
+            return "Please enter a valid city.";
+        }
+
+        if (!formData.state.trim()) {
             return "State is required.";
+        }
 
-        if (!formData.postalCode.trim())
-            return "Postal Code is required.";
+        if (!/^[A-Za-z ]+$/.test(formData.state.trim())) {
+            return "Please enter a valid state.";
+        }
+
+        if (!/^\d{6}$/.test(formData.postalCode.trim())) {
+            return "Please enter a valid 6-digit PIN code.";
+        }
 
         return null;
 
@@ -95,12 +102,16 @@ const Checkout = () => {
 
     const handlePlaceOrder = async () => {
 
+        if (loading) return;
+
+        if (cartItems.length === 0) {
+            return toast.error("Your cart is empty.");
+        }
+
         const error = validateForm();
 
         if (error) {
-
             return toast.error(error);
-
         }
 
         try {
@@ -110,19 +121,17 @@ const Checkout = () => {
             if (paymentMethod === "COD") {
 
                 await createCODOrder({
-
                     shippingAddress: formData,
-
                 });
 
                 await fetchCart();
 
                 toast.success("Order placed successfully.");
 
-                navigate("/order-success");
+              
+                navigate("/orders");
 
                 return;
-
             }
 
             if (paymentMethod === "RAZORPAY") {
@@ -132,7 +141,7 @@ const Checkout = () => {
 
                 console.log(razorpayOrder);
 
-                toast("Razorpay integration is next.");
+                toast("Razorpay integration coming soon.");
 
                 return;
 
@@ -141,11 +150,8 @@ const Checkout = () => {
         } catch (error) {
 
             toast.error(
-
                 error.response?.data?.message ||
-
                 "Failed to place order."
-
             );
 
         } finally {
@@ -160,7 +166,7 @@ const Checkout = () => {
 
         return (
 
-            <section className="min-h-screen flex items-center justify-center">
+            <section className="flex min-h-screen items-center justify-center">
 
                 <div className="text-center">
 
@@ -175,6 +181,15 @@ const Checkout = () => {
                         Add some products before checkout.
 
                     </p>
+
+                    <button
+                        onClick={() => navigate("/collection")}
+                        className="mt-6 rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+                    >
+
+                        Continue Shopping
+
+                    </button>
 
                 </div>
 
@@ -213,6 +228,7 @@ const Checkout = () => {
                         />
 
                     </div>
+
 
                     <OrderSummary
                         cartItems={cartItems}
