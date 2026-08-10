@@ -1,237 +1,230 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-
-import hero1 from "../../assets/image/hero-1.webp";
-import hero2 from "../../assets/image/hero-2.webp";
-import hero3 from "../../assets/image/hero-3.avif";
-import toy3 from "../../assets/image/toy-3.avif";
+import { ArrowRight, Star, Truck, ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Container from "../common/Container";
-import Button from "../common/Button";
+
+import heroImage from "../../assets/image/toy-3.avif";
 
 const Hero = () => {
-    const heroSlides = [
-        {
-            hero: hero1,
-            card: toy3,
-        },
-        {
-            hero: hero2,
-            card: toy3,
-        },
-        {
-            hero: hero3,
-            card: toy3,
-        },
-    ];
-
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-        }, 5000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     return (
-        <section className="relative overflow-hidden bg-[#FFF8F3] py-12 lg:py-16">
+        <section className="overflow-hidden bg-[#FFF8F3]">
 
-            {/* Background Blur */}
+            <Container>
 
-            <div className="pointer-events-none absolute -left-40 top-10 h-72 w-72 rounded-full bg-orange-200/40 blur-3xl"></div>
+                <div className="grid min-h-[680px] items-center gap-12 py-14 lg:grid-cols-2 lg:py-20">
 
-            <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-pink-200/30 blur-3xl"></div>
+                    {/* LEFT CONTENT */}
 
+                    <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.7 }}
+                        className="max-w-xl"
+                    >
 
-            {/* Floating Cloud */}
+                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
 
-            <motion.div
-                animate={{
-                    x: [-8, 8, -8],
-                }}
-                transition={{
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute left-8 top-12 text-5xl opacity-70"
-            >
-                ☁️
-            </motion.div>
-
-
-            {/* Floating Star */}
-
-            {/* <motion.div
-                animate={{
-                    y: [-8, 8, -8],
-                }}
-                transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute left-1/3 top-20 text-2xl"
-            >
-                ⭐
-            </motion.div> */}
-
-            <motion.div
-                animate={{
-                    y: [0, -10, 0],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute bottom-32 right-1/4 text-3xl"
-            >
-                ✨
-            </motion.div>
-
-            <Container className="grid min-h-[72vh] items-center gap-10 lg:grid-cols-2 lg:gap-16">
-
-                {/* LEFT CONTENT */}
-
-                <div className="text-center lg:-translate-y-6 lg:text-left">
-
-                    <span className="inline-block rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold text-orange-500">
-                        ✨ New Collection
-                    </span>
-
-                    <h1 className="mt-5 text-4xl font-extrabold leading-tight text-gray-800 sm:text-5xl lg:text-6xl">
-                        Make Every
-                        <br />
-                        Child
-                        <span className="text-orange-500">
-                            {" "}
-                            Smile
-                        </span>
-                    </h1>
-
-                    <p className="mx-auto mt-5 max-w-lg text-base leading-8 text-gray-600 lg:mx-0 lg:text-lg">
-                        Explore our premium collection of educational,
-                        plush and creative toys specially crafted
-                        for children of every age.
-                    </p>
-
-                    <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-
-                        <Button>
-                            Shop Now
-                        </Button>
-
-                        <Button variant="secondary">
-                            Explore Collection
-                        </Button>
-
-                    </div>
-
-                    {/* Trust Section */}
-
-                    <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600 lg:justify-start">
-
-                        <div className="flex items-center gap-2">
-                            ⭐⭐⭐⭐⭐
-                            <span className="font-semibold">
-                                4.9/5
-                            </span>
-                        </div>
-
-                        <div className="font-medium">
-                            ❤️ 5000+ Happy Kids
-                        </div>
-
-                        <div className="font-medium">
-                            🚚 Free Shipping
-                        </div>
-
-                    </div>
-
-                </div>
-                {/* RIGHT CONTENT */}
-
-                <div className="relative mx-auto flex w-fit items-center justify-center">
-
-                    {/* Background Circle */}
-
-                    <div className="absolute h-[360px] w-[360px] rounded-full bg-gradient-to-br from-orange-200/50 to-orange-100/40 blur-sm lg:h-[470px] lg:w-[470px]"></div>
-
-                    {/* Hero Image */}
-
-                    <AnimatePresence mode="wait">
-
-                        <motion.div
-                            key={currentSlide}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 1.05 }}
-                            transition={{ duration: 0.7 }}
-                            className="relative z-10 overflow-hidden rounded-[28px] border-[8px] border-white shadow-2xl"
-                        >
-
-                            <img
-                                src={heroSlides[currentSlide].hero}
-                                alt="WonderFox Toy"
-                                className="h-[430px] w-[330px] object-cover lg:h-[540px] lg:w-[420px]"
+                            <Star
+                                size={16}
+                                className="fill-orange-400 text-orange-400"
                             />
 
-                        </motion.div>
+                            Premium toys for little moments
 
-                    </AnimatePresence>
+                        </div>
 
-                    {/* Floating Card */}
+                        <h1 className="text-5xl font-bold leading-[1.08] tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
 
-                    <motion.div
-                        animate={{
-                            y: [-10, 10, -10],
-                            rotate: [-2, 2, -2],
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        }}
-                        className="absolute left-[-25px] top-[68%] z-20 w-48 -translate-y-1/2 rounded-3xl bg-white p-4 shadow-2xl lg:w-52"
-                    >
+                            Premium toys.
 
-                        <img
-                            src={heroSlides[currentSlide].card}
-                            alt="Toy"
-                            className="h-24 w-full rounded-2xl object-cover"
-                        />
+                            <span className="block text-orange-500">
 
-                        <h3 className="mt-3 text-center text-base font-bold text-gray-800">
-                            Little Joy,
-                            <br />
-                            Big Cuddles
-                        </h3>
+                                Timeless joy.
 
-                        <p className="mt-2 text-center text-sm text-gray-500">
-                            Loved by 5,000+ Kids ❤️
+                            </span>
+
+                        </h1>
+
+                        <p className="mt-7 max-w-lg text-lg leading-8 text-gray-600">
+
+                            Thoughtfully chosen toys made for play,
+                            learning and memories that last. Discover
+                            something special for every little one.
+
                         </p>
 
+                        {/* BUTTONS */}
+
+                        <div className="mt-9 flex flex-wrap gap-4">
+
+                            <Link
+                                to="/collection"
+                                className="group inline-flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-300 hover:-translate-y-1 hover:bg-orange-600"
+                            >
+
+                                Shop Collection
+
+                                <ArrowRight
+                                    size={19}
+                                    className="transition-transform duration-300 group-hover:translate-x-1"
+                                />
+
+                            </Link>
+
+                            <Link
+                                to="/about"
+                                className="inline-flex items-center rounded-2xl border border-gray-200 bg-white px-7 py-4 font-semibold text-gray-800 transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:text-orange-500"
+                            >
+
+                                Our Story
+
+                            </Link>
+
+                        </div>
+
+                        {/* TRUST FEATURES */}
+
+                        <div className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-gray-200 pt-7">
+
+                            <div className="flex items-start gap-3">
+
+                                <div className="rounded-xl bg-orange-100 p-2">
+
+                                    <Truck
+                                        size={18}
+                                        className="text-orange-500"
+                                    />
+
+                                </div>
+
+                                <div>
+
+                                    <p className="text-sm font-semibold text-gray-800">
+                                        Fast Delivery
+                                    </p>
+
+                                    <p className="mt-1 text-xs text-gray-500">
+                                        Across India
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div className="flex items-start gap-3">
+
+                                <div className="rounded-xl bg-green-100 p-2">
+
+                                    <ShieldCheck
+                                        size={18}
+                                        className="text-green-600"
+                                    />
+
+                                </div>
+
+                                <div>
+
+                                    <p className="text-sm font-semibold text-gray-800">
+                                        Safe & Trusted
+                                    </p>
+
+                                    <p className="mt-1 text-xs text-gray-500">
+                                        Quality products
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div className="flex items-start gap-3">
+
+                                <div className="rounded-xl bg-yellow-100 p-2">
+
+                                    <Star
+                                        size={18}
+                                        className="fill-yellow-500 text-yellow-500"
+                                    />
+
+                                </div>
+
+                                <div>
+
+                                    <p className="text-sm font-semibold text-gray-800">
+                                        Loved by Kids
+                                    </p>
+
+                                    <p className="mt-1 text-xs text-gray-500">
+                                        Made for joy
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </motion.div>
 
-                    {/* Balloon */}
 
-                    <motion.div
-                        animate={{
-                            y: [-18, 18, -18],
-                        }}
-                        transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        }}
-                        className="absolute right-[-25px] top-2 z-30 text-4xl"
-                    >
-                        🎈
-                    </motion.div>
+                    {/* RIGHT IMAGE */}
 
+                    
+
+                        {/* Background Shape */}
+
+                       
+                        {/* Product Card */}
+
+                     
+
+                            <div className="overflow-hidden rounded-[3rem] border border-white bg-white p-4 shadow-2xl shadow-gray-200/80">
+
+                                <div className="relative overflow-hidden rounded-[2.5rem] bg-[#F7EDE5]">
+
+                                    <img
+                                        src={heroImage}
+                                        alt="WonderFox premium toy"
+                                        className="h-[480px] w-full object-cover"
+                                    />
+
+                                    {/* Floating Rating */}
+
+                                   
+
+                                       
+
+                                 
+
+                                    {/* Product Label */}
+
+                                    <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl bg-white/95 px-5 py-4 shadow-lg backdrop-blur">
+
+                                        <div>
+
+                                            <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
+                                                WonderFox
+                                            </p>
+
+                                            <h3 className="mt-1 font-bold text-gray-900">
+                                                Made for little moments
+                                            </h3>
+
+                                        </div>
+
+                                        <div className="rounded-xl bg-orange-500 px-4 py-2 text-sm font-bold text-white">
+                                            Explore
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                       
+
+                    
                 </div>
 
             </Container>
