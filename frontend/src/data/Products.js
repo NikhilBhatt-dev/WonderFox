@@ -1,5 +1,3 @@
-
-
 import toy1 from "../assets/image/toy-1.avif";
 import toy2 from "../assets/image/toy-2.avif";
 import toy3 from "../assets/image/toy-3.avif";

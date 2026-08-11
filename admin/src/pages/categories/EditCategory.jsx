@@ -18,6 +18,7 @@ const EditCategory = () => {
     const [formData, setFormData] = useState({
         name: "",
         description: "",
+        image: null,
     });
 
     useEffect(() => {
@@ -46,12 +47,12 @@ const EditCategory = () => {
     }, [id]);
 
     const handleChange = (e) => {
+        const { name, value, files } = e.target;
 
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            [name]: files ? files[0] : value,
         });
-
     };
 
     const handleSubmit = async (e) => {
@@ -113,6 +114,20 @@ const EditCategory = () => {
                         onChange={handleChange}
                         className="w-full rounded-lg border p-3"
                     />
+
+                    <div>
+                        <label className="mb-2 block font-medium text-gray-700">
+                            Category Image
+                        </label>
+
+                        <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            className="w-full rounded-lg border p-3"
+                            onChange={handleChange}
+                        />
+                    </div>
 
                     <button
                         disabled={loading}

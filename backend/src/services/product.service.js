@@ -73,18 +73,10 @@ export const getAllProducts = async (queryParams) => {
     filter.category = category;
   }
 
-  // Filter by price
-  if (minPrice || maxPrice) {
-    filter.price = {};
-
-    if (minPrice) {
-      filter.price.$gte = Number(minPrice);
-    }
-
-    if (maxPrice) {
-      filter.price.$lte = Number(maxPrice);
-    }
-  }
+  // Pagination
+  const currentPage = Math.max(1, Number(page));
+  const perPage = Math.max(1, Number(limit));
+  const skip = (currentPage - 1) * perPage;
 
   // Allowed sort fields
   const allowedSortFields = [
@@ -97,32 +89,78 @@ export const getAllProducts = async (queryParams) => {
   ];
 
   const sortOption = allowedSortFields.includes(sort) ? sort : "-createdAt";
+  const sortField = sortOption.startsWith("-") ? sortOption.slice(1) : sortOption;
+  const sortOrder = sortOption.startsWith("-") ? -1 : 1;
 
-  // Pagination
-  const currentPage = Math.max(1, Number(page));
-  const perPage = Math.max(1, Number(limit));
-  const skip = (currentPage - 1) * perPage;
+  const pipeline = [{ $match: filter }];
 
-  // Total matching products
-  const totalProducts = await Product.countDocuments(filter);
+  pipeline.push({
+    $addFields: {
+      sellingPrice: {
+        $cond: [
+          {
+            $and: [
+              { $gt: ["$discountPrice", 0] },
+              { $lte: ["$discountPrice", "$price"] },
+            ],
+          },
+          "$discountPrice",
+          "$price",
+        ],
+      },
+    },
+  });
 
-  // Fetch products
-  const products = await Product.find(filter)
-    .populate("createdBy", "name email")
-    .populate("category", "name description")
-    .sort(sortOption)
-    .skip(skip)
-    .limit(perPage);
+  if (minPrice || maxPrice) {
+    const sellingPriceFilter = {};
+
+    if (minPrice) {
+      sellingPriceFilter.$gte = Number(minPrice);
+    }
+
+    if (maxPrice) {
+      sellingPriceFilter.$lte = Number(maxPrice);
+    }
+
+    pipeline.push({
+      $match: {
+        sellingPrice: sellingPriceFilter,
+      },
+    });
+  }
+
+  const sortStage =
+    sortField === "price"
+      ? { $sort: { sellingPrice: sortOrder, _id: 1 } }
+      : { $sort: { [sortField]: sortOrder, _id: 1 } };
+
+  const aggregation = await Product.aggregate([
+    ...pipeline,
+    {
+      $facet: {
+        metadata: [{ $count: "totalProducts" }],
+        data: [sortStage, { $skip: skip }, { $limit: perPage }, { $project: { sellingPrice: 0 } }],
+      },
+    },
+  ]);
+
+  const metadata = aggregation[0]?.metadata[0] || { totalProducts: 0 };
+  const productDocs = aggregation[0]?.data || [];
+
+  const products = await Product.populate(productDocs, [
+    { path: "createdBy", select: "name email" },
+    { path: "category", select: "name description" },
+  ]);
 
   return new ApiResponse(
     200,
     {
       products,
       pagination: {
-        totalProducts,
+        totalProducts: metadata.totalProducts,
         currentPage,
         perPage,
-        totalPages: Math.ceil(totalProducts / perPage),
+        totalPages: Math.ceil(metadata.totalProducts / perPage),
       },
     },
     "Products fetched successfully",
