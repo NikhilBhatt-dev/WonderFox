@@ -1,12 +1,13 @@
-﻿export const getCategories = async () => {
-  const res = await fetch("http://localhost:5000/api/categories", {
-    headers: { "Content-Type": "application/json" },
-  });
+import api from "../api/axios";
 
-  if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);
+export const getCategories = async () => {
+    const { data } = await api.get("/categories");
 
-  const json = await res.json();
-  return json?.data?.categories || [];
+    return data.data.categories;
 };
 
-export default { getCategories };
+export const getCategory = async (id) => {
+    const { data } = await api.get(`/categories/${id}`);
+
+    return data.data.category;
+};
