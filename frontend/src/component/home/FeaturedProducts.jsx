@@ -24,9 +24,9 @@ const FeaturedProducts = () => {
 
         setLoading(true);
 
-        const data = await getProducts();
+        const data = await getProducts({ sort: "-createdAt", limit: 8 });
 
-        setProducts(data || []);
+        setProducts(data.products || []);
 
       } catch (err) {
 
@@ -63,11 +63,11 @@ const FeaturedProducts = () => {
             </p>
 
             <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Featured Toys
+              New Arrivals
             </h2>
 
             <p className="mt-4 max-w-xl text-gray-500">
-              Carefully selected favourites made to bring
+              Freshly added favourites made to bring
               more play, imagination and joy into everyday moments.
             </p>
 

@@ -4,6 +4,7 @@ import {
     Tags,
     ShoppingCart,
     UsersRound,
+    NotebookPen,
     LogOut,
 } from "lucide-react";
 
@@ -37,6 +38,11 @@ const Sidebar = () => {
             name: "Categories",
             icon: Tags,
             path: "/categories",
+        },
+        {
+            name: "Blogs",
+            icon: NotebookPen,
+            path: "/blogs",
         },
         {
             name: "Orders",

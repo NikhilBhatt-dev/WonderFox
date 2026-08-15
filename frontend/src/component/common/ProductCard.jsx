@@ -1,12 +1,107 @@
 import { Eye, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 import toyPlaceholder from "../../assets/image/toy-1.avif";
 import RatingStars from "./RatingStars";
+import useCart from "../../hooks/useCart";
+import {
+    addToWishlist,
+    getWishlist,
+    removeFromWishlist,
+} from "../../services/wishlist.service";
 
 const ProductCard = ({ product }) => {
+    const { addItem } = useCart();
+    const [isWishlisted, setIsWishlisted] = useState(false);
+
+    const syncWishlistState = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+                const inWishlist = savedWishlist.some((id) => id === product._id);
+                setIsWishlisted(inWishlist);
+                return;
+            }
+
+            const wishlist = await getWishlist();
+            const wishlistItems = wishlist?.items || [];
+            const inWishlist = wishlistItems.some(
+                (item) => item?.product?._id === product._id || item?.product === product._id,
+            );
+            setIsWishlisted(inWishlist);
+        } catch {
+            setIsWishlisted(false);
+        }
+    };
+
+    useEffect(() => {
+        syncWishlistState();
+
+        const handleWishlistSync = () => {
+            syncWishlistState();
+        };
+
+        window.addEventListener("wishlist:updated", handleWishlistSync);
+
+        return () => {
+            window.removeEventListener("wishlist:updated", handleWishlistSync);
+        };
+    }, [product._id]);
+
+    const notifyWishlistUpdated = () => {
+        window.dispatchEvent(new CustomEvent("wishlist:updated"));
+    };
+
+    const handleWishlistToggle = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+                const nextWishlist = isWishlisted
+                    ? savedWishlist.filter((id) => id !== product._id)
+                    : [...new Set([...savedWishlist, product._id])];
+
+                localStorage.setItem("wishlist", JSON.stringify(nextWishlist));
+                setIsWishlisted(!isWishlisted);
+                notifyWishlistUpdated();
+                toast.success(
+                    isWishlisted ? "Removed from wishlist." : "Added to wishlist.",
+                );
+                return;
+            }
+
+            if (isWishlisted) {
+                await removeFromWishlist(product._id);
+                toast.success("Removed from wishlist.");
+            } else {
+                await addToWishlist(product._id);
+                toast.success("Added to wishlist.");
+            }
+
+            setIsWishlisted(!isWishlisted);
+            notifyWishlistUpdated();
+        } catch (error) {
+            const message = error.response?.data?.message || "Unable to update wishlist.";
+            toast.error(message);
+        }
+    };
+
+    const handleAddToCart = async () => {
+        try {
+            await addItem(product._id, 1);
+            toast.success("Product added to cart.");
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Please log in to add products to your cart.");
+        }
+    };
+
     return (
-        <div className="group relative flex h-full min-h-[560px] w-full flex-col rounded-3xl bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="group relative flex h-full min-h-[500px] w-full flex-col rounded-3xl border border-orange-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
             {/* Featured Badge */}
 
@@ -22,17 +117,19 @@ const ProductCard = ({ product }) => {
 
                 <button
                     type="button"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow transition-all duration-300 hover:scale-110 hover:bg-orange-500 hover:text-white"
+                    onClick={handleWishlistToggle}
+                    aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full shadow transition-all duration-300 hover:scale-110 ${isWishlisted ? "bg-orange-500 text-white" : "bg-white text-gray-700 hover:bg-orange-500 hover:text-white"}`}
                 >
-                    <Heart size={18} />
+                    <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
                 </button>
 
-                <button
-                    type="button"
+                <Link
+                    to={`/product/${product._id}`}
                     className="flex h-10 w-10 translate-x-16 items-center justify-center rounded-full bg-white shadow opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 hover:bg-orange-500 hover:text-white"
                 >
                     <Eye size={18} />
-                </button>
+                </Link>
 
             </div>
 
@@ -103,6 +200,7 @@ const ProductCard = ({ product }) => {
 
             <button
                 type="button"
+                onClick={handleAddToCart}
                 className="mt-6 flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-orange-500 font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-orange-600"
             >
 

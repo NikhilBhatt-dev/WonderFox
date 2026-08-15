@@ -38,6 +38,7 @@ const Collection = () => {
     });
 
     const selectedCategory = searchParams.get("category") || "";
+    const selectedSearch = searchParams.get("search") || "";
     const minPrice = searchParams.get("minPrice") || "";
     const maxPrice = searchParams.get("maxPrice") || "";
     const sort = searchParams.get("sort") || "-createdAt";
@@ -73,6 +74,10 @@ const Collection = () => {
                     page: currentPage,
                 };
 
+                if (selectedSearch) {
+                    params.search = selectedSearch;
+                }
+
                 if (selectedCategory) {
                     params.category = selectedCategory;
                 }
@@ -105,7 +110,7 @@ const Collection = () => {
         };
 
         fetchProducts();
-    }, [selectedCategory, minPrice, maxPrice, sort, currentPage]);
+    }, [selectedCategory, selectedSearch, minPrice, maxPrice, sort, currentPage]);
 
     useEffect(() => {
         if (isFilterOpen) {

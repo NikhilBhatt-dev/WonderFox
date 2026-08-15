@@ -5,13 +5,17 @@ import Categories from "../component/home/Categories";
 import WhyChooseUs from "../component/home/WhyChooseUs";
 import Reviews from "../component/home/Reviews";
 import Newsletter from "../component/home/Newsletter";
+import TrustFeatures from "../component/home/TrustFeatures";
+import SpecialCollection from "../component/home/SpecialCollection";
 
 const Home = () => {
     return (
         <>
             <Hero />
-            <FeaturedProducts />
+            <TrustFeatures />
             <Categories />
+            <FeaturedProducts />
+            <SpecialCollection />
             {/* <BestSeller /> */}
             <WhyChooseUs />
             <Reviews />

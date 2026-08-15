@@ -1,6 +1,10 @@
 import Container from "../common/Container";
 
 const Newsletter = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    };
+
     return (
         // <section className="bg-orange-500 py-20">
 
@@ -53,7 +57,7 @@ const Newsletter = () => {
                     <span className="absolute right-12 bottom-8 text-white text-3xl">♡</span>
 
                     <p className="uppercase tracking-[4px] text-sm font-bold text-[#ffe5b4]">
-                        The Happy Post
+                        Stay Updated
                     </p>
 
                     <h2 className="mt-4 text-4xl font-extrabold text-white">
@@ -66,7 +70,7 @@ const Newsletter = () => {
                     </p>
 
                     {/* Email Form */}
-                    <form className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
+                    <form onSubmit={handleSubmit} className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
 
                         <input
                             type="email"
@@ -78,7 +82,7 @@ const Newsletter = () => {
                             type="submit"
                             className="rounded-2xl bg-[#40352f] px-10 py-5 text-lg font-bold text-white transition hover:bg-black"
                         >
-                            Join the Club
+                            Subscribe
                         </button>
 
                     </form>

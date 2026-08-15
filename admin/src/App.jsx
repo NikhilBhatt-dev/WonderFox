@@ -19,6 +19,9 @@ import Orders from "./pages/orders/Order";
 import OrderDetails from "./pages/orders/OrderDetails";
 import Users from "./pages/users/Users";
 import UserDetails from "./pages/users/UserDetails";
+import Blogs from "./pages/blogs/Blogs";
+import AddBlog from "./pages/blogs/AddBlog";
+import EditBlog from "./pages/blogs/EditBlog";
 
 const App = () => {
   return (
@@ -131,6 +134,33 @@ const App = () => {
           element={
             <ProtectedRoute>
               <UserDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/blogs"
+          element={
+            <ProtectedRoute>
+              <Blogs />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/blogs/add"
+          element={
+            <ProtectedRoute>
+              <AddBlog />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/blogs/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditBlog />
             </ProtectedRoute>
           }
         />

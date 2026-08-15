@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, PackageOpen } from "lucide-react";
+import { ArrowRight, PackageOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -31,8 +31,6 @@ const Categories = () => {
 
                
                 const data = await getCategories();
-
-                console.log("LIVE CATEGORIES:", data);
 
                 setCategories(data || []);
 
@@ -78,7 +76,7 @@ const Categories = () => {
                         </p>
 
                         <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Shop by Collection
+                            Shop by Category
                         </h2>
 
                         <p className="mt-4 max-w-xl text-gray-500">
@@ -96,7 +94,7 @@ const Categories = () => {
 
                         View all
 
-                        <ArrowUpRight
+                        <ArrowRight
                             size={18}
                             className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
                         />
@@ -110,7 +108,7 @@ const Categories = () => {
 
                 {loading && (
 
-                    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
 
                         {[1, 2, 3, 4].map((item) => (
 
@@ -186,7 +184,7 @@ const Categories = () => {
                     !error &&
                     categories.length > 0 && (
 
-                        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                        <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
 
                             {categories.map((category, index) => (
 
@@ -210,14 +208,8 @@ const Categories = () => {
                                     }}
                                 >
 
-                                    <Link
-                                        to={`/collection?category=${category._id}`}
-                                        className="group relative block overflow-hidden rounded-[2rem] bg-[#F7F4F0]"
-                                    >
-
-                                        {/* Image */}
-
-                                        <div className="aspect-[1.15/1] overflow-hidden">
+                                    <Link to={`/collection?category=${category._id}`} className="group block text-center">
+                                        <div className="mx-auto aspect-square max-w-[170px] overflow-hidden rounded-full border-4 border-[#FFF8F3] bg-[#F7F4F0] p-2 shadow-sm transition duration-300 group-hover:-translate-y-1 group-hover:border-orange-100 group-hover:shadow-lg">
 
                                             {category.image ? (
 
@@ -229,7 +221,7 @@ const Categories = () => {
 
                                             ) : (
 
-                                                <div className="flex h-full items-center justify-center text-gray-400">
+                                                <div className="flex h-full items-center justify-center rounded-full text-gray-400">
                                                     No Image
                                                 </div>
 
@@ -238,36 +230,7 @@ const Categories = () => {
                                         </div>
 
 
-                                        {/* Bottom Info */}
-
-                                        <div className="absolute inset-x-0 bottom-0 p-5">
-
-                                            <div className="flex items-center justify-between rounded-2xl bg-white/95 px-5 py-4 shadow-lg backdrop-blur">
-
-                                                <div>
-
-                                                    <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
-                                                        Collection
-                                                    </p>
-
-                                                    <h3 className="mt-1 text-lg font-bold text-gray-900">
-                                                        {category.name}
-                                                    </h3>
-
-                                                </div>
-
-                                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-900 text-white transition duration-300 group-hover:bg-orange-500">
-
-                                                    <ArrowUpRight
-                                                        size={18}
-                                                    />
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
+                                        <h3 className="mt-4 text-base font-bold text-gray-900 transition group-hover:text-orange-500">{category.name}</h3>
                                     </Link>
 
                                 </motion.div>
