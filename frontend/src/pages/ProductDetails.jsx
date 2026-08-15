@@ -30,7 +30,7 @@ const ProductDetails = () => {
         ]);
 
         setProduct(productData);
-        setProducts(productsData);
+        setProducts(productsData.products);
 
       } catch (error) {
 
