@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import Category from "../models/Category.js";
+import mongoose from "mongoose";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 
@@ -70,7 +71,13 @@ export const getAllProducts = async (queryParams) => {
 
   // Filter by category
   if (category) {
-    filter.category = category;
+    // Aggregate pipelines do not apply Mongoose's normal ObjectId casting.
+    // Convert the query-string ID before matching it against Product.category.
+    if (!mongoose.isValidObjectId(category)) {
+      throw new ApiError(400, "Invalid category filter");
+    }
+
+    filter.category = new mongoose.Types.ObjectId(category);
   }
 
   // Pagination
