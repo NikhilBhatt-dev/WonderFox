@@ -1,6 +1,9 @@
 ﻿import { useEffect, useState } from "react";
-import { ArrowUpRight, PackageOpen } from "lucide-react";
-import { motion } from "framer-motion";
+
+
+import { ArrowUpRight, PackageOpen, SlidersHorizontal, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { Link, useSearchParams } from "react-router-dom";
 
 import Container from "../component/common/Container";
@@ -10,6 +13,14 @@ import { getCategories } from "../services/category.service";
 import { getProducts } from "../services/product.service";
 
 const Collection = () => {
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    const [draftFilters, setDraftFilters] = useState({
+        category: "",
+        minPrice: "",
+        maxPrice: "",
+        sort: "-createdAt",
+    });
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [categories, setCategories] = useState([]);
@@ -96,33 +107,81 @@ const Collection = () => {
         fetchProducts();
     }, [selectedCategory, minPrice, maxPrice, sort, currentPage]);
 
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        const params = new URLSearchParams(searchParams);
-
-        if (value) {
-            params.set(name, value);
-        } else {
-            params.delete(name);
+    useEffect(() => {
+        if (isFilterOpen) {
+            setDraftFilters({
+                category: selectedCategory,
+                minPrice,
+                maxPrice,
+                sort,
+            });
         }
+    }, [isFilterOpen, selectedCategory, minPrice, maxPrice, sort]);
 
-        params.delete("page");
-        setSearchParams(params);
+
+
+
+    const handleDraftFilterChange = (e) => {
+        const { name, value } = e.target;
+
+        setDraftFilters((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    const handleCategorySelect = (e) => {
-        const category = e.target.value;
+    const handleApplyFilters = () => {
         const params = new URLSearchParams(searchParams);
 
-        if (category) {
-            params.set("category", category);
+        if (draftFilters.category) {
+            params.set("category", draftFilters.category);
         } else {
             params.delete("category");
         }
 
+        if (draftFilters.minPrice) {
+            params.set("minPrice", draftFilters.minPrice);
+        } else {
+            params.delete("minPrice");
+        }
+
+        if (draftFilters.maxPrice) {
+            params.set("maxPrice", draftFilters.maxPrice);
+        } else {
+            params.delete("maxPrice");
+        }
+
+        if (draftFilters.sort && draftFilters.sort !== "-createdAt") {
+            params.set("sort", draftFilters.sort);
+        } else {
+            params.delete("sort");
+        }
+
         params.delete("page");
+
         setSearchParams(params);
+        setIsFilterOpen(false);
     };
+
+    const handleClearFilters = () => {
+        const params = new URLSearchParams(searchParams);
+
+        params.delete("category");
+        params.delete("minPrice");
+        params.delete("maxPrice");
+        params.delete("sort");
+        params.delete("page");
+
+        setSearchParams(params);
+
+        setDraftFilters({
+            category: "",
+            minPrice: "",
+            maxPrice: "",
+            sort: "-createdAt",
+        });
+    };
+
 
     const handlePageChange = (page) => {
         const params = new URLSearchParams(searchParams);
@@ -140,35 +199,56 @@ const Collection = () => {
         <section className="bg-white py-20">
             <Container>
                 {/* Header */}
-                <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-                    <div>
-                        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-orange-500">
-                            Explore
-                        </p>
 
-                        <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Shop by Collection
-                        </h2>
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-500">
+                        Explore
+                    </p>
 
-                        <p className="mt-4 max-w-xl text-gray-500">
-                            Discover thoughtfully selected toys made
-                            for different interests, ages and moments
-                            of play.
-                        </p>
+                    <div className="flex items-center gap-6">
+                        <button
+                            type="button"
+                            onClick={() => setIsFilterOpen(true)}
+                            className="group inline-flex items-center gap-2 font-semibold text-gray-800 transition hover:text-orange-500"
+                        >
+                            <SlidersHorizontal
+                                size={18}
+                                className="transition group-hover:rotate-12"
+                            />
+                            Filter
+                        </button>
+
+
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setSearchParams({});
+                                setIsFilterOpen(false);
+                            }}
+                            className="group inline-flex items-center gap-2 font-semibold text-gray-800 transition hover:text-orange-500"
+                        >
+                            View all
+                            <ArrowUpRight
+                                size={18}
+                                className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
+                            />
+                        </button>
+
                     </div>
-
-                    <Link
-                        to="/collection"
-                        className="group inline-flex items-center gap-2 font-semibold text-gray-800 hover:text-orange-500"
-                    >
-                        View all
-                        <ArrowUpRight
-                            size={18}
-                            className="transition group-hover:translate-x-1 group-hover:-translate-y-1"
-                        />
-                    </Link>
                 </div>
 
+                <div className="mt-3">
+                    <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                        Shop by Collection
+                    </h2>
+
+                    <p className="mt-4 max-w-xl text-gray-500">
+                        Discover thoughtfully selected toys made for different interests, ages
+                        and moments of play.
+                    </p>
+                </div>
                 {/* Categories */}
                 {loadingCategories && (
                     <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -248,75 +328,176 @@ const Collection = () => {
                     </div>
                 )}
 
-                {/* Product Filters */}
-                <div className="mt-20 rounded-3xl border border-gray-200 bg-gray-50 p-6">
-                    <div className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr]">
-                        <div>
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                                Category filter
-                            </label>
-                            <select
-                                value={selectedCategory}
-                                onChange={handleCategorySelect}
-                                className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700"
+
+                {/* Filter Drawer */}
+                <AnimatePresence>
+                    {isFilterOpen && (
+                        <>
+                            {/* Overlay */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsFilterOpen(false)}
+                                className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+                            />
+
+                            {/* Right Drawer */}
+                            <motion.aside
+                                initial={{ x: "100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "100%" }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 300,
+                                    damping: 30,
+                                }}
+                                className="fixed right-0 top-0 z-50 flex h-screen w-full max-w-md flex-col bg-white shadow-2xl"
                             >
-                                <option value="">All categories</option>
-                                {categories.map((category) => (
-                                    <option key={category._id} value={category._id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                                {/* Header */}
+                                <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">
+                                    <div>
+                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-500">
+                                            Refine
+                                        </p>
 
-                        <div>
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                                Min price
-                            </label>
-                            <input
-                                type="number"
-                                name="minPrice"
-                                value={minPrice}
-                                onChange={handleFilterChange}
-                                placeholder="₹0"
-                                className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700"
-                            />
-                        </div>
+                                        <h3 className="mt-1 text-2xl font-bold text-gray-900">
+                                            Filters
+                                        </h3>
+                                    </div>
 
-                        <div>
-                            <label className="mb-2 block text-sm font-semibold text-gray-700">
-                                Max price
-                            </label>
-                            <input
-                                type="number"
-                                name="maxPrice"
-                                value={maxPrice}
-                                onChange={handleFilterChange}
-                                placeholder="₹9999"
-                                className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700"
-                            />
-                        </div>
-                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsFilterOpen(false)}
+                                        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition hover:bg-gray-900 hover:text-white"
+                                    >
+                                        <X size={20} />
+                                    </button>
+                                </div>
 
-                    <div className="mt-6 lg:mt-8">
-                        <label className="mb-2 block text-sm font-semibold text-gray-700">
-                            Sort by
-                        </label>
-                        <select
-                            name="sort"
-                            value={sort}
-                            onChange={handleFilterChange}
-                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3 text-gray-700"
-                        >
-                            <option value="-createdAt">Newest</option>
-                            <option value="createdAt">Oldest</option>
-                            <option value="-price">Price: High to Low</option>
-                            <option value="price">Price: Low to High</option>
-                            <option value="-name">Name: Z to A</option>
-                            <option value="name">Name: A to Z</option>
-                        </select>
-                    </div>
-                </div>
+                                {/* Content */}
+                                <div className="flex-1 overflow-y-auto px-6 py-6">
+
+                                    {/* Category */}
+                                    <div>
+                                        <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                            Category
+                                        </label>
+
+                                        <select
+                                            name="category"
+                                            value={draftFilters.category}
+                                            onChange={handleDraftFilterChange}
+                                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3.5 text-gray-700 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                                        >
+                                            <option value="">All categories</option>
+
+                                            {categories.map((category) => (
+                                                <option
+                                                    key={category._id}
+                                                    value={category._id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Price */}
+                                    <div className="mt-7">
+                                        <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                            Price Range
+                                        </label>
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <input
+                                                type="number"
+                                                name="minPrice"
+                                                value={draftFilters.minPrice}
+                                                onChange={handleDraftFilterChange}
+                                                placeholder="₹0"
+                                                min="0"
+                                                className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3.5 text-gray-700 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                                            />
+
+                                            <input
+                                                type="number"
+                                                name="maxPrice"
+                                                value={draftFilters.maxPrice}
+                                                onChange={handleDraftFilterChange}
+                                                placeholder="₹9999"
+                                                min="0"
+                                                className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3.5 text-gray-700 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Sort */}
+                                    <div className="mt-7">
+                                        <label className="mb-2 block text-sm font-semibold text-gray-700">
+                                            Sort by
+                                        </label>
+
+                                        <select
+                                            name="sort"
+                                            value={draftFilters.sort}
+                                            onChange={handleDraftFilterChange}
+                                            className="w-full rounded-2xl border border-gray-300 bg-white px-4 py-3.5 text-gray-700 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                                        >
+                                            <option value="-createdAt">
+                                                Newest
+                                            </option>
+
+                                            <option value="createdAt">
+                                                Oldest
+                                            </option>
+
+                                            <option value="-price">
+                                                Price: High to Low
+                                            </option>
+
+                                            <option value="price">
+                                                Price: Low to High
+                                            </option>
+
+                                            <option value="-name">
+                                                Name: Z to A
+                                            </option>
+
+                                            <option value="name">
+                                                Name: A to Z
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {/* Footer */}
+                                <div className="border-t border-gray-100 bg-white p-6">
+                                    <div className="flex gap-3">
+
+                                        <button
+                                            type="button"
+                                            onClick={handleClearFilters}
+                                            className="flex-1 rounded-2xl border border-gray-300 px-5 py-3.5 font-semibold text-gray-700 transition hover:border-gray-900 hover:text-gray-900"
+                                        >
+                                            Clear
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={handleApplyFilters}
+                                            className="flex-1 rounded-2xl bg-gray-900 px-5 py-3.5 font-semibold text-white transition hover:bg-orange-500"
+                                        >
+                                            Apply Filters
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </motion.aside>
+                        </>
+                    )}
+                </AnimatePresence>
+
 
                 {/* Products */}
                 <div className="mt-16">
