@@ -1,17 +1,18 @@
 const buildOrderItemsSnapshot = (validatedItems) => {
-  return validatedItems.map(({ product, quantity }) => ({
-    product: product._id,
+  return validatedItems.map(({ product, quantity }) => {
+    const sellingPrice =
+      product.discountPrice > 0
+        ? product.discountPrice
+        : product.price;
 
-    name: product.name,
-
-    image: product.images?.[0]?.url || "",
-
-    quantity,
-
-    price: product.price,
-
-    discountPrice: product.discountPrice,
-  }));
+    return {
+      product: product._id,
+      name: product.name,
+      image: product.images?.[0]?.url || "",
+      quantity,
+      price: sellingPrice,
+    };
+  });
 };
 
 export default buildOrderItemsSnapshot;

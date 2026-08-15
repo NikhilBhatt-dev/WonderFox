@@ -6,11 +6,11 @@ const calculateOrderTotal = (
   orderItems,
   { shippingPrice, taxPrice = DEFAULT_TAX } = {},
 ) => {
-  const itemsPrice = orderItems.reduce((total, item) => {
-    const itemPrice = item.discountPrice > 0 ? item.discountPrice : item.price;
+  
 
-    return total + itemPrice * item.quantity;
-  }, 0);
+  const itemsPrice = orderItems.reduce((total, item) => {
+  return total + item.price * item.quantity;
+}, 0);
 
   const finalShippingPrice =
     shippingPrice ??
