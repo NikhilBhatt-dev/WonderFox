@@ -4,7 +4,6 @@ import {
     Heart,
     ShoppingCart,
     Zap,
-    Star,
     ShieldCheck,
     Truck,
 } from "lucide-react";
@@ -13,6 +12,7 @@ import toast from "react-hot-toast";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import QuantitySelector from "./QuantitySelector";
+import RatingStars from "../common/RatingStars";
 
 import useCart from "../../hooks/useCart";
 
@@ -103,23 +103,11 @@ const ProductInfo = ({ product }) => {
 
                 <div className="mt-4 flex items-center gap-2">
 
-                    <div className="flex text-yellow-400">
-
-                        {[...Array(5)].map((_, index) => (
-
-                            <Star
-                                key={index}
-                                size={18}
-                                fill="currentColor"
-                            />
-
-                        ))}
-
-                    </div>
+                    <RatingStars rating={product.rating} size={18} />
 
                     <span className="text-body">
 
-                        ({product.numReviews || 0} Reviews)
+                        {Number(product.rating || 0).toFixed(1)} ({product.numReviews || 0} Reviews)
 
                     </span>
 

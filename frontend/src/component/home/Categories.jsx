@@ -12,7 +12,7 @@ import { getCategories } from "../../services/category.service";
 
 const Categories = () => {
 
-    console.log("🔥 CATEGORIES COMPONENT IS RUNNING");
+   
 
     const [categories, setCategories] = useState([]);
 

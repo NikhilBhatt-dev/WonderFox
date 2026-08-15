@@ -1,7 +1,8 @@
-import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import { Eye, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import toyPlaceholder from "../../assets/image/toy-1.avif";
+import RatingStars from "./RatingStars";
 
 const ProductCard = ({ product }) => {
     return (
@@ -63,17 +64,10 @@ const ProductCard = ({ product }) => {
 
                 <div className="mt-5 flex h-6 shrink-0 items-center gap-1">
 
-                    {[...Array(5)].map((_, index) => (
-                        <Star
-                            key={index}
-                            size={16}
-                            fill="#F59E0B"
-                            stroke="#F59E0B"
-                        />
-                    ))}
+                    <RatingStars rating={product.rating} />
 
                     <span className="ml-2 text-sm text-gray-500">
-                        ({product.rating || 0})
+                        {Number(product.rating || 0).toFixed(1)} ({product.numReviews || 0})
                     </span>
 
                 </div>

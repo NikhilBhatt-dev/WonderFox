@@ -13,3 +13,13 @@ export const getProduct = async (id) => {
 
     return data.data.product;
 };
+
+export const getProductReviews = async (id) => {
+    const { data } = await api.get(`/products/${id}/reviews`);
+    return data.data.reviews;
+};
+
+export const saveProductReview = async (id, review) => {
+    const { data } = await api.post(`/products/${id}/reviews`, review);
+    return data.data;
+};

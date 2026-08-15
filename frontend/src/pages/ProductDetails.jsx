@@ -108,6 +108,7 @@ const ProductDetails = () => {
 
         <ProductTabs
           product={product}
+          onProductUpdated={setProduct}
         />
 
         <RelatedProducts
