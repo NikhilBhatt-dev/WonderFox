@@ -17,6 +17,8 @@ import EditCategory from "./pages/categories/EditCategory";
 import Orders from "./pages/orders/Order";
 
 import OrderDetails from "./pages/orders/OrderDetails";
+import Users from "./pages/users/Users";
+import UserDetails from "./pages/users/UserDetails";
 
 const App = () => {
   return (
@@ -111,6 +113,24 @@ const App = () => {
           element={
             <ProtectedRoute>
               <OrderDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
             </ProtectedRoute>
           }
         />

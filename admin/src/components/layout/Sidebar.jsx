@@ -3,6 +3,7 @@ import {
     Package,
     Tags,
     ShoppingCart,
+    UsersRound,
     LogOut,
 } from "lucide-react";
 
@@ -41,6 +42,11 @@ const Sidebar = () => {
             name: "Orders",
             icon: ShoppingCart,
             path: "/orders",
+        },
+        {
+            name: "Users",
+            icon: UsersRound,
+            path: "/users",
         },
     ];
 
