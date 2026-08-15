@@ -54,15 +54,15 @@ const Login = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+        <div className="flex min-h-screen items-center justify-center bg-[#F7F7F5] px-4">
+            <div className="admin-card w-full max-w-md p-8">
 
                 <div className="mb-8 text-center">
-                    <h1 className="text-3xl font-bold text-blue-600">
-                        WonderFox
+                    <h1 className="text-3xl font-bold text-[#26364A]">
+                        <span className="text-[#FF6B00]">Wonder</span>Fox
                     </h1>
 
-                    <p className="mt-2 text-gray-500">
+                    <p className="mt-2 text-[#6B7280]">
                         Admin Panel Login
                     </p>
                 </div>
@@ -98,7 +98,7 @@ const Login = () => {
 
                         <button
                             type="button"
-                            className="text-blue-600 hover:underline"
+                            className="text-[#334E68] hover:text-[#263B50] hover:underline"
                         >
                             Forgot Password?
                         </button>

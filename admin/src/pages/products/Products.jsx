@@ -79,7 +79,7 @@ const Products = () => {
 
                 <Link
                     to="/products/add"
-                    className="rounded-lg bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+                    className="admin-primary-button px-5 py-2"
                 >
                     + Add Product
                 </Link>
@@ -89,11 +89,11 @@ const Products = () => {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="overflow-hidden rounded-xl bg-white shadow">
+                <div className="admin-table-wrap">
 
                     <table className="min-w-full">
 
-                        <thead className="bg-gray-100">
+                        <thead>
 
                             <tr>
 

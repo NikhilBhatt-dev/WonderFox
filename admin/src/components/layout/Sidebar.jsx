@@ -51,12 +51,13 @@ const Sidebar = () => {
     ];
 
     return (
-        <aside className="flex h-screen w-64 flex-col border-r bg-white">
+        <aside className="flex h-screen w-64 flex-col border-r border-[#34495E] bg-[#26364A] text-slate-100">
 
-            <div className="border-b p-6">
+            <div className="border-b border-[#34495E] p-6">
 
-                <h1 className="text-2xl font-bold text-blue-600">
+                <h1 className="text-2xl font-bold text-white">
                     WonderFox
+                    <span className="ml-2 inline-block h-2 w-2 rounded-full bg-[#FF6B00]" />
                 </h1>
 
             </div>
@@ -70,8 +71,8 @@ const Sidebar = () => {
                         to={path}
                         className={({ isActive }) =>
                             `mb-2 flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                ? "bg-blue-600 text-white"
-                                : "text-gray-700 hover:bg-gray-100"
+                                ? "border-l-2 border-[#FF6B00] bg-[#3B5068] text-white"
+                                : "border-l-2 border-transparent text-slate-200 hover:bg-[#34495E] hover:text-white"
                             }`
                         }
                     >
@@ -83,7 +84,7 @@ const Sidebar = () => {
 
                 <button
                     onClick={handleLogout}
-                    className="mt-auto flex items-center gap-3 rounded-lg px-4 py-3 text-red-600 transition hover:bg-red-50"
+                    className="mt-auto flex items-center gap-3 rounded-lg px-4 py-3 text-slate-200 transition hover:bg-[#34495E] hover:text-white"
                 >
                     <LogOut size={20} />
                     <span>Logout</span>

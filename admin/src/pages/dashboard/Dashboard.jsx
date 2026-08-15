@@ -42,7 +42,7 @@ const Dashboard = () => {
 
         <AdminLayout>
 
-            <h1 className="mb-6 text-3xl font-bold">
+            <h1 className="mb-6 text-3xl font-bold text-[#1F2937]">
                 Dashboard
             </h1>
 
@@ -79,15 +79,15 @@ const Dashboard = () => {
 
                 {/* Recent Products */}
 
-                <div className="rounded-xl bg-white p-6 shadow">
+                <div className="admin-card p-6">
 
-                    <h2 className="mb-4 text-xl font-bold">
+                    <h2 className="mb-4 text-xl font-bold text-[#1F2937]">
                         Recent Products
                     </h2>
 
                     {stats.recentProducts.length === 0 ? (
 
-                        <p className="text-gray-500">
+                        <p className="text-[#6B7280]">
                             No products found.
                         </p>
 
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
                                         ) : (
 
-                                            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gray-100 text-xs text-gray-500">
+                                            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#F7F7F5] text-xs text-[#6B7280]">
                                                 No Image
                                             </div>
 
@@ -126,7 +126,7 @@ const Dashboard = () => {
                                                 {product.name}
                                             </h3>
 
-                                            <p className="text-sm text-gray-500">
+                                            <p className="text-sm text-[#6B7280]">
                                                 Stock : {product.stock}
                                             </p>
 
@@ -134,7 +134,7 @@ const Dashboard = () => {
 
                                     </div>
 
-                                    <p className="font-bold text-blue-600">
+                                    <p className="font-bold text-[#334E68]">
                                         ₹{product.price}
                                     </p>
 
@@ -150,15 +150,15 @@ const Dashboard = () => {
 
                 {/* Low Stock Products */}
 
-                <div className="rounded-xl bg-white p-6 shadow">
+                <div className="admin-card p-6">
 
-                    <h2 className="mb-4 text-xl font-bold text-red-600">
+                    <h2 className="mb-4 text-xl font-bold text-[#D9534F]">
                         ⚠ Low Stock Products
                     </h2>
 
                     {stats.lowStockProducts.length === 0 ? (
 
-                        <p className="text-gray-500">
+                        <p className="text-[#6B7280]">
                             No low stock products.
                         </p>
 
@@ -185,7 +185,7 @@ const Dashboard = () => {
 
                                         ) : (
 
-                                            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gray-100 text-xs text-gray-500">
+                                            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#F7F7F5] text-xs text-[#6B7280]">
                                                 No Image
                                             </div>
 
@@ -197,7 +197,7 @@ const Dashboard = () => {
                                                 {product.name}
                                             </h3>
 
-                                            <p className="text-sm text-red-500">
+                                            <p className="text-sm text-[#D9534F]">
                                                 Only {product.stock} left
                                             </p>
 
@@ -205,7 +205,7 @@ const Dashboard = () => {
 
                                     </div>
 
-                                    <span className="rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-600">
+                                    <span className="rounded-full bg-[#FDECEC] px-3 py-1 text-sm font-semibold text-[#D9534F]">
                                         Low Stock
                                     </span>
 

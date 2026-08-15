@@ -1,1 +1,72 @@
 @import "tailwindcss";
+
+:root {
+  color: #1F2937;
+  background: #F7F7F5;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #F7F7F5;
+  color: #1F2937;
+}
+
+.admin-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(31 41 55 / 0.04);
+}
+
+.admin-table-wrap {
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(31 41 55 / 0.04);
+}
+
+.admin-table-wrap thead {
+  background: #F9FAFB;
+  color: #6B7280;
+}
+
+.admin-table-wrap th {
+  font-weight: 600;
+}
+
+.admin-table-wrap tr {
+  border-color: #E5E7EB;
+}
+
+.admin-table-wrap tbody tr:hover {
+  background: #F9FAFB;
+}
+
+.admin-primary-button {
+  border-radius: 8px;
+  background: #334E68;
+  color: #FFFFFF;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.admin-primary-button:hover {
+  background: #263B50;
+}
+
+.admin-primary-button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #FF6B00;
+  outline-offset: 2px;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  border-color: #E5E7EB;
+  background: #FFFFFF;
+}

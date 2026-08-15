@@ -12,7 +12,7 @@ const ProductForm = ({
     return (
         <form
             onSubmit={onSubmit}
-            className="space-y-5"
+            className="space-y-5 text-[#1F2937]"
         >
 
             <div>
@@ -185,7 +185,7 @@ const ProductForm = ({
             <button
                 type="submit"
                 disabled={loading}
-                className="rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700 disabled:opacity-50"
+                className="admin-primary-button px-6 py-3 disabled:opacity-50"
             >
                 {loading ? "Saving..." : submitText}
             </button>

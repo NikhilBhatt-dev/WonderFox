@@ -129,7 +129,7 @@ const EditProduct = () => {
 
         <AdminLayout>
 
-            <div className="mx-auto max-w-3xl rounded-xl bg-white p-8 shadow">
+            <div className="admin-card mx-auto max-w-3xl p-8">
 
                 <h1 className="mb-8 text-3xl font-bold">
                     Edit Product

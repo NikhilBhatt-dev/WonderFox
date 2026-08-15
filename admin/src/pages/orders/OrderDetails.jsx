@@ -101,7 +101,7 @@ const OrderDetails = () => {
 
             {/* Customer Information */}
 
-            <div className="rounded-xl bg-white p-6 shadow">
+            <div className="admin-card p-6">
 
                 <h2 className="mb-4 text-xl font-semibold">
                     Customer Information
@@ -123,7 +123,7 @@ const OrderDetails = () => {
 
             {/* Shipping Address */}
 
-            <div className="mt-6 rounded-xl bg-white p-6 shadow">
+            <div className="admin-card mt-6 p-6">
 
                 <h2 className="mb-4 text-xl font-semibold">
                     Shipping Address
@@ -181,7 +181,7 @@ const OrderDetails = () => {
 
             {/* Ordered Products */}
 
-            <div className="mt-6 rounded-xl bg-white p-6 shadow">
+            <div className="admin-card mt-6 p-6">
 
                 <h2 className="mb-4 text-xl font-semibold">
                     Ordered Products
@@ -247,7 +247,7 @@ const OrderDetails = () => {
 
             {/* Payment & Summary */}
 
-            <div className="mt-6 rounded-xl bg-white p-6 shadow">
+            <div className="admin-card mt-6 p-6">
 
                 <h2 className="mb-4 text-xl font-semibold">
                     Payment Details
@@ -353,7 +353,7 @@ const OrderDetails = () => {
 
                         <button
                             onClick={handleStatusUpdate}
-                            className="rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+                            className="admin-primary-button px-6 py-3"
                         >
                             Update Status
                         </button>

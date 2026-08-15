@@ -3,7 +3,7 @@ import Navbar from "../components/layout/Navbar";
 
 const AdminLayout = ({ children }) => {
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex min-h-screen bg-[#F7F7F5] text-[#1F2937]">
 
             <Sidebar />
 

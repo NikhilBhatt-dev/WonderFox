@@ -45,11 +45,11 @@ const Orders = () => {
 
             </div>
 
-            <div className="overflow-hidden rounded-xl bg-white shadow">
+            <div className="admin-table-wrap">
 
                 <table className="min-w-full">
 
-                    <thead className="bg-gray-100">
+                    <thead>
 
                         <tr>
 
@@ -131,10 +131,10 @@ const Orders = () => {
 
                                         <span
                                             className={`rounded-full px-3 py-1 text-xs font-medium ${order.orderStatus === "DELIVERED"
-                                                ? "bg-green-100 text-green-700"
+                                                ? "bg-[#EAF5EF] text-[#3F8F6B]"
                                                 : order.orderStatus === "CANCELLED"
-                                                    ? "bg-red-100 text-red-700"
-                                                    : "bg-yellow-100 text-yellow-700"
+                                                    ? "bg-[#FDECEC] text-[#D9534F]"
+                                                    : "bg-[#FFF6E5] text-[#D99A2B]"
                                                 }`}
                                         >
                                             {order.orderStatus}

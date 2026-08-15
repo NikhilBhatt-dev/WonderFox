@@ -9,7 +9,7 @@ const Button = ({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="admin-primary-button w-full px-4 py-2 font-medium disabled:cursor-not-allowed disabled:opacity-50"
         >
             {children}
         </button>

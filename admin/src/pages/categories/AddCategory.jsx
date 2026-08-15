@@ -170,7 +170,7 @@ const AddCategory = () => {
 
         <AdminLayout>
 
-            <div className="mx-auto max-w-2xl rounded-xl bg-white p-8 shadow">
+            <div className="admin-card mx-auto max-w-2xl p-8">
 
                 <h1 className="mb-8 text-3xl font-bold">
                     Add Category
@@ -230,7 +230,7 @@ const AddCategory = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="rounded-lg bg-blue-600 px-6 py-3 text-white disabled:opacity-60"
+                        className="admin-primary-button px-6 py-3 disabled:opacity-60"
                     >
 
                         {loading
