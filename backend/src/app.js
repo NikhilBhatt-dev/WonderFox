@@ -14,6 +14,7 @@ import uploadRoutes from "./routes/upload.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import blogRoutes from "./routes/blog.routes.js";
+import newsletterRoutes from "./routes/newsletter.routes.js";
 
 const app = express();
 
@@ -62,6 +63,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api/newsletter", newsletterRoutes);
 
 
 /* =========================

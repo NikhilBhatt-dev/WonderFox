@@ -1,8 +1,54 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
+
+import api from "../../api/axios";
 import Container from "../common/Container";
 
 const Newsletter = () => {
-    const handleSubmit = (event) => {
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const trimmedEmail = email.trim();
+
+        if (!trimmedEmail) {
+            setMessage("Please enter your email address.");
+            return toast.error("Please enter your email address.");
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(trimmedEmail)) {
+            setMessage("Please enter a valid email address.");
+            return toast.error("Please enter a valid email address.");
+        }
+
+        try {
+            setLoading(true);
+            setMessage("");
+
+            const response = await api.post("/newsletter/subscribe", { email: trimmedEmail });
+
+            setEmail("");
+            setMessage(response.data?.message || "Successfully subscribed.");
+            toast.success(response.data?.message || "Successfully subscribed.");
+        } catch (error) {
+            const backendMessage = error.response?.data?.message || "Something went wrong.";
+
+            if (backendMessage === "Already subscribed") {
+                setMessage("Already subscribed");
+                toast.error("Already subscribed");
+                return;
+            }
+
+            setMessage(backendMessage);
+            toast.error(backendMessage);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -74,18 +120,26 @@ const Newsletter = () => {
 
                         <input
                             type="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
                             placeholder="Your email address"
                             className="w-full flex-1 rounded-2xl bg-white px-6 py-5 text-lg outline-none placeholder:text-gray-400"
+                            disabled={loading}
                         />
 
                         <button
                             type="submit"
-                            className="rounded-2xl bg-[#40352f] px-10 py-5 text-lg font-bold text-white transition hover:bg-black"
+                            disabled={loading}
+                            className="rounded-2xl bg-[#40352f] px-10 py-5 text-lg font-bold text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-75"
                         >
-                            Subscribe
+                            {loading ? "Subscribing..." : "Subscribe"}
                         </button>
 
                     </form>
+
+                    {message && (
+                        <p className="mt-4 text-sm font-medium text-white/90">{message}</p>
+                    )}
 
                 </div>
             </div>

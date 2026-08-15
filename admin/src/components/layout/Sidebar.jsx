@@ -5,6 +5,7 @@ import {
     ShoppingCart,
     UsersRound,
     NotebookPen,
+    Mail,
     LogOut,
 } from "lucide-react";
 
@@ -43,6 +44,11 @@ const Sidebar = () => {
             name: "Blogs",
             icon: NotebookPen,
             path: "/blogs",
+        },
+        {
+            name: "Newsletter",
+            icon: Mail,
+            path: "/newsletter",
         },
         {
             name: "Orders",

@@ -22,6 +22,7 @@ import UserDetails from "./pages/users/UserDetails";
 import Blogs from "./pages/blogs/Blogs";
 import AddBlog from "./pages/blogs/AddBlog";
 import EditBlog from "./pages/blogs/EditBlog";
+import NewsletterManagement from "./pages/newsletter/NewsletterManagement";
 
 const App = () => {
   return (
@@ -161,6 +162,15 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EditBlog />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/newsletter"
+          element={
+            <ProtectedRoute>
+              <NewsletterManagement />
             </ProtectedRoute>
           }
         />
