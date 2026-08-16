@@ -11,8 +11,15 @@ export const createRazorpayOrder = async () => {
 };
 
 export const verifyPayment = async (payload) => {
-  const { data } = await api.post("/orders/verify-payment", payload);
-  return data;
+  try {
+    console.log("🔍 Verify Payment Payload:", payload);
+    const { data } = await api.post("/orders/verify-payment", payload);
+    console.log("✅ Verify Payment Response:", data);
+    return data;
+  } catch (error) {
+    console.error("❌ Verify Payment Error:", error.response?.data || error.message);
+    throw error;
+  }
 };
 
 export const getMyOrders = async () => {

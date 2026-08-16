@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Container from "../component/common/Container";
 
 import { loginUser } from "../services/auth.service";
+import { addToCart } from "../services/cart.service";
 
 const Login = () => {
 
@@ -64,9 +65,29 @@ const Login = () => {
         JSON.stringify(response.data.user)
       );
 
+      const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+
+      if (Array.isArray(guestCart) && guestCart.length > 0) {
+        await Promise.all(
+          guestCart.map(async (item) => {
+            const productId = item.product?._id || item.productId;
+            if (!productId) return null;
+
+            return addToCart({
+              productId,
+              quantity: Number(item.quantity || 1),
+            });
+          }),
+        );
+
+        localStorage.removeItem("guestCart");
+        window.dispatchEvent(new CustomEvent("cart:updated"));
+      }
+
       toast.success(response.message);
 
-      navigate("/");
+      const redirectPath = new URLSearchParams(window.location.search).get("redirect") || "/";
+      navigate(redirectPath.startsWith("/") ? redirectPath : "/");
 
     } catch (error) {
 

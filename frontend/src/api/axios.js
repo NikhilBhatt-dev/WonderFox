@@ -1,4 +1,5 @@
 ﻿import axios from "axios";
+import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "https://e-mart-backend-i726.onrender.com/api",
@@ -26,6 +27,15 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+
+      if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
+        const redirect = encodeURIComponent(
+          `${window.location.pathname}${window.location.search}${window.location.hash}`,
+        );
+
+        toast.error("Please log in to continue.");
+        window.location.href = `/login?redirect=${redirect}`;
+      }
     }
 
     return Promise.reject(error);

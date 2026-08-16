@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     ShieldCheck,
     Truck,
     BadgePercent,
     ShoppingBag,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 import Card from "../ui/Card";
 import Button from "../ui/Button";
+import { buildLoginRedirectUrl } from "../../utils/authGuard";
 
 const CartSummary = ({ subtotal }) => {
+    const navigate = useNavigate();
 
     const shipping = 0;
 
@@ -18,6 +21,16 @@ const CartSummary = ({ subtotal }) => {
     const total = subtotal + shipping + tax;
 
     const isEmpty = subtotal <= 0;
+
+    const handleCheckout = () => {
+        if (!localStorage.getItem("token")) {
+            toast.error("Please log in to continue.");
+            navigate(buildLoginRedirectUrl("/checkout"));
+            return;
+        }
+
+        navigate("/checkout");
+    };
 
     return (
 
@@ -105,21 +118,15 @@ const CartSummary = ({ subtotal }) => {
 
             </div>
 
-            <Link
-                to="/checkout"
-                className="mt-8 block"
-            >
-
+            <div className="mt-8 block">
                 <Button
                     className="w-full"
                     disabled={isEmpty}
+                    onClick={handleCheckout}
                 >
-
                     Proceed to Checkout
-
                 </Button>
-
-            </Link>
+            </div>
 
             <div className="mt-8 space-y-4 text-sm">
 

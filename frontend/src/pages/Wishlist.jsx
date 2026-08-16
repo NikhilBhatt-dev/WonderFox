@@ -1,126 +1,182 @@
-import Container from "../component/common/Container";
-import products from "../data/Products";
+import { useEffect, useState } from "react";
 import { Heart, ShoppingBag, Eye, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+import Container from "../component/common/Container";
+import useCart from "../hooks/useCart";
+import { getWishlist, removeFromWishlist } from "../services/wishlist.service";
 
 const Wishlist = () => {
+    const navigate = useNavigate();
+    const { addItem } = useCart();
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const readGuestWishlist = () => {
+        try {
+            const saved = JSON.parse(localStorage.getItem("wishlist") || "[]");
+            return Array.isArray(saved) ? saved : [];
+        } catch {
+            return [];
+        }
+    };
+
+    const syncWishlist = async () => {
+        try {
+            setLoading(true);
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                const guestIds = readGuestWishlist();
+                setItems(guestIds.map((id) => ({ _id: id })));
+                return;
+            }
+
+            const response = await getWishlist();
+            const wishlistItems = response?.items || [];
+            const mapped = wishlistItems.map((entry) => entry.product || entry);
+            setItems(mapped);
+        } catch (error) {
+            console.error(error);
+            setItems([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        syncWishlist();
+
+        const handleWishlistSync = () => {
+            syncWishlist();
+        };
+
+        window.addEventListener("wishlist:updated", handleWishlistSync);
+        return () => window.removeEventListener("wishlist:updated", handleWishlistSync);
+    }, []);
+
+    const handleRemove = async (productId) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            const next = readGuestWishlist().filter((id) => id !== productId);
+            localStorage.setItem("wishlist", JSON.stringify(next));
+            window.dispatchEvent(new CustomEvent("wishlist:updated"));
+            setItems((prev) => prev.filter((item) => item._id !== productId));
+            toast.success("Removed from wishlist.");
+            return;
+        }
+
+        try {
+            await removeFromWishlist(productId);
+            toast.success("Removed from wishlist.");
+            await syncWishlist();
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Unable to remove from wishlist.");
+        }
+    };
+
+    const handleAddToCart = async (productId) => {
+        try {
+            await addItem(productId, 1);
+            toast.success("Product added to cart.");
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Please log in to add products to your cart.");
+        }
+    };
+
+    if (loading) {
+        return (
+            <section className="bg-[#FFF8F3] py-20">
+                <Container>
+                    <div className="flex h-64 items-center justify-center">
+                        <h2 className="text-2xl font-semibold text-gray-800">Loading Wishlist...</h2>
+                    </div>
+                </Container>
+            </section>
+        );
+    }
+
     return (
         <section className="bg-[#FFF8F3] py-20">
-
             <Container>
-
-                {/* Heading */}
-
                 <div className="mb-14 text-center">
-
                     <span className="rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold text-orange-500">
                         MY Favorites
                     </span>
-
-                    <h1 className="mt-5 text-5xl font-black text-gray-900">
-                        My Wishlist
-                    </h1>
-
+                    <h1 className="mt-5 text-5xl font-black text-gray-900">My Wishlist</h1>
                     <p className="mt-4 text-lg text-gray-500">
                         Save your favorite toys and buy them anytime.
                     </p>
-
                 </div>
 
-                {/* Products */}
-
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
-                    {products.map((product) => (
-
-                        <div
-                            key={product.id}
-                            className="group overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                {items.length === 0 ? (
+                    <div className="rounded-3xl border border-dashed border-orange-200 bg-white p-10 text-center">
+                        <h3 className="text-2xl font-bold text-gray-800">Your wishlist is empty.</h3>
+                        <p className="mt-3 text-gray-500">Add products you love to save them here.</p>
+                        <button
+                            onClick={() => navigate("/collection")}
+                            className="mt-6 rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
                         >
-
-                            {/* Image */}
-
-                            <div className="relative overflow-hidden bg-[#FFF8F3]">
-
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="h-72 w-full object-contain p-8 transition duration-500 group-hover:scale-110"
-                                />
-
-                                {/* Wishlist */}
-
-                                <button className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md">
-
-                                    <Heart
-                                        size={20}
-                                        fill="#FF7A45"
-                                        className="text-[#FF7A45]"
+                            Continue Shopping
+                        </button>
+                    </div>
+                ) : (
+                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        {items.map((product) => (
+                            <div key={product._id} className="group overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                                <div className="relative overflow-hidden bg-[#FFF8F3]">
+                                    <img
+                                        src={product.images?.[0]?.url || product.image || "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80"}
+                                        alt={product.name}
+                                        className="h-72 w-full object-contain p-8 transition duration-500 group-hover:scale-110"
                                     />
 
-                                </button>
-
-                            </div>
-
-                            {/* Content */}
-
-                            <div className="p-6">
-
-                                <div className="mb-3 flex items-center gap-1 text-yellow-400">
-
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star
-                                            key={i}
-                                            size={16}
-                                            fill="currentColor"
-                                        />
-                                    ))}
-
-                                    <span className="ml-2 text-sm text-gray-500">
-                                        (4.9)
-                                    </span>
-
-                                </div>
-
-                                <h3 className="text-2xl font-bold text-gray-900">
-                                    {product.name}
-                                </h3>
-
-                                <p className="mt-2 text-xl font-bold text-orange-500">
-                                    ₹{product.price}
-                                </p>
-
-                                <div className="mt-6 flex gap-3">
-
-                                    <button className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600">
-
-                                        <ShoppingBag size={18} />
-
-                                        Add to Cart
-
-                                    </button>
-
-                                    <Link
-                                        to={`/product/${product.id}`}
-                                        className="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200 transition hover:bg-gray-100"
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemove(product._id)}
+                                        className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md"
+                                        aria-label="Remove from wishlist"
                                     >
-
-                                        <Eye size={20} />
-
-                                    </Link>
-
+                                        <Heart size={20} fill="#FF7A45" className="text-[#FF7A45]" />
+                                    </button>
                                 </div>
 
+                                <div className="p-6">
+                                    <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} size={16} fill="currentColor" />
+                                        ))}
+                                        <span className="ml-2 text-sm text-gray-500">(4.9)</span>
+                                    </div>
+
+                                    <h3 className="text-2xl font-bold text-gray-900">{product.name}</h3>
+                                    <p className="mt-2 text-xl font-bold text-orange-500">₹{product.price || product.discountPrice || 0}</p>
+
+                                    <div className="mt-6 flex gap-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleAddToCart(product._id)}
+                                            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
+                                        >
+                                            <ShoppingBag size={18} />
+                                            Add to Cart
+                                        </button>
+
+                                        <Link
+                                            to={`/product/${product._id}`}
+                                            className="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200 transition hover:bg-gray-100"
+                                        >
+                                            <Eye size={20} />
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-
-                    ))}
-
-                </div>
-
+                        ))}
+                    </div>
+                )}
             </Container>
-
         </section>
     );
 };

@@ -144,7 +144,7 @@ const BlogForm = ({
 
               try {
                 const response = await fetch(
-                  `${import.meta.env.VITE_API_BASE_URL || "https://e-mart-backend-i726.onrender.com/api"}/upload`,
+                  `${import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://e-mart-backend-i726.onrender.com/api")}/upload`,
                   {
                     method: "POST",
                     headers: {

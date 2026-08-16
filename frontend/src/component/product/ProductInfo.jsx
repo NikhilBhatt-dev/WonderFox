@@ -15,6 +15,7 @@ import QuantitySelector from "./QuantitySelector";
 import RatingStars from "../common/RatingStars";
 
 import useCart from "../../hooks/useCart";
+import { buildLoginRedirectUrl } from "../../utils/authGuard";
 
 const ProductInfo = ({ product }) => {
 
@@ -72,6 +73,12 @@ const ProductInfo = ({ product }) => {
     };
 
     const handleBuyNow = async () => {
+
+        if (!localStorage.getItem("token")) {
+            toast.error("Please log in to continue.");
+            navigate(buildLoginRedirectUrl());
+            return;
+        }
 
         await handleAddToCart();
 

@@ -1,7 +1,16 @@
 import axios from "axios";
 
+const getBaseURL = () => {
+  // Development: use localhost
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+  }
+  // Production: use deployed URL
+  return import.meta.env.VITE_API_BASE_URL || "https://e-mart-backend-i726.onrender.com/api";
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "https://e-mart-backend-i726.onrender.com/api"||"http://localhost:5174",
+  baseURL: getBaseURL(),
   headers: {
     "Content-Type": "application/json",
   },

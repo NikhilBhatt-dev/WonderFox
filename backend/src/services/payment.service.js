@@ -56,14 +56,28 @@ export const createRazorpayOrder = async (userId) => {
     quantity,
   }));
 
+  // const { totalPrice } = calculateOrderTotal(orderItems);
+
+  // // Create Razorpay Order
+  // const razorpayOrder = await razorpay.orders.create({
+  //   amount: totalPrice * 100, // Razorpay accepts amount in paise
+  //   currency: "INR",
+  //   receipt: generateReceipt(),
+  // });
   const { totalPrice } = calculateOrderTotal(orderItems);
 
-  // Create Razorpay Order
-  const razorpayOrder = await razorpay.orders.create({
-    amount: totalPrice * 100, // Razorpay accepts amount in paise
-    currency: "INR",
-    receipt: generateReceipt(),
-  });
+// GST 5%
+const gst = Math.round(totalPrice * 0.05);
+
+// Final amount including GST
+const finalTotal = totalPrice + gst;
+
+// Create Razorpay Order
+const razorpayOrder = await razorpay.orders.create({
+  amount: finalTotal * 100, // Razorpay accepts amount in paise
+  currency: "INR",
+  receipt: generateReceipt(),
+});
 
   if (!razorpayOrder) {
     throw new ApiError(500, "Failed to create Razorpay order.");
@@ -95,11 +109,14 @@ export const verifyPayment = async (userId, data) => {
     shippingAddress,
   } = data;
 
+  console.log("🔍 [verifyPayment] Received data:", { razorpayOrderId, razorpayPaymentId, razorpaySignature: "***", shippingAddress });
+
   if (
     !razorpayOrderId ||
     !razorpayPaymentId ||
     !razorpaySignature
   ) {
+    console.error("❌ [verifyPayment] Missing payment details");
     throw new ApiError(
       400,
       "Payment verification details are required."
@@ -107,6 +124,7 @@ export const verifyPayment = async (userId, data) => {
   }
 
   if (!shippingAddress) {
+    console.error("❌ [verifyPayment] Missing shipping address");
     throw new ApiError(
       400,
       "Shipping address is required."
@@ -120,7 +138,10 @@ export const verifyPayment = async (userId, data) => {
     razorpaySignature,
   });
 
+  console.log("🔐 [verifyPayment] Signature valid:", isSignatureValid);
+
  if (!isSignatureValid) {
+   console.error("❌ [verifyPayment] Invalid signature");
    throw new ApiError(400, "Invalid payment signature.");
  }
 
