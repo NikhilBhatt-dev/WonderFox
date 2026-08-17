@@ -5,23 +5,23 @@ const CategoryCard = ({ category }) => {
     return (
         <Link
             to={`/collection?category=${category._id}`}
-            className="group block cursor-pointer rounded-3xl bg-white p-5 shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+            className="group block min-w-0 cursor-pointer rounded-3xl bg-white p-3 shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-5"
         >
-            <div className="overflow-hidden rounded-2xl bg-[#FFF8F3] p-4">
+            <div className="overflow-hidden rounded-2xl bg-[#FFF8F3] p-2 sm:p-4">
 
                 <img
                     src={category.image}
                     alt={category.name}
-                    className="mx-auto h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+                    className="mx-auto aspect-square w-full object-cover transition duration-500 group-hover:scale-105 sm:h-48 sm:aspect-auto"
                 />
 
             </div>
 
-            <div className="mt-5 flex items-center justify-between">
+            <div className="mt-3 flex min-w-0 items-center justify-between gap-2 sm:mt-5">
 
-                <div>
+                <div className="min-w-0">
 
-                    <h3 className="text-xl font-semibold text-gray-800">
+                    <h3 className="break-words text-sm font-semibold text-gray-800 sm:text-xl">
                         {category.name}
                     </h3>
 
@@ -33,7 +33,7 @@ const CategoryCard = ({ category }) => {
 
                 </div>
 
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white transition duration-300 group-hover:bg-orange-500">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gray-900 text-white transition duration-300 group-hover:bg-orange-500 sm:h-10 sm:w-10">
 
                     <ArrowUpRight size={18} />
 

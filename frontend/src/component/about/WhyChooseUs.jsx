@@ -86,22 +86,22 @@ const WhyChooseUs = () => {
 
                         {/* RIGHT */}
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2">
 
                             {features.map((item) => (
                                 <div
                                     key={item.title}
-                                    className="rounded-3xl bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-8"
+                                    className="min-w-0 rounded-3xl bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-5 lg:p-8"
                                 >
-                                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100">
-                                        <item.icon className="text-[#FF7A45]" size={28} />
+                                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 sm:mb-6 sm:h-14 sm:w-14 sm:rounded-2xl">
+                                        <item.icon className="h-5 w-5 text-[#FF7A45] sm:h-7 sm:w-7" />
                                     </div>
 
-                                    <h3 className="text-2xl font-bold text-gray-900">
+                                    <h3 className="break-words text-base font-bold text-gray-900 sm:text-xl lg:text-2xl">
                                         {item.title}
                                     </h3>
 
-                                    <p className="mt-4 leading-7 text-gray-600">
+                                    <p className="mt-2 break-words text-sm leading-5 text-gray-600 sm:mt-4 sm:leading-7">
                                         {item.desc}
                                     </p>
 

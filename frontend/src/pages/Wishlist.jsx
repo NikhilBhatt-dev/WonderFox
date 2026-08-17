@@ -123,14 +123,14 @@ const Wishlist = () => {
                         </button>
                     </div>
                 ) : (
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                         {items.map((product) => (
                             <div key={product._id} className="group overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
                                 <div className="relative overflow-hidden bg-[#FFF8F3]">
                                     <img
                                         src={product.images?.[0]?.url || product.image || "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80"}
                                         alt={product.name}
-                                        className="h-72 w-full object-contain p-8 transition duration-500 group-hover:scale-110"
+                                        className="aspect-square w-full object-contain p-3 transition duration-500 group-hover:scale-110 sm:h-72 sm:aspect-auto sm:p-8"
                                     />
 
                                     <button
@@ -143,32 +143,32 @@ const Wishlist = () => {
                                     </button>
                                 </div>
 
-                                <div className="p-6">
-                                    <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                                <div className="p-3 sm:p-6">
+                                    <div className="mb-2 flex flex-wrap items-center gap-0.5 text-yellow-400 sm:mb-3 sm:gap-1">
                                         {[...Array(5)].map((_, i) => (
-                                            <Star key={i} size={16} fill="currentColor" />
+                                            <Star key={i} size={12} fill="currentColor" className="sm:h-4 sm:w-4" />
                                         ))}
-                                        <span className="ml-2 text-sm text-gray-500">(4.9)</span>
+                                        <span className="ml-1 text-[10px] text-gray-500 sm:ml-2 sm:text-sm">(4.9)</span>
                                     </div>
 
-                                    <h3 className="break-words text-xl font-bold text-gray-900 sm:text-2xl">{product.name}</h3>
+                                    <h3 className="line-clamp-2 break-words text-sm font-bold text-gray-900 sm:text-2xl">{product.name}</h3>
                                     <p className="mt-2 text-xl font-bold text-orange-500">₹{product.price || product.discountPrice || 0}</p>
 
-                                    <div className="mt-6 flex min-w-0 gap-3">
+                                    <div className="mt-3 flex min-w-0 flex-col gap-2 sm:mt-6 sm:flex-row sm:gap-3">
                                         <button
                                             type="button"
                                             onClick={() => handleAddToCart(product._id)}
-                                            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
+                                            className="flex w-full items-center justify-center gap-1 rounded-xl bg-orange-500 py-2 text-xs font-semibold text-white transition hover:bg-orange-600 sm:flex-1 sm:gap-2 sm:py-3 sm:text-base"
                                         >
                                             <ShoppingBag size={18} />
-                                            Add to Cart
+                                            <span className="sm:hidden">Add</span><span className="hidden sm:inline">Add to Cart</span>
                                         </button>
 
                                         <Link
                                             to={`/product/${product._id}`}
-                                            className="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200 transition hover:bg-gray-100"
+                                            className="flex h-9 w-full items-center justify-center gap-1 rounded-xl border border-gray-200 text-xs transition hover:bg-gray-100 sm:h-12 sm:w-12 sm:gap-0 sm:text-base"
                                         >
-                                            <Eye size={20} />
+                                            <Eye size={16} /><span className="sm:hidden">View</span>
                                         </Link>
                                     </div>
                                 </div>

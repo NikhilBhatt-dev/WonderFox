@@ -256,7 +256,7 @@ const Collection = () => {
                 </div>
                 {/* Categories */}
                 {loadingCategories && (
-                    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
                         {[1, 2, 3, 4].map((item) => (
                             <div
                                 key={item}
@@ -280,7 +280,7 @@ const Collection = () => {
                 )}
 
                 {!loadingCategories && !categoryError && categories.length > 0 && (
-                    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
                         {categories.map((category, index) => (
                             <motion.div
                                 key={category._id}
@@ -312,18 +312,18 @@ const Collection = () => {
                                         )}
                                     </div>
 
-                                    <div className="absolute inset-x-0 bottom-0 p-5">
-                                        <div className="flex items-center justify-between rounded-2xl bg-white/95 px-5 py-4 shadow-lg">
-                                            <div>
-                                                <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
+                                    <div className="absolute inset-x-0 bottom-0 p-2 sm:p-5">
+                                        <div className="flex min-w-0 items-center justify-between gap-2 rounded-2xl bg-white/95 px-3 py-2 shadow-lg sm:px-5 sm:py-4">
+                                            <div className="min-w-0">
+                                                <p className="hidden text-xs font-medium uppercase tracking-wider text-gray-400 sm:block">
                                                     Collection
                                                 </p>
-                                                <h3 className="mt-1 text-lg font-bold text-gray-900">
+                                                <h3 className="break-words text-sm font-bold text-gray-900 sm:mt-1 sm:text-lg">
                                                     {category.name}
                                                 </h3>
                                             </div>
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white transition group-hover:bg-orange-500">
-                                                <ArrowUpRight size={18} />
+                                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-white transition group-hover:bg-orange-500 sm:h-10 sm:w-10 sm:rounded-xl">
+                                                <ArrowUpRight size={14} className="sm:hidden" /><ArrowUpRight size={18} className="hidden sm:block" />
                                             </div>
                                         </div>
                                     </div>
@@ -526,7 +526,7 @@ const Collection = () => {
                     </div>
 
                     {loadingProducts && (
-                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                             {[1, 2, 3, 4, 5, 6].map((item) => (
                                 <div
                                     key={item}
@@ -608,7 +608,7 @@ const Collection = () => {
                                         },
                                     },
                                 }}
-                                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                                className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
                             >
                                 {products.map((product) => (
                                     <motion.div

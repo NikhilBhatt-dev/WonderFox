@@ -16,7 +16,7 @@ const BestSeller = () => {
                     subtitle="Our most loved toys by happy families."
                 />
 
-                <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
 
                     {bestSeller.map((product) => (
                         <ProductCard

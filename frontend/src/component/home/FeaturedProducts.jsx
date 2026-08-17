@@ -94,7 +94,7 @@ const FeaturedProducts = () => {
 
         {loading && (
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
 
             {[1, 2, 3, 4].map((item) => (
 
@@ -195,7 +195,7 @@ const FeaturedProducts = () => {
                   },
                 },
               }}
-              className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+              className="mt-14 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
             >
 
               {products.slice(0, 8).map((product) => (

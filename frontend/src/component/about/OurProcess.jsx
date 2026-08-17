@@ -50,26 +50,26 @@ const OurProcess = () => {
 
                 </div>
 
-                <div className="mt-12 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+                <div className="mt-12 grid grid-cols-2 gap-3 md:mt-20 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8">
 
                     {process.map((item, index) => (
                         <div
                             key={item.title}
-                            className="relative rounded-3xl bg-white p-5 shadow-sm transition hover:-translate-y-2 hover:shadow-xl sm:p-8"
+                            className="relative min-w-0 rounded-3xl bg-white p-3 shadow-sm transition hover:-translate-y-2 hover:shadow-xl sm:p-5 lg:p-8"
                         >
-                            <div className="absolute -top-5 left-8 h-10 w-10 rounded-full bg-[#FF7A45] text-white flex items-center justify-center font-bold">
+                            <div className="absolute -top-3 left-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#FF7A45] text-xs font-bold text-white sm:-top-5 sm:left-8 sm:h-10 sm:w-10 sm:text-base">
                                 {index + 1}
                             </div>
 
-                            <div className="mt-6 h-16 w-16 rounded-2xl bg-orange-100 flex items-center justify-center">
-                                <item.icon className="text-[#FF7A45]" size={30} />
+                            <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100 sm:mt-6 sm:h-16 sm:w-16 sm:rounded-2xl">
+                                <item.icon className="h-5 w-5 text-[#FF7A45] sm:h-7 sm:w-7" />
                             </div>
 
-                            <h3 className="mt-6 text-2xl font-bold">
+                            <h3 className="mt-3 break-words text-base font-bold sm:mt-6 sm:text-xl lg:text-2xl">
                                 {item.title}
                             </h3>
 
-                            <p className="mt-4 text-gray-600 leading-7">
+                            <p className="mt-2 break-words text-sm leading-5 text-gray-600 sm:mt-4 sm:leading-7">
                                 {item.desc}
                             </p>
 

@@ -16,14 +16,14 @@ const RelatedProducts = ({
 
     return (
 
-        <section className="mt-20">
+        <section className="mt-12 sm:mt-20">
 
             <SectionTitle
                 title="Related Products"
                 subtitle="You may also like these adorable toys."
             />
 
-            <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
 
                 {relatedProducts.map((product) => (
 

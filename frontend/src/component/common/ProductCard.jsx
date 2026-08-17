@@ -106,27 +106,27 @@ const ProductCard = ({ product }) => {
             {/* Featured Badge */}
 
             {product.isFeatured && (
-                <span className="absolute left-5 top-5 z-20 rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">
+                <span className="absolute left-3 top-3 z-20 rounded-full bg-orange-500 px-2 py-1 text-[10px] font-semibold text-white sm:left-5 sm:top-5 sm:px-3 sm:text-xs">
                     Featured
                 </span>
             )}
 
             {/* Right Icons */}
 
-            <div className="absolute right-5 top-5 z-20 flex flex-col gap-3">
+            <div className="absolute right-3 top-3 z-20 flex flex-col gap-2 sm:right-5 sm:top-5 sm:gap-3">
 
                 <button
                     type="button"
                     onClick={handleWishlistToggle}
                     aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full shadow transition-all duration-300 hover:scale-110 ${isWishlisted ? "bg-orange-500 text-white" : "bg-white text-gray-700 hover:bg-orange-500 hover:text-white"}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-full shadow transition-all duration-300 hover:scale-110 sm:h-10 sm:w-10 ${isWishlisted ? "bg-orange-500 text-white" : "bg-white text-gray-700 hover:bg-orange-500 hover:text-white"}`}
                 >
-                    <Heart size={18} fill={isWishlisted ? "currentColor" : "none"} />
+                    <Heart size={16} fill={isWishlisted ? "currentColor" : "none"} />
                 </button>
 
                 <Link
                     to={`/product/${product._id}`}
-                    className="flex h-10 w-10 translate-x-16 items-center justify-center rounded-full bg-white shadow opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 hover:bg-orange-500 hover:text-white"
+                    className="hidden h-10 w-10 translate-x-16 items-center justify-center rounded-full bg-white shadow opacity-0 transition-all duration-500 hover:bg-orange-500 hover:text-white sm:flex sm:group-hover:translate-x-0 sm:group-hover:opacity-100"
                 >
                     <Eye size={18} />
                 </Link>
@@ -143,7 +143,7 @@ const ProductCard = ({ product }) => {
 
                 {/* Product Image */}
 
-                <div className="flex aspect-square w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-[#FFF8F3] p-4 sm:h-64 sm:aspect-auto sm:p-5">
+                <div className="flex aspect-square w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-[#FFF8F3] p-2 sm:h-64 sm:aspect-auto sm:p-5">
 
                     <img
                         src={
@@ -159,11 +159,11 @@ const ProductCard = ({ product }) => {
 
                 {/* Rating */}
 
-                <div className="mt-5 flex min-w-0 flex-wrap items-center gap-1">
+                <div className="mt-3 flex min-w-0 flex-wrap items-center gap-0.5 sm:mt-5 sm:gap-1">
 
                     <RatingStars rating={product.rating} />
 
-                    <span className="text-sm text-gray-500 sm:ml-2">
+                    <span className="text-[10px] text-gray-500 sm:ml-2 sm:text-sm">
                         {Number(product.rating || 0).toFixed(1)} ({product.numReviews || 0})
                     </span>
 
@@ -172,21 +172,21 @@ const ProductCard = ({ product }) => {
 
                 {/* Product Name */}
 
-                <h3 className="mt-3 break-words text-lg font-semibold leading-6 text-gray-800 transition-colors duration-300 group-hover:text-orange-500 sm:min-h-[56px] sm:text-xl sm:leading-7">
+                <h3 className="mt-2 line-clamp-2 break-words text-sm font-semibold leading-5 text-gray-800 transition-colors duration-300 group-hover:text-orange-500 sm:mt-3 sm:min-h-[56px] sm:text-xl sm:leading-7">
                     {product.name}
                 </h3>
 
 
                 {/* Price */}
 
-                <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <div className="mt-2 flex flex-wrap items-baseline gap-x-1 gap-y-0.5 sm:mt-3 sm:gap-x-3 sm:gap-y-1">
 
-                    <span className="text-xl font-bold text-orange-500 sm:text-2xl">
+                    <span className="text-base font-bold text-orange-500 sm:text-2xl">
                         ₹{product.discountPrice || product.price}
                     </span>
 
                     {product.discountPrice > 0 && (
-                        <span className="text-sm text-gray-400 line-through">
+                        <span className="text-[10px] text-gray-400 line-through sm:text-sm">
                             ₹{product.price}
                         </span>
                     )}
@@ -201,10 +201,11 @@ const ProductCard = ({ product }) => {
             <button
                 type="button"
                 onClick={handleAddToCart}
-                className="mt-6 flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-orange-500 font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-orange-600"
+                className="mt-4 flex h-10 w-full shrink-0 items-center justify-center gap-1 rounded-xl bg-orange-500 text-xs font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-orange-600 sm:mt-6 sm:h-12 sm:gap-2 sm:rounded-2xl sm:text-base"
             >
 
-                <ShoppingCart size={20} />
+                <ShoppingCart size={16} className="sm:hidden" />
+                <ShoppingCart size={20} className="hidden sm:block" />
 
                 Add To Cart
 

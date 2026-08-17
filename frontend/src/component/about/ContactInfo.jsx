@@ -50,22 +50,22 @@ const ContactInfo = () => {
 
                 </div>
 
-                <div className="mt-10 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
 
                     {contactDetails.map((item) => (
                         <div
                             key={item.title}
-                            className="rounded-3xl border border-gray-100 bg-[#FAF5EC] p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-8"
+                            className="min-w-0 rounded-3xl border border-gray-100 bg-[#FAF5EC] p-3 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-5 lg:p-8"
                         >
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-                                <item.icon size={30} className="text-[#FF7A45]" />
+                            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 sm:h-16 sm:w-16">
+                                <item.icon className="h-5 w-5 text-[#FF7A45] sm:h-7 sm:w-7" />
                             </div>
 
-                            <h3 className="mt-6 text-xl font-bold text-gray-900">
+                            <h3 className="mt-3 break-words text-sm font-bold text-gray-900 sm:mt-6 sm:text-xl">
                                 {item.title}
                             </h3>
 
-                            <p className="mt-3 text-gray-600 leading-7">
+                            <p className="mt-2 break-words text-xs leading-5 text-gray-600 sm:mt-3 sm:text-base sm:leading-7">
                                 {item.value}
                             </p>
                         </div>

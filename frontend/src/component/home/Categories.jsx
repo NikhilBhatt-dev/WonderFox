@@ -108,7 +108,7 @@ const Categories = () => {
 
                 {loading && (
 
-                    <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+                    <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">
 
                         {[1, 2, 3, 4].map((item) => (
 
@@ -184,7 +184,7 @@ const Categories = () => {
                     !error &&
                     categories.length > 0 && (
 
-                        <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+                        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">
 
                             {categories.map((category, index) => (
 

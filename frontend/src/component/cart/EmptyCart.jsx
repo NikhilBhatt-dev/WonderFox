@@ -22,13 +22,12 @@ const EmptyCart = () => {
                 Looks like you haven't added any toys yet.
             </p>
 
-            <Link to="/products">
-
-                <Button className="mt-8">
-                    Continue Shopping
-                </Button>
-
-            </Link>
+            <Link to="/collection">
+    <Button className="mt-8">
+        Continue Shopping
+    </Button>
+</Link>
+            
 
         </div>
 

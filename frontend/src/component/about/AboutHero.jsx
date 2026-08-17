@@ -53,10 +53,10 @@ const AboutHero = () => {
 
                         {/* TRUST POINTS */}
 
-                        <div className="mt-10 grid grid-cols-2 gap-6 sm:mt-14 sm:flex sm:flex-wrap sm:gap-8">
+                        <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-14 sm:gap-6 md:grid-cols-3 md:gap-8">
 
                             <div>
-                                <h3 className="text-3xl font-bold text-gray-900">
+                                <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                                     Premium
                                 </h3>
 
@@ -66,7 +66,7 @@ const AboutHero = () => {
                             </div>
 
                             <div>
-                                <h3 className="text-3xl font-bold text-gray-900">
+                                <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                                     Child
                                 </h3>
 
@@ -76,7 +76,7 @@ const AboutHero = () => {
                             </div>
 
                             <div>
-                                <h3 className="text-3xl font-bold text-gray-900">
+                                <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                                     Fast
                                 </h3>
 
