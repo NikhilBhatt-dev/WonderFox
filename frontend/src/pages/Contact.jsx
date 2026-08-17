@@ -1,6 +1,47 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
 import Container from "../component/common/Container";
+import api from "../api/axios";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const subject = formData.subject.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !subject || !message) {
+      toast.error("Please complete all fields.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      setIsSending(true);
+      const response = await api.post("/contact", { name, email, subject, message });
+      toast.success(response.data?.message || "Your message has been sent successfully.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "We could not send your message. Please try again later.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <section className="bg-[#FFF8F3] py-10 sm:py-16">
 
@@ -67,37 +108,50 @@ const Contact = () => {
 
           {/* Contact Form */}
 
-          <form className="space-y-5 rounded-3xl bg-white p-5 shadow-lg sm:p-8">
+          <form onSubmit={handleSubmit} className="space-y-5 rounded-3xl bg-white p-5 shadow-lg sm:p-8">
 
             <input
               type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               placeholder="Your Name"
               className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
 
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Your Email"
               className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
 
             <input
               type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Subject"
               className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             />
 
             <textarea
               rows="5"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
               placeholder="Write your message..."
               className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
             ></textarea>
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
+              disabled={isSending}
+              className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Send Message
+              {isSending ? "Sending..." : "Send Message"}
             </button>
 
           </form>

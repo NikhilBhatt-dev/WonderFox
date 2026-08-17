@@ -8,7 +8,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
-const buildTransport = () => {
+export const createSmtpTransport = () => {
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM_EMAIL } = process.env;
 
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
@@ -25,6 +25,10 @@ const buildTransport = () => {
     },
   });
 };
+
+export const getSmtpFromEmail = () => (
+  process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER || "no-reply@example.com"
+);
 
 export const subscribeToNewsletter = async (email) => {
   const normalizedEmail = normalizeEmail(email);
@@ -114,8 +118,8 @@ export const sendNewsletterToSubscribers = async ({ subject, content, subscriber
     return new ApiResponse(200, { sent: 0, failed: 0 }, "No active subscribers available.");
   }
 
-  const transporter = buildTransport();
-  const fromEmail = process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER || "no-reply@example.com";
+  const transporter = createSmtpTransport();
+  const fromEmail = getSmtpFromEmail();
 
   let successCount = 0;
   let failedCount = 0;
