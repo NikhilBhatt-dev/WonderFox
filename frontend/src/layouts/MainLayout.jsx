@@ -9,7 +9,7 @@ const MainLayout = () => {
         <>
             <Navbar />
 
-            <main>
+            <main className="min-w-0 overflow-x-clip">
                 <Outlet />
             </main>
 

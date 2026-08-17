@@ -109,13 +109,13 @@ const Login = () => {
 
   return (
 
-    <section className="flex min-h-screen items-center bg-[#FFF8F3] py-16">
+    <section className="flex min-h-screen items-center bg-[#FFF8F3] py-8 sm:py-16">
 
       <Container>
 
-        <div className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-xl">
+        <div className="mx-auto max-w-md rounded-3xl bg-white p-5 shadow-xl sm:p-8">
 
-          <h1 className="text-center text-4xl font-bold text-gray-800">
+          <h1 className="text-center text-3xl font-bold text-gray-800 sm:text-4xl">
 
             Welcome Back
 

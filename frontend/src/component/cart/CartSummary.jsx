@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     ShieldCheck,
     Truck,
@@ -34,7 +34,7 @@ const CartSummary = ({ subtotal }) => {
 
     return (
 
-        <Card className="sticky top-24">
+        <Card className="sticky top-24 min-w-0 p-4 sm:p-6">
 
             <div className="flex items-center gap-3 mb-6">
 

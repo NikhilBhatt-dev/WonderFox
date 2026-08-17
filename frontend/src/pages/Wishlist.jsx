@@ -88,7 +88,7 @@ const Wishlist = () => {
 
     if (loading) {
         return (
-            <section className="bg-[#FFF8F3] py-20">
+            <section className="bg-[#FFF8F3] py-10 sm:py-20">
                 <Container>
                     <div className="flex h-64 items-center justify-center">
                         <h2 className="text-2xl font-semibold text-gray-800">Loading Wishlist...</h2>
@@ -99,13 +99,13 @@ const Wishlist = () => {
     }
 
     return (
-        <section className="bg-[#FFF8F3] py-20">
+        <section className="bg-[#FFF8F3] py-10 sm:py-20">
             <Container>
                 <div className="mb-14 text-center">
                     <span className="rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold text-orange-500">
                         MY Favorites
                     </span>
-                    <h1 className="mt-5 text-5xl font-black text-gray-900">My Wishlist</h1>
+                    <h1 className="mt-5 text-3xl font-black text-gray-900 sm:text-5xl">My Wishlist</h1>
                     <p className="mt-4 text-lg text-gray-500">
                         Save your favorite toys and buy them anytime.
                     </p>
@@ -151,10 +151,10 @@ const Wishlist = () => {
                                         <span className="ml-2 text-sm text-gray-500">(4.9)</span>
                                     </div>
 
-                                    <h3 className="text-2xl font-bold text-gray-900">{product.name}</h3>
+                                    <h3 className="break-words text-xl font-bold text-gray-900 sm:text-2xl">{product.name}</h3>
                                     <p className="mt-2 text-xl font-bold text-orange-500">₹{product.price || product.discountPrice || 0}</p>
 
-                                    <div className="mt-6 flex gap-3">
+                                    <div className="mt-6 flex min-w-0 gap-3">
                                         <button
                                             type="button"
                                             onClick={() => handleAddToCart(product._id)}

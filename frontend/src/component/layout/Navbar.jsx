@@ -21,7 +21,7 @@ const navLinks = [
 ];
 
 const iconButton =
-  "relative hidden md:flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-gray-700 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:bg-[#fff4ee] hover:text-orange-500";
+  "relative hidden lg:flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-gray-700 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:bg-[#fff4ee] hover:text-orange-500";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -225,7 +225,7 @@ const Navbar = () => {
     //     )}
     //   </div>
     // </header>
-    <header className="sticky top-0 z-50 w-full px-1 pt-1">
+    <header className="sticky top-0 z-50 w-full max-w-full px-1 pt-1">
   {/* Top Delivery Bar */}
   <div className="w-full overflow-hidden rounded-t-[24px] bg-[#1a212d]">
     <div className="flex items-center justify-center gap-2 px-4 py-2 text-center text-[11px] font-medium text-white sm:text-sm">
@@ -239,22 +239,22 @@ const Navbar = () => {
   </div>
 
   {/* Navbar Area */}
-  <div className="w-full bg-transparent px-3 py-3 sm:px-5">
-    <nav className="flex w-full items-center justify-between rounded-[24px] border border-white/70 bg-white px-4 py-3 shadow-[0_8px_25px_rgba(15,23,42,0.08)] sm:px-5">
+  <div className="w-full bg-transparent px-2 py-2 sm:px-5 sm:py-3">
+    <nav className="flex w-full min-w-0 items-center justify-between gap-3 rounded-[24px] border border-white/70 bg-white px-3 py-3 shadow-[0_8px_25px_rgba(15,23,42,0.08)] sm:px-5">
 
       {/* Logo */}
-      <NavLink to="/" className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-xl shadow-md shadow-orange-200">
+      <NavLink to="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-xl shadow-md shadow-orange-200 sm:h-11 sm:w-11">
           🦊
         </div>
 
-        <h2 className="text-[1.7rem] font-black tracking-[-0.06em] text-gray-800">
+        <h2 className="truncate text-xl font-black tracking-[-0.06em] text-gray-800 sm:text-[1.7rem]">
           WonderFox
         </h2>
       </NavLink>
 
       {/* Desktop Navigation */}
-      <ul className="hidden items-center gap-8 md:flex">
+      <ul className="hidden items-center gap-6 xl:flex">
         {navLinks.map((link) => (
           <li key={link.path}>
             <NavLink
@@ -274,12 +274,12 @@ const Navbar = () => {
       </ul>
 
       {/* Right Side */}
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-3">
 
         {/* Search */}
         <form
           onSubmit={handleSearchSubmit}
-          className={`hidden items-center gap-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 md:flex ${
+          className={`hidden items-center gap-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 lg:flex ${
             searchOpen
               ? "w-64 opacity-100"
               : "w-0 border-transparent opacity-0"
@@ -327,7 +327,7 @@ const Navbar = () => {
         <Link
           to="/cart"
           aria-label="Cart"
-          className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-orange-200"
+          className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-orange-200 sm:h-11 sm:w-11"
         >
           <ShoppingBag size={20} />
 
@@ -343,7 +343,7 @@ const Navbar = () => {
           type="button"
           aria-label="Open menu"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-gray-700 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:bg-gray-100 md:hidden"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-gray-700 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:bg-gray-100 xl:hidden sm:h-11 sm:w-11"
         >
           {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -352,7 +352,11 @@ const Navbar = () => {
 
     {/* Mobile Menu */}
     {isOpen && (
-      <div className="mx-auto mt-3 rounded-[22px] border border-white/80 bg-white/95 p-5 shadow-lg backdrop-blur-xl md:hidden">
+      <div className="mx-auto mt-3 max-w-full rounded-[22px] border border-white/80 bg-white/95 p-4 shadow-lg backdrop-blur-xl xl:hidden sm:p-5">
+        <form onSubmit={handleSearchSubmit} className="mb-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 lg:hidden">
+          <Search size={18} className="shrink-0 text-gray-400" />
+          <input type="search" value={searchText} onChange={(event) => setSearchText(event.target.value)} placeholder="Search products" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
+        </form>
         <ul className="flex flex-col gap-3">
           {navLinks.map((link) => (
             <li key={link.path}>

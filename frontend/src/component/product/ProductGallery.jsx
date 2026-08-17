@@ -14,21 +14,21 @@ const ProductGallery = ({ images = [] }) => {
 
     return (
 
-        <div className="space-y-5">
+        <div className="min-w-0 space-y-5">
 
-            <div className="overflow-hidden rounded-card bg-surface p-8 shadow-card">
+            <div className="overflow-hidden rounded-card bg-surface p-4 shadow-card sm:p-8">
 
                 <img
                     src={image}
                     alt=""
-                    className="mx-auto h-[500px] w-full object-contain transition duration-300 hover:scale-105"
+                    className="mx-auto aspect-square max-h-[500px] w-full object-contain transition duration-300 hover:scale-105"
                 />
 
             </div>
 
             {images.length > 1 && (
 
-                <div className="flex gap-4 overflow-auto">
+                <div className="flex gap-3 overflow-x-auto pb-1 sm:gap-4">
 
                     {images.map((item, index) => (
 
@@ -45,7 +45,7 @@ const ProductGallery = ({ images = [] }) => {
                             <img
                                 src={item.url}
                                 alt=""
-                                className="h-24 w-24 object-cover"
+                                className="h-16 w-16 object-cover sm:h-24 sm:w-24"
                             />
 
                         </button>

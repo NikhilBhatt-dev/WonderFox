@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Star } from "lucide-react";
-import heroBg from "../../assets/image/about-hero-removebg-preview.png";
 import heroBG from "../../assets/image/about.webp"
 
 const AboutHero = () => {
     return (
-        <section className="bg-[#FAF5EC] py-20 lg:py-28 overflow-hidden">
+        <section className="overflow-hidden bg-[#FAF5EC] py-12 sm:py-20 lg:py-28">
             <div className="container mx-auto px-5">
 
-                <div className="grid lg:grid-cols-2 items-center gap-16">
+                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
                     {/* LEFT CONTENT */}
 
@@ -18,7 +17,7 @@ const AboutHero = () => {
                             About WonderFox
                         </span>
 
-                        <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-gray-900">
+                        <h1 className="mt-6 text-4xl font-black leading-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-7xl">
                             Bringing Joy
                             <br />
                             To Every
@@ -37,7 +36,7 @@ const AboutHero = () => {
 
                             <Link
                                 to="/products"
-                                className="flex items-center gap-2 rounded-full bg-[#FF7A45] px-8 py-4 font-semibold text-white transition hover:scale-105"
+                            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FF7A45] px-6 py-4 font-semibold text-white transition hover:scale-105 sm:w-auto sm:px-8"
                             >
                                 Explore Collection
                                 <ArrowRight size={20} />
@@ -45,7 +44,7 @@ const AboutHero = () => {
 
                             <Link
                                 to="/contact"
-                                className="rounded-full border border-gray-300 px-8 py-4 font-semibold text-gray-700 transition hover:bg-white"
+                            className="w-full rounded-full border border-gray-300 px-6 py-4 text-center font-semibold text-gray-700 transition hover:bg-white sm:w-auto sm:px-8"
                             >
                                 Contact Us
                             </Link>
@@ -54,7 +53,7 @@ const AboutHero = () => {
 
                         {/* TRUST POINTS */}
 
-                        <div className="mt-14 flex flex-wrap gap-8">
+                        <div className="mt-10 grid grid-cols-2 gap-6 sm:mt-14 sm:flex sm:flex-wrap sm:gap-8">
 
                             <div>
                                 <h3 className="text-3xl font-bold text-gray-900">
@@ -92,12 +91,12 @@ const AboutHero = () => {
 
                     {/* RIGHT IMAGE */}
 
-                    <div className="relative">
-                        <div className="relative -translate-y-10 overflow-hidden rounded-[40px] bg-white shadow-2xl">
+                    <div className="relative mt-4 sm:mt-10 lg:mt-0">
+                        <div className="relative overflow-hidden rounded-[32px] bg-white shadow-2xl lg:-translate-y-10 lg:rounded-[40px]">
                             <img
                                 src={heroBG}
                                 alt="WonderFox Toys"
-                                className="h-[780px] w-full object-cover"
+                                className="aspect-[4/5] w-full object-cover lg:h-[780px] lg:aspect-auto"
                             />
                         </div>
                     
@@ -105,7 +104,7 @@ const AboutHero = () => {
 
                         {/* Floating Card */}
 
-                        <div className="absolute -left-6 bottom-10 rounded-3xl bg-white p-6 shadow-xl">
+                        <div className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-3xl bg-white p-3 shadow-xl sm:bottom-10 sm:-left-6 sm:max-w-none sm:p-6">
 
                             <div className="flex items-center gap-3">
 
@@ -131,7 +130,7 @@ const AboutHero = () => {
 
                         {/* Floating Star */}
 
-                        <div className="absolute -right-5 top-10 rounded-full bg-white p-4 shadow-lg">
+                        <div className="absolute right-3 top-3 rounded-full bg-white p-3 shadow-lg sm:-right-5 sm:top-10 sm:p-4">
 
                             <Star
                                 className="text-yellow-500"

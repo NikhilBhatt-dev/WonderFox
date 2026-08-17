@@ -12,7 +12,7 @@ const inputClass =
 
 const DeliveryAddress = ({ formData, onChange }) => {
     return (
-        <div className="rounded-3xl bg-white p-8 shadow-sm">
+        <div className="min-w-0 rounded-3xl bg-white p-4 shadow-sm sm:p-8">
 
             <div className="mb-8">
 

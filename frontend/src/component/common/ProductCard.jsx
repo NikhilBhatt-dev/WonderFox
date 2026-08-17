@@ -101,7 +101,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="group relative flex h-full min-h-[500px] w-full flex-col rounded-3xl border border-orange-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="group relative flex h-full min-w-0 flex-col rounded-3xl border border-orange-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-5">
 
             {/* Featured Badge */}
 
@@ -143,7 +143,7 @@ const ProductCard = ({ product }) => {
 
                 {/* Product Image */}
 
-                <div className="flex h-64 w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-[#FFF8F3] p-5">
+                <div className="flex aspect-square w-full shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-[#FFF8F3] p-4 sm:h-64 sm:aspect-auto sm:p-5">
 
                     <img
                         src={
@@ -159,11 +159,11 @@ const ProductCard = ({ product }) => {
 
                 {/* Rating */}
 
-                <div className="mt-5 flex h-6 shrink-0 items-center gap-1">
+                <div className="mt-5 flex min-w-0 flex-wrap items-center gap-1">
 
                     <RatingStars rating={product.rating} />
 
-                    <span className="ml-2 text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 sm:ml-2">
                         {Number(product.rating || 0).toFixed(1)} ({product.numReviews || 0})
                     </span>
 
@@ -172,16 +172,16 @@ const ProductCard = ({ product }) => {
 
                 {/* Product Name */}
 
-                <h3 className="mt-3 line-clamp-2 min-h-[56px] text-xl font-semibold leading-7 text-gray-800 transition-colors duration-300 group-hover:text-orange-500">
+                <h3 className="mt-3 break-words text-lg font-semibold leading-6 text-gray-800 transition-colors duration-300 group-hover:text-orange-500 sm:min-h-[56px] sm:text-xl sm:leading-7">
                     {product.name}
                 </h3>
 
 
                 {/* Price */}
 
-                <div className="mt-3 flex h-8 shrink-0 items-center gap-3">
+                <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
 
-                    <span className="text-2xl font-bold text-orange-500">
+                    <span className="text-xl font-bold text-orange-500 sm:text-2xl">
                         ₹{product.discountPrice || product.price}
                     </span>
 

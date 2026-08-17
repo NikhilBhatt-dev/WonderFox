@@ -46,13 +46,13 @@ const Profile = () => {
 
       <Container>
 
-        <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-lg">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-white p-5 shadow-lg sm:p-8">
 
           <div className="flex flex-col items-center gap-6 md:flex-row">
 
             {/* Avatar */}
 
-            <div className="flex h-36 w-36 items-center justify-center rounded-full bg-orange-100 text-6xl">
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-orange-100 text-4xl sm:h-36 sm:w-36 sm:text-6xl">
 
               👤
 
@@ -60,9 +60,9 @@ const Profile = () => {
 
             {/* User Info */}
 
-            <div>
+            <div className="min-w-0 text-center md:text-left">
 
-              <h1 className="text-3xl font-bold text-gray-800">
+              <h1 className="break-words text-2xl font-bold text-gray-800 sm:text-3xl">
 
                 {user.name}
 

@@ -201,12 +201,12 @@ const Collection = () => {
     };
 
     return (
-        <section className="bg-white py-20">
+        <section className="bg-white py-10 sm:py-20">
             <Container>
                 {/* Header */}
 
                 {/* Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-4">
                     <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-500">
                         Explore
                     </p>
@@ -245,7 +245,7 @@ const Collection = () => {
                 </div>
 
                 <div className="mt-3">
-                    <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         Shop by Collection
                     </h2>
 
@@ -357,7 +357,7 @@ const Collection = () => {
                                     stiffness: 300,
                                     damping: 30,
                                 }}
-                                className="fixed right-0 top-0 z-50 flex h-screen w-full max-w-md flex-col bg-white shadow-2xl"
+                                className="fixed right-0 top-0 z-50 flex h-[100dvh] w-full max-w-md flex-col bg-white shadow-2xl"
                             >
                                 {/* Header */}
                                 <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">

@@ -9,7 +9,7 @@ const OrderSuccess = () => {
 
         <section className="flex min-h-screen items-center justify-center bg-background px-5">
 
-            <div className="w-full max-w-xl rounded-card bg-surface p-10 text-center shadow-card">
+            <div className="w-full max-w-xl rounded-card bg-surface p-5 text-center shadow-card sm:p-10">
 
                 <CheckCircle2
                     size={90}

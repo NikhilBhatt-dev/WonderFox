@@ -103,21 +103,21 @@ const CartItem = ({ item }) => {
 
     return (
 
-        <div className="flex flex-col gap-6 rounded-card bg-surface p-6 shadow-card md:flex-row">
+        <div className="flex min-w-0 flex-col gap-4 rounded-card bg-surface p-4 shadow-card sm:gap-6 sm:p-6 md:flex-row">
 
             <img
                 src={item.product.images?.[0]?.url}
                 alt={item.product.name}
-                className="h-40 w-40 rounded-button bg-background object-contain p-4"
+                className="h-32 w-full rounded-button bg-background object-contain p-4 sm:h-40 sm:w-40"
             />
 
-            <div className="flex flex-1 flex-col">
+            <div className="min-w-0 flex flex-1 flex-col">
 
-                <div className="flex items-start justify-between">
+                <div className="flex flex-wrap items-start justify-between gap-3">
 
-                    <div>
+                    <div className="min-w-0">
 
-                        <h2 className="text-2xl font-bold text-heading">
+                        <h2 className="break-words text-xl font-bold text-heading sm:text-2xl">
 
                             {item.product.name}
 

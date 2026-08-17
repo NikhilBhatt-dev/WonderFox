@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@layer base {
+    html, body {
+        min-width: 320px;
+        overflow-x: hidden;
+    }
+
+    img, svg, video, canvas, input, select, textarea, button {
+        max-width: 100%;
+    }
+}
+
 @theme {
 
     /* =========================

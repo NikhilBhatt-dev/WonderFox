@@ -25,19 +25,19 @@ const Blog = () => {
   }, []);
 
   return (
-    <section className="bg-[#FFF8F3] py-20">
+    <section className="bg-[#FFF8F3] py-10 sm:py-20">
       <Container>
         <div className="mb-12 text-center">
           <span className="rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-500">
             WonderFox Journal
           </span>
-          <h1 className="mt-5 text-4xl font-black text-gray-900 md:text-5xl">Playful ideas for growing minds</h1>
+          <h1 className="mt-5 text-3xl font-black text-gray-900 sm:text-4xl md:text-5xl">Playful ideas for growing minds</h1>
         </div>
 
         {loading ? (
           <p className="text-center text-gray-500">Loading blogs...</p>
         ) : blogs.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-gray-200 bg-white p-10 text-center text-gray-500">
+          <div className="rounded-3xl border border-dashed border-gray-200 bg-white p-5 text-center text-gray-500 sm:p-10">
             No published blogs available yet.
           </div>
         ) : (

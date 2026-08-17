@@ -30,7 +30,7 @@ const process = [
 
 const OurProcess = () => {
     return (
-        <section className="py-24 bg-[#FAF5EC]">
+        <section className="bg-[#FAF5EC] py-12 sm:py-24">
             <div className="container mx-auto px-5">
 
                 <div className="text-center max-w-3xl mx-auto">
@@ -39,7 +39,7 @@ const OurProcess = () => {
                         Our Process
                     </span>
 
-                    <h2 className="mt-4 text-5xl font-black text-gray-900">
+                    <h2 className="mt-4 text-3xl font-black text-gray-900 sm:text-5xl">
                         How Every Toy Reaches You
                     </h2>
 
@@ -50,12 +50,12 @@ const OurProcess = () => {
 
                 </div>
 
-                <div className="mt-20 grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+                <div className="mt-12 grid gap-6 md:mt-20 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
 
                     {process.map((item, index) => (
                         <div
                             key={item.title}
-                            className="relative rounded-3xl bg-white p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition"
+                            className="relative rounded-3xl bg-white p-5 shadow-sm transition hover:-translate-y-2 hover:shadow-xl sm:p-8"
                         >
                             <div className="absolute -top-5 left-8 h-10 w-10 rounded-full bg-[#FF7A45] text-white flex items-center justify-center font-bold">
                                 {index + 1}

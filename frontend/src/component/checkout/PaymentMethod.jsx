@@ -17,7 +17,7 @@ const methods = [
 
 const PaymentMethod = ({ paymentMethod, setPaymentMethod }) => {
     return (
-        <div className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
+        <div className="mt-8 min-w-0 rounded-3xl bg-white p-4 shadow-sm sm:p-8">
 
             <div className="mb-8">
 
@@ -52,9 +52,9 @@ const PaymentMethod = ({ paymentMethod, setPaymentMethod }) => {
                                 }`}
                         >
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-between gap-3">
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex min-w-0 items-center gap-3 sm:gap-4">
 
                                     <div
                                         className={`rounded-xl p-3
@@ -68,13 +68,13 @@ const PaymentMethod = ({ paymentMethod, setPaymentMethod }) => {
 
                                     </div>
 
-                                    <div>
+                                    <div className="min-w-0">
 
                                         <h3 className="font-semibold text-gray-800">
                                             {method.title}
                                         </h3>
 
-                                        <p className="text-sm text-gray-500">
+                                        <p className="break-words text-sm text-gray-500">
                                             {method.description}
                                         </p>
 

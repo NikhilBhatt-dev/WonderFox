@@ -77,7 +77,7 @@ const ProfileDropdown = () => {
 
         <div
             ref={dropdownRef}
-            className="relative hidden md:block"
+            className="relative hidden lg:block"
         >
 
             <button
@@ -93,7 +93,7 @@ const ProfileDropdown = () => {
 
             {open && (
 
-                <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl">
+                <div className="absolute right-0 mt-3 w-[min(18rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl">
 
                     {user ? (
 

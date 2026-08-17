@@ -2,7 +2,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 import api from "../../api/axios";
-import Container from "../common/Container";
 
 const Newsletter = () => {
     const [email, setEmail] = useState("");

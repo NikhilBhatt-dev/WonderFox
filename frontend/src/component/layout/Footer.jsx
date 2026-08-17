@@ -9,7 +9,7 @@ import {
 const Footer = () => {
     return (
         <footer className="bg-[#1F2937] text-white">
-            <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 md:grid-cols-2 lg:grid-cols-4">
 
                 {/* Logo */}
                 <div>
@@ -71,7 +71,7 @@ const Footer = () => {
                         Follow Us
                     </h3>
 
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
 
                         <button className="rounded-full bg-orange-500 p-3 transition hover:scale-110">
                             <FaFacebookF size={18} />

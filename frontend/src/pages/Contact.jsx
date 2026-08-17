@@ -2,7 +2,7 @@ import Container from "../component/common/Container";
 
 const Contact = () => {
   return (
-    <section className="bg-[#FFF8F3] py-16">
+    <section className="bg-[#FFF8F3] py-10 sm:py-16">
 
       <Container>
 
@@ -14,7 +14,7 @@ const Contact = () => {
             Contact Us
           </span>
 
-          <h1 className="mt-6 text-5xl font-bold text-gray-800">
+          <h1 className="mt-6 text-3xl font-bold text-gray-800 sm:text-5xl">
             We'd Love to Hear From You
           </h1>
 
@@ -29,7 +29,7 @@ const Contact = () => {
 
           {/* Contact Info */}
 
-          <div className="space-y-6 rounded-3xl bg-white p-8 shadow-lg">
+          <div className="space-y-6 rounded-3xl bg-white p-5 shadow-lg sm:p-8">
 
             <div>
               <h3 className="text-xl font-semibold text-gray-800">
@@ -67,7 +67,7 @@ const Contact = () => {
 
           {/* Contact Form */}
 
-          <form className="rounded-3xl bg-white p-8 shadow-lg space-y-5">
+          <form className="space-y-5 rounded-3xl bg-white p-5 shadow-lg sm:p-8">
 
             <input
               type="text"

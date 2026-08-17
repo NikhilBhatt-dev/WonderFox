@@ -30,7 +30,7 @@ const contactDetails = [
 
 const ContactInfo = () => {
     return (
-        <section className="py-24 bg-white">
+        <section className="bg-white py-12 sm:py-24">
             <div className="container mx-auto px-5">
 
                 <div className="text-center max-w-3xl mx-auto">
@@ -39,7 +39,7 @@ const ContactInfo = () => {
                         Get In Touch
                     </span>
 
-                    <h2 className="mt-4 text-5xl font-black text-gray-900">
+                    <h2 className="mt-4 text-3xl font-black text-gray-900 sm:text-5xl">
                         We'd Love To Hear From You
                     </h2>
 
@@ -50,12 +50,12 @@ const ContactInfo = () => {
 
                 </div>
 
-                <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="mt-10 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
 
                     {contactDetails.map((item) => (
                         <div
                             key={item.title}
-                            className="rounded-3xl border border-gray-100 bg-[#FAF5EC] p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                            className="rounded-3xl border border-gray-100 bg-[#FAF5EC] p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-8"
                         >
                             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
                                 <item.icon size={30} className="text-[#FF7A45]" />

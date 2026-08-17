@@ -90,11 +90,11 @@ const ProductDetails = () => {
 
   return (
 
-    <section className="bg-background py-16">
+    <section className="bg-background py-10 sm:py-16">
 
       <Container>
 
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid min-w-0 gap-10 lg:grid-cols-2 lg:gap-16">
 
           <ProductGallery
             images={product.images}

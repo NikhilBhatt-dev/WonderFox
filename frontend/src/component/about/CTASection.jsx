@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const CTASection = () => {
     return (
-        <section className="bg-[#FAF5EC] py-24">
+        <section className="bg-[#FAF5EC] py-12 sm:py-24">
             <div className="container mx-auto px-5">
 
-                <div className="relative overflow-hidden rounded-[40px] bg-gradient-to-r from-[#FF7A45] to-[#FF9A62] px-8 py-16 lg:px-20 lg:py-20">
+                <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-[#FF7A45] to-[#FF9A62] px-5 py-12 sm:rounded-[40px] sm:px-8 sm:py-16 lg:px-20 lg:py-20">
 
                     {/* Decorative Blur */}
 
@@ -19,7 +19,7 @@ const CTASection = () => {
                             Ready To Explore?
                         </span>
 
-                        <h2 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
+                        <h2 className="mt-5 text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
                             Find Your Child's
                             <br />
                             Next Favorite Toy
@@ -34,7 +34,7 @@ const CTASection = () => {
 
                             <Link
                                 to="/collection"
-                                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[#FF7A45] transition hover:scale-105"
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[#FF7A45] transition hover:scale-105 sm:w-auto"
                             >
                                 Shop Now
                                 <ArrowRight size={20} />
@@ -42,7 +42,7 @@ const CTASection = () => {
 
                             <Link
                                 to="/contact"
-                                className="rounded-full border border-white px-8 py-4 font-semibold text-white transition hover:bg-white hover:text-[#FF7A45]"
+                                className="w-full rounded-full border border-white px-8 py-4 text-center font-semibold text-white transition hover:bg-white hover:text-[#FF7A45] sm:w-auto"
                             >
                                 Contact Us
                             </Link>

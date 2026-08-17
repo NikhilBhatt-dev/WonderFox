@@ -17,7 +17,7 @@ const Cart = () => {
 
         return (
 
-            <section className="bg-background py-16">
+            <section className="bg-background py-10 sm:py-16">
 
                 <Container>
 
@@ -47,7 +47,7 @@ const Cart = () => {
 
         return (
 
-            <section className="bg-background py-16">
+            <section className="bg-background py-10 sm:py-16">
 
                 <Container>
 
@@ -63,7 +63,7 @@ const Cart = () => {
 
     return (
 
-        <section className="bg-background py-16">
+        <section className="bg-background py-10 sm:py-16">
 
             <Container>
 
@@ -71,7 +71,7 @@ const Cart = () => {
 
                 <div className="mb-12 text-center">
 
-                    <h1 className="text-4xl font-bold text-heading">
+                    <h1 className="text-3xl font-bold text-heading sm:text-4xl">
 
                         Shopping Cart
 
@@ -85,7 +85,7 @@ const Cart = () => {
 
                 </div>
 
-                <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
+                <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)] lg:gap-10">
 
                     {/* Cart Items */}
 

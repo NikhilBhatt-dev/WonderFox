@@ -49,14 +49,14 @@ const ProductTabs = ({ product, onProductUpdated }) => {
     };
 
     return (
-        <div className="mt-20 rounded-card bg-surface p-8 shadow-card">
-            <div className="mb-8 flex flex-wrap gap-4 border-b pb-4">
-                {tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={`rounded-button px-5 py-2 font-medium transition ${activeTab === tab ? "bg-primary text-white" : "bg-gray-100 text-body hover:bg-gray-200"}`}>{tab}</button>)}
+        <div className="mt-12 min-w-0 rounded-card bg-surface p-4 shadow-card sm:mt-20 sm:p-8">
+            <div className="mb-6 flex flex-wrap gap-2 border-b pb-4 sm:mb-8 sm:gap-4">
+                {tabs.map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={`rounded-button px-4 py-2 text-sm font-medium transition sm:px-5 sm:text-base ${activeTab === tab ? "bg-primary text-white" : "bg-gray-100 text-body hover:bg-gray-200"}`}>{tab}</button>)}
             </div>
 
             {activeTab === "Description" && <div><h3 className="mb-4 text-2xl font-bold text-heading">Product Description</h3><p className="leading-8 text-body">{product.description}</p></div>}
 
-            {activeTab === "Specifications" && <div><h3 className="mb-4 text-2xl font-bold text-heading">Specifications</h3><div className="overflow-hidden rounded-button border"><table className="w-full"><tbody>
+            {activeTab === "Specifications" && <div><h3 className="mb-4 text-2xl font-bold text-heading">Specifications</h3><div className="overflow-x-auto rounded-button border"><table className="w-full min-w-[360px]"><tbody>
                 <tr className="border-b"><td className="bg-gray-50 p-4 font-semibold">Brand</td><td className="p-4">{product.brand}</td></tr>
                 <tr className="border-b"><td className="bg-gray-50 p-4 font-semibold">Category</td><td className="p-4">{product.category?.name}</td></tr>
                 <tr className="border-b"><td className="bg-gray-50 p-4 font-semibold">Stock</td><td className="p-4">{product.stock}</td></tr>
@@ -65,7 +65,7 @@ const ProductTabs = ({ product, onProductUpdated }) => {
 
             {activeTab === "Reviews" && <div>
                 <h3 className="mb-4 text-2xl font-bold text-heading">Customer Reviews</h3>
-                {isLoggedIn ? <form onSubmit={handleSubmitReview} className="mb-8 rounded-button bg-background p-6">
+                {isLoggedIn ? <form onSubmit={handleSubmitReview} className="mb-8 rounded-button bg-background p-4 sm:p-6">
                     <label className="mb-2 block font-semibold text-heading">Your rating</label>
                     <div className="mb-4 flex gap-1">{[1, 2, 3, 4, 5].map((rating) => <button key={rating} type="button" onClick={() => setReviewRating(rating)} aria-label={`Rate ${rating} out of 5`} className="rounded p-1 text-amber-400 transition hover:scale-110"><Star size={24} fill={rating <= reviewRating ? "currentColor" : "none"} /></button>)}</div>
                     <label htmlFor="review-comment" className="mb-2 block font-semibold text-heading">Review (optional)</label>

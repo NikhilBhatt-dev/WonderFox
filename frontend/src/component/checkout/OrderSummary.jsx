@@ -14,7 +14,7 @@ const OrderSummary = ({
 
     return (
 
-        <div className="sticky top-24 rounded-3xl bg-white p-8 shadow-lg">
+        <div className="sticky top-24 min-w-0 rounded-3xl bg-white p-4 shadow-lg sm:p-8">
 
             <h2 className="mb-6 text-2xl font-bold text-gray-800">
 
@@ -29,7 +29,7 @@ const OrderSummary = ({
                     <div
                         
                         key={item.product?._id || item._id}
-                        className="flex items-center gap-4"
+                        className="flex min-w-0 items-center gap-3 sm:gap-4"
                     >
 
                         <img
@@ -37,12 +37,12 @@ const OrderSummary = ({
                             src={item.product?.images?.[0]?.url || item.image}
                         
                             alt={item.product?.name || item.name}
-                            className="h-20 w-20 rounded-2xl border object-cover"
+                            className="h-16 w-16 shrink-0 rounded-2xl border object-cover sm:h-20 sm:w-20"
                         />
 
-                        <div className="flex-1">
+                        <div className="min-w-0 flex-1">
 
-                            <h3 className="font-semibold text-gray-800">
+                            <h3 className="break-words font-semibold text-gray-800">
 
                                 
                                 {item.product?.name || item.name}

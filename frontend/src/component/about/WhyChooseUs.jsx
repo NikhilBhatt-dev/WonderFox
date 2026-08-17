@@ -30,12 +30,12 @@ const features = [
 
 const WhyChooseUs = () => {
     return (
-        <section className="py-24 bg-[#FAF5EC]">
+        <section className="bg-[#FAF5EC] py-12 sm:py-24">
             <div className="container mx-auto px-5">
 
-                <div className="rounded-[40px] bg-[#DDF8DD] p-8 md:p-14">
+                <div className="rounded-[32px] bg-[#DDF8DD] p-5 sm:rounded-[40px] sm:p-8 md:p-14">
 
-                    <div className="grid lg:grid-cols-2 gap-14 items-center">
+                    <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
 
                         {/* LEFT */}
 
@@ -45,7 +45,7 @@ const WhyChooseUs = () => {
                                 Why Choose WonderFox
                             </span>
 
-                            <h2 className="mt-5 text-5xl font-black text-gray-900 leading-tight">
+                            <h2 className="mt-5 text-4xl font-black leading-tight text-gray-900 sm:text-5xl">
                                 Every Smile
                                 <br />
                                 Starts With
@@ -60,10 +60,10 @@ const WhyChooseUs = () => {
                                 experiences.
                             </p>
 
-                            <div className="mt-10 grid grid-cols-2 gap-6">
+                            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6">
 
                                 <div>
-                                    <h3 className="text-4xl font-black text-[#FF7A45]">
+                                    <h3 className="text-3xl font-black text-[#FF7A45] sm:text-4xl">
                                         100%
                                     </h3>
                                     <p className="text-gray-600 mt-2">
@@ -72,7 +72,7 @@ const WhyChooseUs = () => {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-4xl font-black text-[#FF7A45]">
+                                    <h3 className="text-3xl font-black text-[#FF7A45] sm:text-4xl">
                                         Premium
                                     </h3>
                                     <p className="text-gray-600 mt-2">
@@ -91,7 +91,7 @@ const WhyChooseUs = () => {
                             {features.map((item) => (
                                 <div
                                     key={item.title}
-                                    className="rounded-3xl bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+                                    className="rounded-3xl bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl sm:p-8"
                                 >
                                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100">
                                         <item.icon className="text-[#FF7A45]" size={28} />

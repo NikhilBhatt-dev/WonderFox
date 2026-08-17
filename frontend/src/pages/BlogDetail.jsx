@@ -27,7 +27,7 @@ const BlogDetail = () => {
 
   if (loading) {
     return (
-      <section className="bg-[#FFF8F3] py-20">
+      <section className="bg-[#FFF8F3] py-10 sm:py-20">
         <Container>
           <p className="text-center text-gray-500">Loading blog...</p>
         </Container>
@@ -37,9 +37,9 @@ const BlogDetail = () => {
 
   if (!blog) {
     return (
-      <section className="bg-[#FFF8F3] py-20">
+      <section className="bg-[#FFF8F3] py-10 sm:py-20">
         <Container>
-          <div className="rounded-3xl border border-dashed border-gray-200 bg-white p-10 text-center text-gray-500">
+          <div className="rounded-3xl border border-dashed border-gray-200 bg-white p-5 text-center text-gray-500 sm:p-10">
             Blog not found.
           </div>
         </Container>
@@ -48,7 +48,7 @@ const BlogDetail = () => {
   }
 
   return (
-    <section className="bg-[#FFF8F3] py-20">
+    <section className="bg-[#FFF8F3] py-10 sm:py-20">
       <Container>
         <div className="mx-auto max-w-4xl">
           <Link to="/blog" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-500 hover:text-orange-600">

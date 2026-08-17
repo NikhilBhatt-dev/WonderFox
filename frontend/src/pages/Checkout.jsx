@@ -827,16 +827,16 @@ const Checkout = () => {
   ========================================================== */
 
   return (
-    <section className="min-h-screen bg-[#FFF8F3] py-10">
-      <div className="mx-auto max-w-7xl px-5">
+    <section className="min-h-screen bg-[#FFF8F3] py-6 sm:py-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5">
 
-        <h1 className="mb-10 text-4xl font-bold text-gray-800">
+        <h1 className="mb-8 text-3xl font-bold text-gray-800 sm:mb-10 sm:text-4xl">
           Checkout
         </h1>
 
         <CheckoutStepper />
 
-        <div className="grid gap-8 lg:grid-cols-[1.7fr_0.9fr]">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(280px,0.9fr)] lg:gap-8">
 
           {/* LEFT */}
           <div>

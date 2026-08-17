@@ -124,7 +124,7 @@ const MyOrders = () => {
 
             <Container>
 
-                <h1 className="mb-10 text-4xl font-bold">
+                <h1 className="mb-8 text-3xl font-bold sm:mb-10 sm:text-4xl">
 
                     My Orders
 
@@ -136,7 +136,7 @@ const MyOrders = () => {
 
                         <Card
                             key={order._id}
-                            className="p-6"
+                            className="min-w-0 p-4 sm:p-6"
                         >
 
                             <div className="flex flex-wrap items-center justify-between gap-5">
@@ -181,7 +181,7 @@ const MyOrders = () => {
 
                                     <div
                                         key={`${order._id}-${index}`}
-                                        className="flex items-center gap-5"
+                                        className="flex min-w-0 items-center gap-3 sm:gap-5"
                                     >
 
                                       
@@ -189,12 +189,12 @@ const MyOrders = () => {
                                         <img
                                             src={item.image || "/favicon.svg"}
                                             alt={item.name}
-                                            className="h-20 w-20 rounded-xl object-cover"
+                                            className="h-16 w-16 shrink-0 rounded-xl object-cover sm:h-20 sm:w-20"
                                         />
                                         
-                                        <div className="flex-1">
+                                        <div className="min-w-0 flex-1">
 
-                                            <h3 className="font-semibold">
+                                            <h3 className="break-words font-semibold">
 
                                                 {item.name}
 
@@ -208,7 +208,7 @@ const MyOrders = () => {
 
                                         </div>
 
-                                        <div className="flex items-center font-bold">
+                                        <div className="shrink-0 whitespace-nowrap font-bold">
 
                                             <IndianRupee size={16} />
 
@@ -223,7 +223,7 @@ const MyOrders = () => {
 
                            </div>
 
-                            <div className="mt-8 flex items-center justify-between border-t pt-6">
+                            <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t pt-6">
 
                                 <h3 className="text-xl font-bold">
 

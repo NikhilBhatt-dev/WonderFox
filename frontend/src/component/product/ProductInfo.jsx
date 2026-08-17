@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -113,7 +111,7 @@ const ProductInfo = ({ product }) => {
 
     return (
 
-        <div className="space-y-8">
+        <div className="min-w-0 space-y-6 sm:space-y-8">
 
             {/* Featured Badge */}
 
@@ -131,13 +129,13 @@ const ProductInfo = ({ product }) => {
 
             <div>
 
-                <h1 className="text-4xl font-bold text-heading">
+                <h1 className="break-words text-3xl font-bold text-heading sm:text-4xl">
 
                     {product.name}
 
                 </h1>
 
-                <div className="mt-4 flex items-center gap-2">
+                <div className="mt-4 flex flex-wrap items-center gap-2">
 
                     <RatingStars
                         rating={product.rating}
@@ -200,11 +198,11 @@ const ProductInfo = ({ product }) => {
                 Product Price
             ========================= */}
 
-            <div className="flex flex-wrap items-end gap-4">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
 
                 {/* Final / Selling Price */}
 
-                <span className="text-5xl font-bold text-primary">
+                <span className="break-all text-3xl font-bold text-primary sm:text-5xl">
 
                     ₹{finalPrice}
 
@@ -238,7 +236,7 @@ const ProductInfo = ({ product }) => {
 
             {/* Product Description */}
 
-            <p className="leading-8 text-body">
+            <p className="break-words leading-8 text-body">
 
                 {product.description}
 
@@ -254,12 +252,12 @@ const ProductInfo = ({ product }) => {
 
             {/* Action Buttons */}
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
 
                 {/* Add To Cart */}
 
                 <Button
-                    className="flex-1"
+                    className="w-full sm:flex-1"
                     onClick={handleAddToCart}
                     disabled={
                         loading ||
@@ -279,7 +277,7 @@ const ProductInfo = ({ product }) => {
 
                 <Button
                     variant="secondary"
-                    className="flex-1"
+                    className="w-full sm:flex-1"
                     onClick={handleBuyNow}
                     disabled={
                         loading ||
@@ -297,6 +295,7 @@ const ProductInfo = ({ product }) => {
 
                 <Button
                     variant="outline"
+                    className="self-start sm:self-auto"
                 >
 
                     <Heart size={20} />
@@ -307,9 +306,9 @@ const ProductInfo = ({ product }) => {
 
             {/* Service Information */}
 
-            <div className="space-y-4 rounded-card bg-surface p-6 shadow-card">
+            <div className="space-y-4 rounded-card bg-surface p-4 shadow-card sm:p-6">
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 break-words">
 
                     <ShieldCheck
                         className="text-accent"
@@ -324,7 +323,7 @@ const ProductInfo = ({ product }) => {
 
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 break-words">
 
                     <Truck
                         className="text-primary"
@@ -339,7 +338,7 @@ const ProductInfo = ({ product }) => {
 
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 break-words">
 
                     🎁
 
