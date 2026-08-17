@@ -16,7 +16,7 @@ const Reviews = () => {
                     subtitle="Loved by thousands of happy families."
                 />
 
-                <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:gap-8">
 
                     {testimonials.map((testimonial) => (
                         <TestimonialCard

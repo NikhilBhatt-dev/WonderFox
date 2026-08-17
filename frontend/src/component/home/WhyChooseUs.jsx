@@ -16,7 +16,7 @@ const WhyChooseUs = () => {
                     subtitle="We make shopping for kids fun, safe and memorable."
                 />
 
-                <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+                <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
 
                     {features.map((feature) => (
                         <FeatureCard

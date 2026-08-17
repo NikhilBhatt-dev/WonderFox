@@ -10,11 +10,11 @@ const features = [
 const TrustFeatures = () => (
     <section className="border-y border-orange-100 bg-white py-6">
         <Container>
-            <div className="grid gap-5 sm:grid-cols-3 sm:divide-x sm:divide-orange-100">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 sm:divide-x sm:divide-orange-100">
                 {features.map(({ icon: Icon, title, description }) => (
-                    <div key={title} className="flex items-center gap-4 px-2 sm:px-6 first:pl-0 last:pr-0">
-                        <span className="rounded-2xl bg-orange-50 p-3 text-orange-500"><Icon size={22} /></span>
-                        <div><h2 className="font-bold text-slate-800">{title}</h2><p className="mt-1 text-sm text-slate-500">{description}</p></div>
+                    <div key={title} className="flex min-w-0 items-start gap-2 px-1 sm:items-center sm:gap-4 sm:px-6 first:pl-0 last:pr-0">
+                        <span className="shrink-0 rounded-xl bg-orange-50 p-2 text-orange-500 sm:rounded-2xl sm:p-3"><Icon size={16} className="sm:h-[22px] sm:w-[22px]" /></span>
+                        <div className="min-w-0"><h2 className="break-words text-xs font-bold text-slate-800 sm:text-base">{title}</h2><p className="mt-1 break-words text-[10px] leading-4 text-slate-500 sm:text-sm sm:leading-normal">{description}</p></div>
                     </div>
                 ))}
             </div>

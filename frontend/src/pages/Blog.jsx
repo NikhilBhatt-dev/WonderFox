@@ -41,23 +41,23 @@ const Blog = () => {
             No published blogs available yet.
           </div>
         ) : (
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 xl:gap-8">
             {blogs.map((blog) => (
               <article key={blog._id} className="overflow-hidden rounded-[28px] border border-orange-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                <img src={blog.coverImage} alt={blog.title} className="h-64 w-full object-cover" />
+                <img src={blog.coverImage} alt={blog.title} className="aspect-square w-full object-cover sm:h-64 sm:aspect-auto" />
 
-                <div className="p-6">
-                  <span className="inline-flex rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-600">
+                <div className="p-3 sm:p-6">
+                  <span className="inline-flex rounded-full bg-orange-50 px-2 py-1 text-[10px] font-semibold text-orange-600 sm:px-3 sm:text-xs">
                     {blog.category}
                   </span>
 
-                  <h2 className="mt-4 text-2xl font-bold leading-tight text-gray-900">{blog.title}</h2>
-                  <p className="mt-3 text-sm text-gray-500">{new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}</p>
+                  <h2 className="mt-2 line-clamp-3 break-words text-sm font-bold leading-tight text-gray-900 sm:mt-4 sm:text-2xl">{blog.title}</h2>
+                  <p className="mt-2 text-[10px] text-gray-500 sm:mt-3 sm:text-sm">{new Date(blog.publishedAt || blog.createdAt).toLocaleDateString()}</p>
 
-                  <p className="mt-4 text-base leading-7 text-gray-600">{blog.excerpt}</p>
+                  <p className="mt-2 line-clamp-4 break-words text-xs leading-5 text-gray-600 sm:mt-4 sm:text-base sm:leading-7">{blog.excerpt}</p>
 
-                  <Link to={`/blog/${blog.slug}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-orange-500 hover:text-orange-600">
-                    Read More <ArrowRight size={18} />
+                  <Link to={`/blog/${blog.slug}`} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-orange-500 hover:text-orange-600 sm:mt-6 sm:gap-2 sm:text-base">
+                    Read More <ArrowRight size={14} className="sm:hidden" /><ArrowRight size={18} className="hidden sm:block" />
                   </Link>
                 </div>
               </article>
