@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -27,14 +29,29 @@ const ProductInfo = ({ product }) => {
 
     const [loading, setLoading] = useState(false);
 
-    const discount =
-        product.discountPrice > product.price
-            ? Math.round(
-                ((product.discountPrice - product.price) /
-                    product.discountPrice) *
-                100
-            )
-            : 0;
+    /* =========================
+       Discount Price Logic
+    ========================= */
+
+    const hasDiscount =
+        Number(product.discountPrice) > 0 &&
+        Number(product.discountPrice) < Number(product.price);
+
+    const discount = hasDiscount
+        ? Math.round(
+            ((Number(product.price) - Number(product.discountPrice)) /
+                Number(product.price)) *
+            100
+        )
+        : 0;
+
+    const finalPrice = hasDiscount
+        ? Number(product.discountPrice)
+        : Number(product.price);
+
+    /* =========================
+       Add To Cart
+    ========================= */
 
     const handleAddToCart = async () => {
 
@@ -72,12 +89,20 @@ const ProductInfo = ({ product }) => {
 
     };
 
+    /* =========================
+       Buy Now
+    ========================= */
+
     const handleBuyNow = async () => {
 
         if (!localStorage.getItem("token")) {
+
             toast.error("Please log in to continue.");
+
             navigate(buildLoginRedirectUrl());
+
             return;
+
         }
 
         await handleAddToCart();
@@ -90,6 +115,8 @@ const ProductInfo = ({ product }) => {
 
         <div className="space-y-8">
 
+            {/* Featured Badge */}
+
             {product.isFeatured && (
 
                 <Badge variant="warning">
@@ -99,6 +126,8 @@ const ProductInfo = ({ product }) => {
                 </Badge>
 
             )}
+
+            {/* Product Name + Rating */}
 
             <div>
 
@@ -110,17 +139,24 @@ const ProductInfo = ({ product }) => {
 
                 <div className="mt-4 flex items-center gap-2">
 
-                    <RatingStars rating={product.rating} size={18} />
+                    <RatingStars
+                        rating={product.rating}
+                        size={18}
+                    />
 
                     <span className="text-body">
 
-                        {Number(product.rating || 0).toFixed(1)} ({product.numReviews || 0} Reviews)
+                        {Number(product.rating || 0).toFixed(1)}
+                        {" "}
+                        ({product.numReviews || 0} Reviews)
 
                     </span>
 
                 </div>
 
             </div>
+
+            {/* Product Badges */}
 
             <div className="flex flex-wrap gap-3">
 
@@ -160,33 +196,47 @@ const ProductInfo = ({ product }) => {
 
             </div>
 
-            <div className="flex items-end gap-4">
+            {/* =========================
+                Product Price
+            ========================= */}
+
+            <div className="flex flex-wrap items-end gap-4">
+
+                {/* Final / Selling Price */}
 
                 <span className="text-5xl font-bold text-primary">
 
-                    ₹{product.price}
+                    ₹{finalPrice}
 
                 </span>
 
-                {discount > 0 && (
+                {/* Original Price */}
+
+                {hasDiscount && (
 
                     <>
+
                         <span className="text-2xl text-gray-400 line-through">
 
-                            ₹{product.discountPrice}
+                            ₹{product.price}
 
                         </span>
+
+                        {/* Discount Percentage */}
 
                         <Badge variant="danger">
 
                             {discount}% OFF
 
                         </Badge>
+
                     </>
 
                 )}
 
             </div>
+
+            {/* Product Description */}
 
             <p className="leading-8 text-body">
 
@@ -194,18 +244,27 @@ const ProductInfo = ({ product }) => {
 
             </p>
 
+            {/* Quantity */}
+
             <QuantitySelector
                 quantity={quantity}
                 setQuantity={setQuantity}
                 stock={product.stock}
             />
 
+            {/* Action Buttons */}
+
             <div className="flex flex-wrap gap-4">
+
+                {/* Add To Cart */}
 
                 <Button
                     className="flex-1"
                     onClick={handleAddToCart}
-                    disabled={loading || product.stock <= 0}
+                    disabled={
+                        loading ||
+                        product.stock <= 0
+                    }
                 >
 
                     <ShoppingCart size={20} />
@@ -216,11 +275,16 @@ const ProductInfo = ({ product }) => {
 
                 </Button>
 
+                {/* Buy Now */}
+
                 <Button
                     variant="secondary"
                     className="flex-1"
                     onClick={handleBuyNow}
-                    disabled={loading || product.stock <= 0}
+                    disabled={
+                        loading ||
+                        product.stock <= 0
+                    }
                 >
 
                     <Zap size={20} />
@@ -228,6 +292,8 @@ const ProductInfo = ({ product }) => {
                     Buy Now
 
                 </Button>
+
+                {/* Wishlist */}
 
                 <Button
                     variant="outline"
@@ -238,6 +304,8 @@ const ProductInfo = ({ product }) => {
                 </Button>
 
             </div>
+
+            {/* Service Information */}
 
             <div className="space-y-4 rounded-card bg-surface p-6 shadow-card">
 
