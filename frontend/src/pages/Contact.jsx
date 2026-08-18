@@ -100,7 +100,7 @@ const Contact = () => {
               </h3>
 
               <p className="mt-2 text-gray-600">
-                wonderfox8814
+                wonderfox8814@gmail.com
               </p>
             </div>
 
