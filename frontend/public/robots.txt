@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://e-mart-6rcu.onrender.com/sitemap.xml
+
