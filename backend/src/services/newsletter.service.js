@@ -16,8 +16,7 @@ export const createSmtpTransport = () => {
   }
 
  
-
-return nodemailer.createTransport({
+  return nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT || 587),
     secure: Number(SMTP_PORT || 587) === 465,
@@ -27,6 +26,8 @@ return nodemailer.createTransport({
         pass: SMTP_PASS,
     },
 });
+
+
 
 export const getSmtpFromEmail = () => (
   process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER || "no-reply@example.com"
