@@ -174,17 +174,37 @@ export const forgotPassword = async (email) => {
         </div>
       `,
     });
+  // } catch (error) {
+  //   user.resetPasswordToken = undefined;
+  //   user.resetPasswordExpire = undefined;
+
+  //   await user.save({ validateBeforeSave: false });
+
+  //   throw new ApiError(
+  //     500,
+  //     "Unable to send password reset email",
+  //   );
+  // }
+
   } catch (error) {
+    console.error("PASSWORD RESET EMAIL ERROR:", {
+        message: error.message,
+        code: error.code,
+        command: error.command,
+        response: error.response,
+        responseCode: error.responseCode,
+    });
+
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
     await user.save({ validateBeforeSave: false });
 
     throw new ApiError(
-      500,
-      "Unable to send password reset email",
+        500,
+        "Unable to send password reset email",
     );
-  }
+}
 
   return {
     success: true,
