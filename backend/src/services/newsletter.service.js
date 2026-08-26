@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
 
 import NewsletterSubscriber from "../models/NewsletterSubscriber.js";
+
 import ApiError from "../utils/ApiError.js";
+
 import ApiResponse from "../utils/ApiResponse.js";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -9,28 +11,34 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
 export const createSmtpTransport = () => {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM_EMAIL } = process.env;
+  const {
+    SMTP_HOST,
+    SMTP_PORT,
+    SMTP_USER,
+    SMTP_PASS,
+    SMTP_FROM_EMAIL,
+  } = process.env;
 
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
     return null;
   }
 
- 
   return nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT || 587),
     secure: Number(SMTP_PORT || 587) === 465,
     family: 4,
     auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASS,
+      user: SMTP_USER,
+      pass: SMTP_PASS,
     },
-});
-
-
+  });
+};
 
 export const getSmtpFromEmail = () => (
-  process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER || "no-reply@example.com"
+  process.env.SMTP_FROM_EMAIL ||
+  process.env.SMTP_USER ||
+  "no-reply@example.com"
 );
 
 export const subscribeToNewsletter = async (email) => {
@@ -40,7 +48,9 @@ export const subscribeToNewsletter = async (email) => {
     throw new ApiError(400, "Please enter a valid email address.");
   }
 
-  const existingSubscriber = await NewsletterSubscriber.findOne({ email: normalizedEmail });
+  const existingSubscriber = await NewsletterSubscriber.findOne({
+    email: normalizedEmail,
+  });
 
   if (existingSubscriber && existingSubscriber.isActive) {
     throw new ApiError(409, "Already subscribed");
@@ -50,9 +60,14 @@ export const subscribeToNewsletter = async (email) => {
     existingSubscriber.isActive = true;
     existingSubscriber.unsubscribedAt = null;
     existingSubscriber.subscribedAt = new Date();
+
     await existingSubscriber.save();
 
-    return new ApiResponse(200, { subscriber: existingSubscriber }, "Welcome back! You are subscribed again.");
+    return new ApiResponse(
+      200,
+      { subscriber: existingSubscriber },
+      "Welcome back! You are subscribed again.",
+    );
   }
 
   const subscriber = await NewsletterSubscriber.create({
@@ -61,7 +76,11 @@ export const subscribeToNewsletter = async (email) => {
     subscribedAt: new Date(),
   });
 
-  return new ApiResponse(201, { subscriber }, "Successfully subscribed to the newsletter.");
+  return new ApiResponse(
+    201,
+    { subscriber },
+    "Successfully subscribed to the newsletter.",
+  );
 };
 
 export const getNewsletterSubscribers = async (query = {}) => {
@@ -70,7 +89,10 @@ export const getNewsletterSubscribers = async (query = {}) => {
   const filter = {};
 
   if (search) {
-    filter.email = { $regex: search, $options: "i" };
+    filter.email = {
+      $regex: search,
+      $options: "i",
+    };
   }
 
   if (isActive === "true") {
@@ -81,9 +103,16 @@ export const getNewsletterSubscribers = async (query = {}) => {
     filter.isActive = false;
   }
 
-  const subscribers = await NewsletterSubscriber.find(filter).sort({ createdAt: -1 }).lean();
+  const subscribers = await NewsletterSubscriber
+    .find(filter)
+    .sort({ createdAt: -1 })
+    .lean();
 
-  return new ApiResponse(200, { subscribers }, "Newsletter subscribers fetched successfully.");
+  return new ApiResponse(
+    200,
+    { subscribers },
+    "Newsletter subscribers fetched successfully.",
+  );
 };
 
 export const deactivateSubscriber = async (id) => {
@@ -95,12 +124,21 @@ export const deactivateSubscriber = async (id) => {
 
   subscriber.isActive = false;
   subscriber.unsubscribedAt = new Date();
+
   await subscriber.save();
 
-  return new ApiResponse(200, { subscriber }, "Subscriber deactivated successfully.");
+  return new ApiResponse(
+    200,
+    { subscriber },
+    "Subscriber deactivated successfully.",
+  );
 };
 
-export const sendNewsletterToSubscribers = async ({ subject, content, subscriberIds = [] }) => {
+export const sendNewsletterToSubscribers = async ({
+  subject,
+  content,
+  subscriberIds = [],
+}) => {
   if (!subject || !String(subject).trim()) {
     throw new ApiError(400, "Newsletter subject is required.");
   }
@@ -109,16 +147,29 @@ export const sendNewsletterToSubscribers = async ({ subject, content, subscriber
     throw new ApiError(400, "Newsletter content is required.");
   }
 
-  const filter = { isActive: true };
+  const filter = {
+    isActive: true,
+  };
 
   if (subscriberIds && subscriberIds.length) {
-    filter._id = { $in: subscriberIds };
+    filter._id = {
+      $in: subscriberIds,
+    };
   }
 
-  const subscribers = await NewsletterSubscriber.find(filter).lean();
+  const subscribers = await NewsletterSubscriber
+    .find(filter)
+    .lean();
 
   if (!subscribers.length) {
-    return new ApiResponse(200, { sent: 0, failed: 0 }, "No active subscribers available.");
+    return new ApiResponse(
+      200,
+      {
+        sent: 0,
+        failed: 0,
+      },
+      "No active subscribers available.",
+    );
   }
 
   const transporter = createSmtpTransport();
@@ -134,14 +185,40 @@ export const sendNewsletterToSubscribers = async ({ subject, content, subscriber
           from: fromEmail,
           to: subscriber.email,
           subject,
-          html: `<div style="font-family: Arial, sans-serif; line-height: 1.7; color: #1f2937;">
-            <h2 style="color: #ff7a45; margin-bottom: 12px;">${String(subject).replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h2>
-            <div>${String(content)}</div>
-          </div>`,
+          html: `
+            <div
+              style="
+                font-family: Arial, sans-serif;
+                line-height: 1.7;
+                color: #1f2937;
+              "
+            >
+              <h2
+                style="
+                  color: #ff7a45;
+                  margin-bottom: 12px;
+                "
+              >
+                ${String(subject)
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")}
+              </h2>
+
+              <div>
+                ${String(content)}
+              </div>
+            </div>
+          `,
         });
       }
 
-      await NewsletterSubscriber.findByIdAndUpdate(subscriber._id, { lastSentAt: new Date() });
+      await NewsletterSubscriber.findByIdAndUpdate(
+        subscriber._id,
+        {
+          lastSentAt: new Date(),
+        },
+      );
+
       successCount += 1;
     } catch (error) {
       failedCount += 1;
