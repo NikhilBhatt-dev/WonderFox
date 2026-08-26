@@ -63,8 +63,8 @@ const Sidebar = () => {
     ];
 
     return (
-        <aside className="flex h-screen w-64 flex-col border-r border-[#34495E] bg-[#26364A] text-slate-100">
 
+        <aside className="flex h-screen w-64 shrink-0 flex-col overflow-y-auto border-r border-[#34495E] bg-[#26364A] text-slate-100">
             <div className="border-b border-[#34495E] p-6">
 
                 <h1 className="text-2xl font-bold text-white">
@@ -74,7 +74,7 @@ const Sidebar = () => {
 
             </div>
 
-            <nav className="flex flex-1 flex-col p-4">
+            <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto p-4">
 
                 {menus.map(({ name, icon: Icon, path }) => (
 
