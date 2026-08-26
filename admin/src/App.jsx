@@ -23,11 +23,13 @@ import Blogs from "./pages/blogs/Blogs";
 import AddBlog from "./pages/blogs/AddBlog";
 import EditBlog from "./pages/blogs/EditBlog";
 import NewsletterManagement from "./pages/newsletter/NewsletterManagement";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const App = () => {
   return (
     <BrowserRouter>
-      
+
       <Routes>
 
         <Route
@@ -173,6 +175,14 @@ const App = () => {
               <NewsletterManagement />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />} />
+
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassword />}
         />
 
       </Routes>

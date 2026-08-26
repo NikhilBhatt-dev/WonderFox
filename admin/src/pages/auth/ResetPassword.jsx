@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import Input from "../../components/common/Input";
 import PasswordInput from "../../components/common/PasswordInput";
 import Button from "../../components/common/Button";
 
-import { login } from "../../services/auth.service";
+import { resetPassword } from "../../services/auth.service";
 
-const Login = () => {
+const ResetPassword = () => {
     const navigate = useNavigate();
+    const { token } = useParams();
 
     const [formData, setFormData] = useState({
-        email: "",
         password: "",
+        confirmPassword: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -30,23 +30,31 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (formData.password.length < 6) {
+            toast.error("Password must be at least 6 characters");
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+
         try {
             setLoading(true);
 
-            const response = await login(formData);
-
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem(
-                "user",
-                JSON.stringify(response.data.user),
+            const response = await resetPassword(
+                token,
+                formData.password,
             );
 
             toast.success(response.message);
 
-            navigate("/dashboard");
+            navigate("/");
         } catch (error) {
             toast.error(
-                error.response?.data?.message || "Login failed",
+                error.response?.data?.message ||
+                "Unable to reset password",
             );
         } finally {
             setLoading(false);
@@ -55,16 +63,19 @@ const Login = () => {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#F7F7F5] px-4">
+
             <div className="admin-card w-full max-w-md p-8">
 
                 <div className="mb-8 text-center">
+
                     <h1 className="text-3xl font-bold text-[#26364A]">
                         <span className="text-[#FF6B00]">Wonder</span>Fox
                     </h1>
 
                     <p className="mt-2 text-[#6B7280]">
-                        Admin Panel Login
+                        Create a new admin password
                     </p>
+
                 </div>
 
                 <form
@@ -72,54 +83,45 @@ const Login = () => {
                     className="space-y-5"
                 >
 
-                    <Input
-                        label="Email"
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-
                     <PasswordInput
-                        label="Password"
+                        label="New Password"
                         name="password"
-                        placeholder="Enter your password"
+                        placeholder="Enter new password"
                         value={formData.password}
                         onChange={handleChange}
                     />
 
-                    <div className="flex items-center justify-between text-sm">
-
-                        <label className="flex items-center gap-2">
-                            <input type="checkbox" />
-                            Remember me
-                        </label>
-
-
-
-                        <button
-                            type="button"
-                            onClick={() => navigate("/forgot-password")}
-                            className="text-[#334E68] hover:text-[#263B50] hover:underline"
-                        >
-                            Forgot Password?
-                        </button>
-
-                    </div>
+                    <PasswordInput
+                        label="Confirm Password"
+                        name="confirmPassword"
+                        placeholder="Confirm new password"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                    />
 
                     <Button
                         type="submit"
                         disabled={loading}
                     >
-                        {loading ? "Signing In..." : "Login"}
+                        {loading
+                            ? "Resetting..."
+                            : "Reset Password"}
                     </Button>
+
+                    <button
+                        type="button"
+                        onClick={() => navigate("/")}
+                        className="w-full text-sm text-[#334E68] hover:text-[#263B50] hover:underline"
+                    >
+                        Back to Login
+                    </button>
 
                 </form>
 
             </div>
+
         </div>
     );
 };
 
-export default Login;
+export default ResetPassword;

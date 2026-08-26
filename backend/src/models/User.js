@@ -34,6 +34,17 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    // Password reset fields
+    resetPasswordToken: {
+      type: String,
+      select: false,
+    },
+
+    resetPasswordExpire: {
+      type: Date,
+      select: false,
+    },
   },
   {
     timestamps: true,
@@ -41,8 +52,6 @@ const userSchema = new mongoose.Schema(
 );
 
 // Hash password before save
-;
-
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
