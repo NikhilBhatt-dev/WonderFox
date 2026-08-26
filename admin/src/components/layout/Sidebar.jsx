@@ -64,7 +64,7 @@ const Sidebar = () => {
 
     return (
 
-        <aside className="flex h-screen w-64 shrink-0 flex-col overflow-y-auto border-r border-[#34495E] bg-[#26364A] text-slate-100">
+       <aside className="flex h-[calc(100vh+228px)] w-64 shrink-0 flex-col overflow-y-auto border-r border-[#34495E] bg-[#26364A] text-slate-100">
             <div className="border-b border-[#34495E] p-6">
 
                 <h1 className="text-2xl font-bold text-white">
