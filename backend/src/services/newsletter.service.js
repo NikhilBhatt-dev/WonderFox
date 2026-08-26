@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
+import dns from "dns";
 
 import NewsletterSubscriber from "../models/NewsletterSubscriber.js";
-
 import ApiError from "../utils/ApiError.js";
-
 import ApiResponse from "../utils/ApiResponse.js";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
+const normalizeEmail = (email) =>
+  String(email || "").trim().toLowerCase();
 
 export const createSmtpTransport = () => {
   const {
@@ -16,7 +16,6 @@ export const createSmtpTransport = () => {
     SMTP_PORT,
     SMTP_USER,
     SMTP_PASS,
-    SMTP_FROM_EMAIL,
   } = process.env;
 
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
@@ -27,7 +26,19 @@ export const createSmtpTransport = () => {
     host: SMTP_HOST,
     port: Number(SMTP_PORT || 587),
     secure: Number(SMTP_PORT || 587) === 465,
-    family: 4,
+
+    // Force IPv4 DNS lookup
+    lookup: (hostname, options, callback) => {
+      dns.lookup(
+        hostname,
+        {
+          ...options,
+          family: 4,
+        },
+        callback,
+      );
+    },
+
     auth: {
       user: SMTP_USER,
       pass: SMTP_PASS,
@@ -45,7 +56,10 @@ export const subscribeToNewsletter = async (email) => {
   const normalizedEmail = normalizeEmail(email);
 
   if (!normalizedEmail || !emailRegex.test(normalizedEmail)) {
-    throw new ApiError(400, "Please enter a valid email address.");
+    throw new ApiError(
+      400,
+      "Please enter a valid email address.",
+    );
   }
 
   const existingSubscriber = await NewsletterSubscriber.findOne({
@@ -65,7 +79,9 @@ export const subscribeToNewsletter = async (email) => {
 
     return new ApiResponse(
       200,
-      { subscriber: existingSubscriber },
+      {
+        subscriber: existingSubscriber,
+      },
       "Welcome back! You are subscribed again.",
     );
   }
@@ -78,13 +94,18 @@ export const subscribeToNewsletter = async (email) => {
 
   return new ApiResponse(
     201,
-    { subscriber },
+    {
+      subscriber,
+    },
     "Successfully subscribed to the newsletter.",
   );
 };
 
 export const getNewsletterSubscribers = async (query = {}) => {
-  const { search = "", isActive = "" } = query;
+  const {
+    search = "",
+    isActive = "",
+  } = query;
 
   const filter = {};
 
@@ -110,7 +131,9 @@ export const getNewsletterSubscribers = async (query = {}) => {
 
   return new ApiResponse(
     200,
-    { subscribers },
+    {
+      subscribers,
+    },
     "Newsletter subscribers fetched successfully.",
   );
 };
@@ -129,7 +152,9 @@ export const deactivateSubscriber = async (id) => {
 
   return new ApiResponse(
     200,
-    { subscriber },
+    {
+      subscriber,
+    },
     "Subscriber deactivated successfully.",
   );
 };
@@ -140,11 +165,17 @@ export const sendNewsletterToSubscribers = async ({
   subscriberIds = [],
 }) => {
   if (!subject || !String(subject).trim()) {
-    throw new ApiError(400, "Newsletter subject is required.");
+    throw new ApiError(
+      400,
+      "Newsletter subject is required.",
+    );
   }
 
   if (!content || !String(content).trim()) {
-    throw new ApiError(400, "Newsletter content is required.");
+    throw new ApiError(
+      400,
+      "Newsletter content is required.",
+    );
   }
 
   const filter = {
@@ -221,6 +252,11 @@ export const sendNewsletterToSubscribers = async ({
 
       successCount += 1;
     } catch (error) {
+      console.error(
+        "NEWSLETTER EMAIL ERROR:",
+        error.message,
+      );
+
       failedCount += 1;
     }
   }
