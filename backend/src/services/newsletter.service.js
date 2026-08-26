@@ -15,16 +15,18 @@ export const createSmtpTransport = () => {
     return null;
   }
 
-  return nodemailer.createTransport({
+ 
+
+return nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT || 587),
     secure: Number(SMTP_PORT || 587) === 465,
+    family: 4,
     auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
+        user: SMTP_USER,
+        pass: SMTP_PASS,
     },
-  });
-};
+});
 
 export const getSmtpFromEmail = () => (
   process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER || "no-reply@example.com"
